@@ -43,6 +43,8 @@ func set_shifter_animation_gear(gear: int):
         shifter_animation = ShifterAnimationFifthGear.new()
     if gear == 6:
         shifter_animation = ShifterAnimationSixthGear.new()
+    if gear == -1:
+        shifter_animation = ShifterAnimationReverse.new()
 
 class ShifterAnimationBase:
     func update_shifter_position(shifter: Node2D, factor: float, origin: Vector2):
@@ -127,3 +129,16 @@ class ShifterAnimationSixthGear extends ShifterAnimationBase:
 
     func numerical_gear() -> int:
         return 6
+
+class ShifterAnimationReverse extends ShifterAnimationBase:
+    func update_shifter_position(shifter, factor, origin):
+        shifter.position = origin
+
+        if factor >= 0.5:
+            shifter.position += Vector2(-16, 0)
+            shifter.position += Vector2(10, 10) * ((factor - 0.5) * 2)
+        else:
+            shifter.position += Vector2(-16, 0) * (factor * 2)
+
+    func numerical_gear() -> int:
+        return -1
