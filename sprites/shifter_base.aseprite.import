@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://cgala46fiimuo"
+path="res://.godot/imported/shifter_base.aseprite-c18d892e49a68c46906c040b3563b7bd.res"
+
+[deps]
+
+source_file="res://sprites/shifter_base.aseprite"
+dest_files=["res://.godot/imported/shifter_base.aseprite-c18d892e49a68c46906c040b3563b7bd.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

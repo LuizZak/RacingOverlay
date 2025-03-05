@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://b3g6mtrfkxf5p"
+path="res://.godot/imported/shifter_knob.aseprite-1fbf33db0f8bbc4ea3b1fb906384bd68.res"
+
+[deps]
+
+source_file="res://sprites/shifter_knob.aseprite"
+dest_files=["res://.godot/imported/shifter_knob.aseprite-1fbf33db0f8bbc4ea3b1fb906384bd68.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

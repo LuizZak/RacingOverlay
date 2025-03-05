@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://w5ac6afdofsx"
+path="res://.godot/imported/pedal_base.aseprite-e63b0230dda16454e3901439f0203976.res"
+
+[deps]
+
+source_file="res://sprites/pedal_base.aseprite"
+dest_files=["res://.godot/imported/pedal_base.aseprite-e63b0230dda16454e3901439f0203976.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

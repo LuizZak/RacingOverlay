@@ -1,0 +1,352 @@
+[gd_scene load_steps=16 format=3 uid="uid://c8qh0jqb3l0jl"]
+
+[ext_resource type="Script" uid="uid://dd2jlovf26ngf" path="res://scripts/test.gd" id="1_37kl0"]
+[ext_resource type="Texture2D" uid="uid://ceq67qrlthk" path="res://sprites/steering_wheel.aseprite" id="2_8uh7m"]
+[ext_resource type="Script" uid="uid://beflgpdwajjr3" path="res://scripts/shifter_container.gd" id="3_0m0f1"]
+[ext_resource type="SpriteFrames" uid="uid://84br2cbn81l0" path="res://sprites/button.aseprite" id="3_6uqi0"]
+[ext_resource type="Texture2D" uid="uid://cgala46fiimuo" path="res://sprites/shifter_base.aseprite" id="3_77dp3"]
+[ext_resource type="Texture2D" uid="uid://d3h56rxxj63nb" path="res://sprites/hand_left.aseprite" id="3_b0q6j"]
+[ext_resource type="Texture2D" uid="uid://b3g6mtrfkxf5p" path="res://sprites/shifter_knob.aseprite" id="4_5tkv4"]
+[ext_resource type="Texture2D" uid="uid://brdbj25jrd26x" path="res://sprites/pedal_fixture.aseprite" id="4_ppyta"]
+[ext_resource type="Texture2D" uid="uid://dk0gj0aftifv6" path="res://sprites/foot.aseprite" id="4_xersf"]
+[ext_resource type="Texture2D" uid="uid://sm3moqhubiaa" path="res://sprites/pedal_throttle.aseprite" id="4_ykrsh"]
+[ext_resource type="Texture2D" uid="uid://deiquwky503a" path="res://sprites/pedal_brake.aseprite" id="5_vbegm"]
+[ext_resource type="Texture2D" uid="uid://ewwqucx1krhi" path="res://sprites/pedal_clutch.aseprite" id="6_ehkex"]
+[ext_resource type="Texture2D" uid="uid://w5ac6afdofsx" path="res://sprites/pedal_base.aseprite" id="8_ehkex"]
+[ext_resource type="SpriteFrames" uid="uid://d15k8016mnt" path="res://sprites/hand_right.aseprite" id="8_mhym6"]
+[ext_resource type="Theme" uid="uid://dx3lsu6ufvl3v" path="res://theme.tres" id="10_00tp4"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_37kl0")
+
+[node name="SteeringWheel" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(169, 88)
+
+[node name="SteeringWheel" type="Sprite2D" parent="SteeringWheel"]
+texture_filter = 1
+position = Vector2(0, 1)
+texture = ExtResource("2_8uh7m")
+
+[node name="RightHandPin" type="Marker2D" parent="SteeringWheel"]
+position = Vector2(-53, -9)
+
+[node name="LeftHandPin" type="Marker2D" parent="SteeringWheel"]
+position = Vector2(53, -9)
+
+[node name="HandLeft" type="Sprite2D" parent="SteeringWheel/LeftHandPin"]
+texture = ExtResource("3_b0q6j")
+
+[node name="ShifterContainer" type="Node2D" parent="."]
+position = Vector2(52, 186)
+script = ExtResource("3_0m0f1")
+shifter_shaft_thickness = 5.0
+
+[node name="ShifterBase" type="Sprite2D" parent="ShifterContainer"]
+texture = ExtResource("3_77dp3")
+
+[node name="ShifterKnob" type="Sprite2D" parent="ShifterContainer"]
+position = Vector2(-1, -40)
+texture = ExtResource("4_5tkv4")
+
+[node name="PanelContainer" type="PanelContainer" parent="ShifterContainer"]
+offset_left = -18.0
+offset_top = -11.0
+offset_right = 9.0
+offset_bottom = 6.0
+
+[node name="ShifterLabel" type="Label" parent="ShifterContainer/PanelContainer"]
+layout_mode = 2
+theme = ExtResource("10_00tp4")
+text = "1st"
+horizontal_alignment = 1
+
+[node name="RightHand" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(116, 79)
+sprite_frames = ExtResource("8_mhym6")
+animation = &"shifter"
+
+[node name="ShifterHints" type="Node2D" parent="."]
+visible = false
+position = Vector2(441, 90)
+
+[node name="Button_1st" type="AnimatedSprite2D" parent="ShifterHints"]
+texture_filter = 1
+position = Vector2(-70, -23)
+sprite_frames = ExtResource("3_6uqi0")
+
+[node name="Button_2nd" type="AnimatedSprite2D" parent="ShifterHints"]
+texture_filter = 1
+position = Vector2(-70, 25)
+sprite_frames = ExtResource("3_6uqi0")
+
+[node name="Button_3rd" type="AnimatedSprite2D" parent="ShifterHints"]
+texture_filter = 1
+position = Vector2(-22, -23)
+sprite_frames = ExtResource("3_6uqi0")
+
+[node name="Button_4th" type="AnimatedSprite2D" parent="ShifterHints"]
+texture_filter = 1
+position = Vector2(-22, 25)
+sprite_frames = ExtResource("3_6uqi0")
+
+[node name="Button_5th" type="AnimatedSprite2D" parent="ShifterHints"]
+texture_filter = 1
+position = Vector2(26, -23)
+sprite_frames = ExtResource("3_6uqi0")
+
+[node name="Button_6th" type="AnimatedSprite2D" parent="ShifterHints"]
+texture_filter = 1
+position = Vector2(26, 25)
+sprite_frames = ExtResource("3_6uqi0")
+
+[node name="Button_reverse" type="AnimatedSprite2D" parent="ShifterHints"]
+texture_filter = 1
+position = Vector2(74, 25)
+sprite_frames = ExtResource("3_6uqi0")
+
+[node name="Label_1st" type="Label" parent="ShifterHints"]
+offset_left = -89.0
+offset_top = -36.0
+offset_right = -49.0
+offset_bottom = -13.0
+text = "1st"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label_2nd" type="Label" parent="ShifterHints"]
+offset_left = -89.0
+offset_top = 12.0
+offset_right = -49.0
+offset_bottom = 35.0
+text = "2nd"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label_3rd" type="Label" parent="ShifterHints"]
+offset_left = -41.0
+offset_top = -36.0
+offset_right = -1.0
+offset_bottom = -13.0
+text = "3rd"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label_4th" type="Label" parent="ShifterHints"]
+offset_left = -41.0
+offset_top = 12.0
+offset_right = -1.0
+offset_bottom = 35.0
+text = "4th"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label_5th" type="Label" parent="ShifterHints"]
+offset_left = 7.0
+offset_top = -36.0
+offset_right = 47.0
+offset_bottom = -13.0
+text = "5th"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label_6th" type="Label" parent="ShifterHints"]
+offset_left = 7.0
+offset_top = 12.0
+offset_right = 47.0
+offset_bottom = 35.0
+text = "6th"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label_reverse" type="Label" parent="ShifterHints"]
+offset_left = 55.0
+offset_top = 12.0
+offset_right = 95.0
+offset_bottom = 35.0
+text = "Rev"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="PedalsContainer" type="Node2D" parent="."]
+position = Vector2(93, 187)
+
+[node name="ClutchLabel" type="Label" parent="PedalsContainer"]
+offset_left = 104.0
+offset_top = 114.0
+offset_right = 141.0
+offset_bottom = 131.0
+theme = ExtResource("10_00tp4")
+text = "Clutch"
+
+[node name="BrakeLabel" type="Label" parent="PedalsContainer"]
+offset_left = 60.0
+offset_top = 114.0
+offset_right = 94.0
+offset_bottom = 131.0
+theme = ExtResource("10_00tp4")
+text = "Brake"
+
+[node name="ThrottleLabel" type="Label" parent="PedalsContainer"]
+offset_left = 6.0
+offset_top = 114.0
+offset_right = 53.0
+offset_bottom = 131.0
+theme = ExtResource("10_00tp4")
+text = "Throttle"
+
+[node name="RightFoot" type="Sprite2D" parent="PedalsContainer"]
+unique_name_in_owner = true
+position = Vector2(31, 31)
+texture = ExtResource("4_xersf")
+
+[node name="LeftFoot" type="Sprite2D" parent="PedalsContainer"]
+unique_name_in_owner = true
+position = Vector2(123, 31)
+texture = ExtResource("4_xersf")
+
+[node name="ColorRect" type="ColorRect" parent="PedalsContainer"]
+clip_children = 1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 156.0
+offset_bottom = 111.0
+
+[node name="ThrottlePedalContainer" type="Node2D" parent="PedalsContainer/ColorRect"]
+position = Vector2(29, 29)
+
+[node name="ThrottlePedal" type="Node2D" parent="PedalsContainer/ColorRect/ThrottlePedalContainer"]
+unique_name_in_owner = true
+
+[node name="PedalThrottle" type="Sprite2D" parent="PedalsContainer/ColorRect/ThrottlePedalContainer/ThrottlePedal"]
+texture = ExtResource("4_ykrsh")
+
+[node name="ThrottlePedalFixture" type="Sprite2D" parent="PedalsContainer/ColorRect/ThrottlePedalContainer/ThrottlePedal"]
+position = Vector2(0, 24)
+texture = ExtResource("4_ppyta")
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"layer_section": false,
+"output_section": false,
+"pending_changes": {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": ""
+},
+"slice_section": false
+}
+
+[node name="BreakPadelContainer" type="Node2D" parent="PedalsContainer/ColorRect"]
+position = Vector2(75, 29)
+
+[node name="BrakePedal" type="Node2D" parent="PedalsContainer/ColorRect/BreakPadelContainer"]
+unique_name_in_owner = true
+
+[node name="PedalBrake" type="Sprite2D" parent="PedalsContainer/ColorRect/BreakPadelContainer/BrakePedal"]
+position = Vector2(-1, 1)
+texture = ExtResource("5_vbegm")
+
+[node name="BrakePedalFixture" type="Sprite2D" parent="PedalsContainer/ColorRect/BreakPadelContainer/BrakePedal"]
+position = Vector2(0, 24)
+texture = ExtResource("4_ppyta")
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"layer_section": false,
+"output_section": false,
+"pending_changes": {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": ""
+},
+"slice_section": false
+}
+
+[node name="ClutchPedalContainer" type="Node2D" parent="PedalsContainer/ColorRect"]
+position = Vector2(121, 29)
+
+[node name="ClutchPedal" type="Node2D" parent="PedalsContainer/ColorRect/ClutchPedalContainer"]
+unique_name_in_owner = true
+
+[node name="PedalClutch" type="Sprite2D" parent="PedalsContainer/ColorRect/ClutchPedalContainer/ClutchPedal"]
+position = Vector2(-1, 1)
+texture = ExtResource("6_ehkex")
+
+[node name="ClutchPedalFixture" type="Sprite2D" parent="PedalsContainer/ColorRect/ClutchPedalContainer/ClutchPedal"]
+position = Vector2(0, 24)
+texture = ExtResource("4_ppyta")
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": false,
+"layer_section": false,
+"output_section": false,
+"pending_changes": {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"slice": "",
+"source": ""
+},
+"slice_section": false
+}
+
+[node name="PedalBase" type="Sprite2D" parent="PedalsContainer/ColorRect"]
+position = Vector2(76, 104)
+texture = ExtResource("8_ehkex")
+
+[node name="ClutchProgress" type="ProgressBar" parent="PedalsContainer/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 105.0
+offset_top = 75.0
+offset_right = 138.0
+offset_bottom = 107.0
+theme = ExtResource("10_00tp4")
+min_value = -100.0
+fill_mode = 3
+show_percentage = false
+
+[node name="BrakeProgress" type="ProgressBar" parent="PedalsContainer/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 59.0
+offset_top = 75.0
+offset_right = 92.0
+offset_bottom = 107.0
+theme = ExtResource("10_00tp4")
+min_value = -100.0
+fill_mode = 3
+show_percentage = false
+
+[node name="ThrottleProgress" type="ProgressBar" parent="PedalsContainer/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 12.0
+offset_top = 75.0
+offset_right = 45.0
+offset_bottom = 107.0
+theme = ExtResource("10_00tp4")
+min_value = -100.0
+fill_mode = 3
+show_percentage = false

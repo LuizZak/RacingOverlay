@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://dk0gj0aftifv6"
+path="res://.godot/imported/foot.aseprite-ba0609fe57d7916027320260c022698b.res"
+
+[deps]
+
+source_file="res://sprites/foot.aseprite"
+dest_files=["res://.godot/imported/foot.aseprite-ba0609fe57d7916027320260c022698b.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

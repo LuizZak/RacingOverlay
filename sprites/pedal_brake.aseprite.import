@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://deiquwky503a"
+path="res://.godot/imported/pedal_brake.aseprite-2812717160b3ffb4e27d499e5e78d28c.res"
+
+[deps]
+
+source_file="res://sprites/pedal_brake.aseprite"
+dest_files=["res://.godot/imported/pedal_brake.aseprite-2812717160b3ffb4e27d499e5e78d28c.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

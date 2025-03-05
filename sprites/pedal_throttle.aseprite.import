@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://sm3moqhubiaa"
+path="res://.godot/imported/pedal_throttle.aseprite-c2ffa701bc7bfdc41e63bf06d9fb0678.res"
+
+[deps]
+
+source_file="res://sprites/pedal_throttle.aseprite"
+dest_files=["res://.godot/imported/pedal_throttle.aseprite-c2ffa701bc7bfdc41e63bf06d9fb0678.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

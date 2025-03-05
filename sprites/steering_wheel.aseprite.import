@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://ceq67qrlthk"
+path="res://.godot/imported/steering_wheel.aseprite-60f62cd14942f7edf16c473b096fa1d5.res"
+
+[deps]
+
+source_file="res://sprites/steering_wheel.aseprite"
+dest_files=["res://.godot/imported/steering_wheel.aseprite-60f62cd14942f7edf16c473b096fa1d5.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

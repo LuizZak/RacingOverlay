@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://brdbj25jrd26x"
+path="res://.godot/imported/pedal_fixture.aseprite-b9bc8dc533a8416b429a89e8eb6ec302.res"
+
+[deps]
+
+source_file="res://sprites/pedal_fixture.aseprite"
+dest_files=["res://.godot/imported/pedal_fixture.aseprite-b9bc8dc533a8416b429a89e8eb6ec302.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

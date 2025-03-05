@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://ewwqucx1krhi"
+path="res://.godot/imported/pedal_clutch.aseprite-6170b22b4606b1e0c87bf884c8c8f6f6.res"
+
+[deps]
+
+source_file="res://sprites/pedal_clutch.aseprite"
+dest_files=["res://.godot/imported/pedal_clutch.aseprite-6170b22b4606b1e0c87bf884c8c8f6f6.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true
