@@ -11,15 +11,100 @@ const RHM_SHIFTER_KNOB = "shifter_knob"
 const RHM_SHIFTER_CONTAINER = "shifter_container"
 ## Type: Node2D
 const RHM_STEERING_PIN = "steering_pin"
+## Type: Node2D
+const RHM_HANDBRAKE_PIN = "handbrake_pin"
 ## Type: Node2D. Note: Must be the common ancestor of right_hand, shifter_knob, and steering_pin.
 const RHM_GLOBAL_CONTAINER = "global_container"
 
 ## Transition speed, in seconds, to move between shifter and steering wheel.
-const TRANSITION_SPEED = 0.2
+const TRANSITION_SPEED = 0.15
 ## Transition speed, in seconds, to shift between gears in the shifter.
 const SHIFT_SPEED = 0.2
 
 #
+
+class MovingToHandbrakeState extends State:
+    var last_position: Vector2 = Vector2.ZERO
+    var last_rotation: float = 0.0
+    var elapsed: float = 0.0
+
+    func on_enter(last, state_machine):
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as AnimatedSprite2D
+        var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
+
+        last_position = right_hand.global_position
+        last_rotation = right_hand.global_rotation
+
+        if right_hand.get_parent():
+            right_hand.get_parent().remove_child(right_hand)
+
+        global_container.add_child(right_hand)
+
+        right_hand.global_position = last_position
+        right_hand.global_rotation = last_rotation
+
+        right_hand.play("floating")
+
+    func process(delta, state_machine):
+        self.elapsed += delta
+
+        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as AnimatedSprite2D
+        var handbrake_pin = state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
+
+        var eased = ease(elapsed / TRANSITION_SPEED, -2)
+
+        right_hand.global_position = last_position.lerp(handbrake_pin.global_position, eased)
+        right_hand.global_rotation = lerpf(last_rotation, 0.0, eased)
+
+        if input_manager.handbrake_amount() == 0.0:
+            state_machine.transition(
+                MovingToSteeringWheelState.new()
+            )
+            return
+
+        if self.elapsed >= TRANSITION_SPEED:
+            state_machine.transition(
+                HandbrakingState.new()
+            )
+
+class HandbrakingState extends State:
+    func on_enter(last, state_machine):
+        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as AnimatedSprite2D
+        var handbrake_pin = state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
+
+        if right_hand.get_parent():
+            right_hand.get_parent().remove_child(right_hand)
+
+        handbrake_pin.add_child(right_hand)
+
+        right_hand.play("ebrake")
+
+        right_hand.rotation = 0.0
+        right_hand.position = Vector2.ZERO
+
+    func on_exit(next, state_machine):
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as AnimatedSprite2D
+        var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
+
+        var last_position = right_hand.global_position
+
+        if right_hand.get_parent():
+            right_hand.get_parent().remove_child(right_hand)
+
+        global_container.add_child(right_hand)
+
+        right_hand.global_position = last_position
+
+    func process(delta, state_machine):
+        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+
+        if input_manager.handbrake_amount() == 0.0:
+            state_machine.transition(
+                MovingToSteeringWheelState.new()
+            )
+            return
 
 class ShiftingState extends State:
     var latest_gear: int = 0
@@ -187,4 +272,8 @@ class OnSteeringWheelState extends State:
         if input_manager.numerical_gear() != self.latest_gear:
             state_machine.transition(
                 MovingToShifterState.new()
+            )
+        if input_manager.handbrake_amount() > 0.0:
+            state_machine.transition(
+                MovingToHandbrakeState.new()
             )

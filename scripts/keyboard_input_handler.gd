@@ -2,6 +2,7 @@ class_name KeyboardInputHandler
 extends Object
 
 @export var pedal_change_per_second: float = 20.0
+@export var handbrake_change_per_second: float = 20.0
 @export var steering_change_per_second: float = 1.0
 
 var simulated_input_manager: SimulatedInputManager
@@ -25,6 +26,12 @@ func process(delta: float) -> void:
         simulated_input_manager.throttle = move_toward(simulated_input_manager.throttle, 1.0, pedal_change_per_second * delta)
     else:
         simulated_input_manager.throttle = move_toward(simulated_input_manager.throttle, -1.0, pedal_change_per_second * delta)
+
+    # Handbrake
+    if Input.is_action_pressed("Simulated_handbrake"):
+        simulated_input_manager.handbrake = move_toward(simulated_input_manager.handbrake, 1.0, handbrake_change_per_second * delta)
+    else:
+        simulated_input_manager.handbrake = move_toward(simulated_input_manager.handbrake, 0.0, handbrake_change_per_second * delta)
 
     # Steering
     var steering = Input.get_axis("Simulated_left", "Simulated_right")

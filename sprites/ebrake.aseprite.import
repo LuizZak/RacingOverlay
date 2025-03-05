@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://dkuimems20gmn"
+path="res://.godot/imported/ebrake.aseprite-6e2063a8839dc5a2df49e2fbb1291507.res"
+
+[deps]
+
+source_file="res://sprites/ebrake.aseprite"
+dest_files=["res://.godot/imported/ebrake.aseprite-6e2063a8839dc5a2df49e2fbb1291507.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

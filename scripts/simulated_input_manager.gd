@@ -4,6 +4,7 @@ extends InputManagerBase
 @export var clutch: float = -1.0
 @export var brake: float = -1.0
 @export var throttle: float = -1.0
+@export var handbrake: float = 0.0
 @export var steering: float = 0.0
 
 @export var is_in_1st: bool = false
@@ -52,6 +53,9 @@ func throttle_amount() -> float:
 
 func steering_amount() -> float:
     return steering
+
+func handbrake_amount() -> float:
+    return handbrake
 
 func shift_1st() -> bool:
     return is_in_1st

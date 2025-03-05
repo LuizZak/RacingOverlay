@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8qh0jqb3l0jl"]
+[gd_scene load_steps=18 format=3 uid="uid://c8qh0jqb3l0jl"]
 
 [ext_resource type="Script" uid="uid://dd2jlovf26ngf" path="res://scripts/test.gd" id="1_37kl0"]
 [ext_resource type="Texture2D" uid="uid://ceq67qrlthk" path="res://sprites/steering_wheel.aseprite" id="2_8uh7m"]
@@ -7,7 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cgala46fiimuo" path="res://sprites/shifter_base.aseprite" id="3_77dp3"]
 [ext_resource type="Texture2D" uid="uid://d3h56rxxj63nb" path="res://sprites/hand_left.aseprite" id="3_b0q6j"]
 [ext_resource type="Texture2D" uid="uid://b3g6mtrfkxf5p" path="res://sprites/shifter_knob.aseprite" id="4_5tkv4"]
+[ext_resource type="Texture2D" uid="uid://c266ky1f2xadx" path="res://sprites/ebrake_base.aseprite" id="4_a3se8"]
 [ext_resource type="Texture2D" uid="uid://brdbj25jrd26x" path="res://sprites/pedal_fixture.aseprite" id="4_ppyta"]
+[ext_resource type="Texture2D" uid="uid://dkuimems20gmn" path="res://sprites/ebrake.aseprite" id="4_uty7l"]
 [ext_resource type="Texture2D" uid="uid://dk0gj0aftifv6" path="res://sprites/foot.aseprite" id="4_xersf"]
 [ext_resource type="Texture2D" uid="uid://sm3moqhubiaa" path="res://sprites/pedal_throttle.aseprite" id="4_ykrsh"]
 [ext_resource type="Texture2D" uid="uid://deiquwky503a" path="res://sprites/pedal_brake.aseprite" id="5_vbegm"]
@@ -21,7 +23,7 @@ script = ExtResource("1_37kl0")
 
 [node name="SteeringWheel" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(169, 88)
+position = Vector2(201, 88)
 
 [node name="SteeringWheel" type="Sprite2D" parent="SteeringWheel"]
 texture_filter = 1
@@ -37,8 +39,23 @@ position = Vector2(53, -9)
 [node name="HandLeft" type="Sprite2D" parent="SteeringWheel/LeftHandPin"]
 texture = ExtResource("3_b0q6j")
 
+[node name="EbrakeContainer" type="Node2D" parent="."]
+
+[node name="Ebrake" type="Sprite2D" parent="EbrakeContainer"]
+unique_name_in_owner = true
+position = Vector2(38, 171)
+texture = ExtResource("4_uty7l")
+
+[node name="EbrakeMarker" type="Marker2D" parent="EbrakeContainer/Ebrake"]
+unique_name_in_owner = true
+position = Vector2(0, -55)
+
+[node name="EbrakeBase" type="Sprite2D" parent="EbrakeContainer"]
+position = Vector2(35, 178)
+texture = ExtResource("4_a3se8")
+
 [node name="ShifterContainer" type="Node2D" parent="."]
-position = Vector2(52, 186)
+position = Vector2(84, 186)
 script = ExtResource("3_0m0f1")
 shifter_shaft_thickness = 5.0
 
@@ -63,7 +80,7 @@ horizontal_alignment = 1
 
 [node name="RightHand" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(116, 79)
+position = Vector2(148, 79)
 sprite_frames = ExtResource("8_mhym6")
 animation = &"shifter"
 
@@ -170,7 +187,7 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="PedalsContainer" type="Node2D" parent="."]
-position = Vector2(93, 187)
+position = Vector2(125, 163)
 
 [node name="ClutchLabel" type="Label" parent="PedalsContainer"]
 offset_left = 104.0
@@ -206,23 +223,16 @@ unique_name_in_owner = true
 position = Vector2(123, 31)
 texture = ExtResource("4_xersf")
 
-[node name="ColorRect" type="ColorRect" parent="PedalsContainer"]
-clip_children = 1
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 156.0
-offset_bottom = 111.0
+[node name="ThrottlePedalContainer" type="Node2D" parent="PedalsContainer"]
+position = Vector2(31, 31)
 
-[node name="ThrottlePedalContainer" type="Node2D" parent="PedalsContainer/ColorRect"]
-position = Vector2(29, 29)
-
-[node name="ThrottlePedal" type="Node2D" parent="PedalsContainer/ColorRect/ThrottlePedalContainer"]
+[node name="ThrottlePedal" type="Node2D" parent="PedalsContainer/ThrottlePedalContainer"]
 unique_name_in_owner = true
 
-[node name="PedalThrottle" type="Sprite2D" parent="PedalsContainer/ColorRect/ThrottlePedalContainer/ThrottlePedal"]
+[node name="PedalThrottle" type="Sprite2D" parent="PedalsContainer/ThrottlePedalContainer/ThrottlePedal"]
 texture = ExtResource("4_ykrsh")
 
-[node name="ThrottlePedalFixture" type="Sprite2D" parent="PedalsContainer/ColorRect/ThrottlePedalContainer/ThrottlePedal"]
+[node name="ThrottlePedalFixture" type="Sprite2D" parent="PedalsContainer/ThrottlePedalContainer/ThrottlePedal"]
 position = Vector2(0, 24)
 texture = ExtResource("4_ppyta")
 metadata/_aseprite_wizard_interface_config_ = {
@@ -245,17 +255,17 @@ metadata/_aseprite_wizard_interface_config_ = {
 "slice_section": false
 }
 
-[node name="BreakPadelContainer" type="Node2D" parent="PedalsContainer/ColorRect"]
-position = Vector2(75, 29)
+[node name="BreakPadelContainer" type="Node2D" parent="PedalsContainer"]
+position = Vector2(77, 31)
 
-[node name="BrakePedal" type="Node2D" parent="PedalsContainer/ColorRect/BreakPadelContainer"]
+[node name="BrakePedal" type="Node2D" parent="PedalsContainer/BreakPadelContainer"]
 unique_name_in_owner = true
 
-[node name="PedalBrake" type="Sprite2D" parent="PedalsContainer/ColorRect/BreakPadelContainer/BrakePedal"]
+[node name="PedalBrake" type="Sprite2D" parent="PedalsContainer/BreakPadelContainer/BrakePedal"]
 position = Vector2(-1, 1)
 texture = ExtResource("5_vbegm")
 
-[node name="BrakePedalFixture" type="Sprite2D" parent="PedalsContainer/ColorRect/BreakPadelContainer/BrakePedal"]
+[node name="BrakePedalFixture" type="Sprite2D" parent="PedalsContainer/BreakPadelContainer/BrakePedal"]
 position = Vector2(0, 24)
 texture = ExtResource("4_ppyta")
 metadata/_aseprite_wizard_interface_config_ = {
@@ -278,17 +288,17 @@ metadata/_aseprite_wizard_interface_config_ = {
 "slice_section": false
 }
 
-[node name="ClutchPedalContainer" type="Node2D" parent="PedalsContainer/ColorRect"]
-position = Vector2(121, 29)
+[node name="ClutchPedalContainer" type="Node2D" parent="PedalsContainer"]
+position = Vector2(123, 31)
 
-[node name="ClutchPedal" type="Node2D" parent="PedalsContainer/ColorRect/ClutchPedalContainer"]
+[node name="ClutchPedal" type="Node2D" parent="PedalsContainer/ClutchPedalContainer"]
 unique_name_in_owner = true
 
-[node name="PedalClutch" type="Sprite2D" parent="PedalsContainer/ColorRect/ClutchPedalContainer/ClutchPedal"]
+[node name="PedalClutch" type="Sprite2D" parent="PedalsContainer/ClutchPedalContainer/ClutchPedal"]
 position = Vector2(-1, 1)
 texture = ExtResource("6_ehkex")
 
-[node name="ClutchPedalFixture" type="Sprite2D" parent="PedalsContainer/ColorRect/ClutchPedalContainer/ClutchPedal"]
+[node name="ClutchPedalFixture" type="Sprite2D" parent="PedalsContainer/ClutchPedalContainer/ClutchPedal"]
 position = Vector2(0, 24)
 texture = ExtResource("4_ppyta")
 metadata/_aseprite_wizard_interface_config_ = {
@@ -311,41 +321,38 @@ metadata/_aseprite_wizard_interface_config_ = {
 "slice_section": false
 }
 
-[node name="PedalBase" type="Sprite2D" parent="PedalsContainer/ColorRect"]
-position = Vector2(76, 104)
+[node name="PedalBase" type="Sprite2D" parent="PedalsContainer"]
+position = Vector2(78, 106)
 texture = ExtResource("8_ehkex")
 
-[node name="ClutchProgress" type="ProgressBar" parent="PedalsContainer/ColorRect"]
+[node name="ClutchProgress" type="ProgressBar" parent="PedalsContainer"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 105.0
-offset_top = 75.0
-offset_right = 138.0
-offset_bottom = 107.0
+offset_left = 107.0
+offset_top = 77.0
+offset_right = 140.0
+offset_bottom = 109.0
 theme = ExtResource("10_00tp4")
 min_value = -100.0
 fill_mode = 3
 show_percentage = false
 
-[node name="BrakeProgress" type="ProgressBar" parent="PedalsContainer/ColorRect"]
+[node name="BrakeProgress" type="ProgressBar" parent="PedalsContainer"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 59.0
-offset_top = 75.0
-offset_right = 92.0
-offset_bottom = 107.0
+offset_left = 61.0
+offset_top = 77.0
+offset_right = 94.0
+offset_bottom = 109.0
 theme = ExtResource("10_00tp4")
 min_value = -100.0
 fill_mode = 3
 show_percentage = false
 
-[node name="ThrottleProgress" type="ProgressBar" parent="PedalsContainer/ColorRect"]
+[node name="ThrottleProgress" type="ProgressBar" parent="PedalsContainer"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 12.0
-offset_top = 75.0
-offset_right = 45.0
-offset_bottom = 107.0
+offset_left = 14.0
+offset_top = 77.0
+offset_right = 47.0
+offset_bottom = 109.0
 theme = ExtResource("10_00tp4")
 min_value = -100.0
 fill_mode = 3
