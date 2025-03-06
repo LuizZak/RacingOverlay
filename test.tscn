@@ -37,12 +37,14 @@ position = Vector2(-53, -9)
 position = Vector2(53, -9)
 
 [node name="HandLeft" type="Sprite2D" parent="SteeringWheel/LeftHandPin"]
+texture_filter = 1
 texture = ExtResource("3_b0q6j")
 
 [node name="EbrakeContainer" type="Node2D" parent="."]
 
 [node name="Ebrake" type="Sprite2D" parent="EbrakeContainer"]
 unique_name_in_owner = true
+texture_filter = 1
 position = Vector2(38, 171)
 texture = ExtResource("4_uty7l")
 
@@ -51,6 +53,7 @@ unique_name_in_owner = true
 position = Vector2(0, -55)
 
 [node name="EbrakeBase" type="Sprite2D" parent="EbrakeContainer"]
+texture_filter = 1
 position = Vector2(35, 178)
 texture = ExtResource("4_a3se8")
 
@@ -60,9 +63,11 @@ script = ExtResource("3_0m0f1")
 shifter_shaft_thickness = 5.0
 
 [node name="ShifterBase" type="Sprite2D" parent="ShifterContainer"]
+texture_filter = 1
 texture = ExtResource("3_77dp3")
 
 [node name="ShifterKnob" type="Sprite2D" parent="ShifterContainer"]
+texture_filter = 1
 position = Vector2(-1, -40)
 texture = ExtResource("4_5tkv4")
 
@@ -224,6 +229,7 @@ position = Vector2(123, 31)
 texture = ExtResource("4_xersf")
 
 [node name="PedalsOffsetContainer" type="Node2D" parent="PedalsContainer"]
+texture_filter = 1
 position = Vector2(78, 94)
 
 [node name="Pedals" type="Node2D" parent="PedalsContainer/PedalsOffsetContainer"]
