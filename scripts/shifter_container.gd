@@ -8,7 +8,8 @@ var input_manager: InputManagerBase
 @onready var shifter_label: Label = $PanelContainer/ShifterLabel
 
 @export var shifter_shaft_thickness: float = 10.0
-@export var shifter_shaft_color: Color = Color.WHITE
+@export var shifter_shaft_color: Color = Color.from_rgba8(99, 155, 255)
+@export var shifter_shaft_outline_color: Color = Color.WHITE
 
 var shifter_animation: ShifterAnimationBase
 var shifter_animation_factor: float = 0.0
@@ -19,6 +20,7 @@ func _ready() -> void:
     shifter_origin = shifter_knob.position
 
 func _draw() -> void:
+    draw_line(shifter_base.position, shifter_knob.position, shifter_shaft_outline_color, shifter_shaft_thickness + 4, true)
     draw_line(shifter_base.position, shifter_knob.position, shifter_shaft_color, shifter_shaft_thickness, true)
 
 func _process(delta: float) -> void:

@@ -21,6 +21,7 @@ extends Node2D
 @onready var right_foot: Sprite2D = %RightFoot
 @onready var left_foot: Sprite2D = %LeftFoot
 
+@onready var pedals: Node2D = $PedalsContainer/PedalsOffsetContainer/Pedals
 @onready var clutch_pedal: Node2D = %ClutchPedal
 @onready var brake_pedal: Node2D = %BrakePedal
 @onready var throttle_pedal: Node2D = %ThrottlePedal
@@ -79,6 +80,11 @@ func _process(delta: float) -> void:
     update_pedal_position(clutch_pedal, input_manager.normalized_clutch_amount())
     update_pedal_position(brake_pedal, input_manager.normalized_brake_amount())
     update_pedal_position(throttle_pedal, input_manager.normalized_throttle_amount())
+    update_pedals_rotation(
+        input_manager.normalized_clutch_amount(),
+        input_manager.normalized_brake_amount(),
+        input_manager.normalized_throttle_amount(),
+    )
 
     update_handbrake_position(input_manager.handbrake_amount())
 
@@ -102,6 +108,11 @@ func _process(delta: float) -> void:
 
 func update_pedal_position(pedal: Node2D, amount: float):
     pedal.position.y = amount * 25
+
+func update_pedals_rotation(clutch: float, brake: float, throttle: float):
+    var total = clutch - throttle
+    pedals.rotation_degrees = total
+    pedals.position.y = clutch + brake + throttle
 
 func update_handbrake_position(amount: float):
     ebrake.global_rotation = amount * deg_to_rad(10)
