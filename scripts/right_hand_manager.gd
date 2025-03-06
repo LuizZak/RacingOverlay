@@ -69,6 +69,8 @@ class MovingToHandbrakeState extends State:
             )
 
 class HandbrakingState extends State:
+    var latest_gear: int = 0
+
     func on_enter(last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
         var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as AnimatedSprite2D
@@ -78,6 +80,8 @@ class HandbrakingState extends State:
             right_hand.get_parent().remove_child(right_hand)
 
         handbrake_pin.add_child(right_hand)
+
+        latest_gear = input_manager.numerical_gear()
 
         right_hand.play("ebrake")
 
@@ -99,12 +103,18 @@ class HandbrakingState extends State:
 
     func process(delta, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
 
         if input_manager.handbrake_amount() == 0.0:
             state_machine.transition(
                 MovingToSteeringWheelState.new()
             )
             return
+
+        if latest_gear != input_manager.numerical_gear():
+            latest_gear = input_manager.numerical_gear()
+            shifter_container.set_shifter_animation_gear(latest_gear)
+            shifter_container.shifter_animation_factor = 1.0
 
 class ShiftingState extends State:
     var latest_gear: int = 0
