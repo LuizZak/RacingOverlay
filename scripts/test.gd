@@ -71,16 +71,6 @@ func _ready() -> void:
     )
 
 func _process(delta: float) -> void:
-    feet_manager.update_with_pedals(
-        input_manager.normalized_clutch_amount(),
-        input_manager.normalized_brake_amount(),
-        input_manager.normalized_throttle_amount(),
-    )
-
-    right_hand_manager.process(delta)
-    feet_manager.process(delta)
-    keyboard_handler.process(delta)
-
     clutch_progress.value = input_manager.clutch_amount() * 100
     brake_progress.value = input_manager.brake_amount() * 100
     throttle_progress.value = input_manager.throttle_amount() * 100
@@ -99,6 +89,16 @@ func _process(delta: float) -> void:
     update_button(button_5_th, input_manager.shift_5th())
     update_button(button_6_th, input_manager.shift_6th())
     update_button(button_reverse, input_manager.shift_reverse())
+
+    feet_manager.update_with_pedals(
+        input_manager.normalized_clutch_amount(),
+        input_manager.normalized_brake_amount(),
+        input_manager.normalized_throttle_amount(),
+    )
+
+    right_hand_manager.process(delta)
+    feet_manager.process(delta)
+    keyboard_handler.process(delta)
 
 func update_pedal_position(pedal: Node2D, amount: float):
     pedal.position.y = amount * 25
