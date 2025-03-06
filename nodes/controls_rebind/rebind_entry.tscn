@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsdnnkxkts7lc"]
+
+[ext_resource type="Script" uid="uid://cc1h3mu0y0446" path="res://scripts/controls_rebind/rebind_entry.gd" id="1_i3gbp"]
+
+[node name="RebindEntry" type="HBoxContainer"]
+script = ExtResource("1_i3gbp")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Steer Left"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Steer +"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

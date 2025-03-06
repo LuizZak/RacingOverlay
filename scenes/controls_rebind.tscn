@@ -1,0 +1,137 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb7eldms6h3lh"]
+
+[ext_resource type="PackedScene" uid="uid://bsdnnkxkts7lc" path="res://nodes/controls_rebind/rebind_entry.tscn" id="1_mputf"]
+
+[node name="ControlsRebind" type="Node"]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SteeringHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/SteeringHeaderTitle"]
+layout_mode = 2
+text = "Steering"
+horizontal_alignment = 1
+
+[node name="RebindSteerLeft" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Steer_left"
+
+[node name="RebindSteerRight" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Steer_right"
+
+[node name="PedalsHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PedalsHeaderTitle"]
+layout_mode = 2
+text = "Pedals"
+horizontal_alignment = 1
+
+[node name="RebindClutchDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Clutch_down"
+
+[node name="RebindClutchUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Clutch_up"
+
+[node name="RebindBrakeDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Brake_down"
+
+[node name="RebindBrakeUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Brake_up"
+
+[node name="RebindThrottleDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Throttle_down"
+
+[node name="RebindThrottleUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Throttle_up"
+
+[node name="ShifterHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ShifterHeaderTitle"]
+layout_mode = 2
+text = "Shifter"
+horizontal_alignment = 1
+
+[node name="RebindShift1st" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Shift_1st"
+
+[node name="RebindShift2nd" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Shift_2nd"
+
+[node name="RebindShift3rd" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Shift_3rd"
+
+[node name="RebindShift4th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Shift_4th"
+
+[node name="RebindShift5th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Shift_5th"
+
+[node name="RebindShift6th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Shift_6th"
+
+[node name="RebindShiftReverse" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Shift_reverse"
+
+[node name="HandbrakeHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HandbrakeHeaderTitle"]
+layout_mode = 2
+text = "Handbrake"
+horizontal_alignment = 1
+
+[node name="RebindHandbrake" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+layout_mode = 2
+action_name = "Handbrake"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save Changes"
+
+[node name="DiscardButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Discard Changes"
