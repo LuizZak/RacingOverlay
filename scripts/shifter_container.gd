@@ -50,7 +50,7 @@ func set_shifter_animation_gear(gear: int):
 
 class ShifterAnimationBase:
     func update_shifter_position(shifter: Node2D, factor: float, origin: Vector2):
-        pass
+        shifter.position = origin
 
     func numerical_gear() -> int:
         return 0
@@ -92,7 +92,7 @@ class ShifterAnimationThirdGear extends ShifterAnimationBase:
     func update_shifter_position(shifter, factor, origin):
         shifter.position = origin
 
-        shifter.position += Vector2(-10, 10) * ((factor - 0.5) * 2)
+        shifter.position += Vector2(-10, 10) * factor
 
     func numerical_gear() -> int:
         return 3
@@ -101,7 +101,7 @@ class ShifterAnimationFourthGear extends ShifterAnimationBase:
     func update_shifter_position(shifter, factor, origin):
         shifter.position = origin
 
-        shifter.position += Vector2(10, 10) * ((factor - 0.5) * 2)
+        shifter.position += Vector2(10, 10) * factor
 
     func numerical_gear() -> int:
         return 4
@@ -137,10 +137,10 @@ class ShifterAnimationReverse extends ShifterAnimationBase:
         shifter.position = origin
 
         if factor >= 0.5:
-            shifter.position += Vector2(-16, 0)
+            shifter.position += Vector2(-20, 0)
             shifter.position += Vector2(10, 10) * ((factor - 0.5) * 2)
         else:
-            shifter.position += Vector2(-16, 0) * (factor * 2)
+            shifter.position += Vector2(-20, 0) * (factor * 2)
 
     func numerical_gear() -> int:
         return -1
