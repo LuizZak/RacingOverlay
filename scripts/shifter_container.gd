@@ -8,7 +8,8 @@ var input_manager: InputManagerBase
 @onready var shifter_label: Label = $PanelContainer/ShifterLabel
 
 @export var shifter_shaft_thickness: float = 10.0
-@export var shifter_shaft_color: Color = Color.WHITE
+@export var shifter_shaft_color: Color = Color.from_rgba8(99, 155, 255)
+@export var shifter_shaft_outline_color: Color = Color.WHITE
 
 var shifter_animation: ShifterAnimationBase
 var shifter_animation_factor: float = 0.0
@@ -19,6 +20,7 @@ func _ready() -> void:
     shifter_origin = shifter_knob.position
 
 func _draw() -> void:
+    draw_line(shifter_base.position, shifter_knob.position, shifter_shaft_outline_color, shifter_shaft_thickness + 4, true)
     draw_line(shifter_base.position, shifter_knob.position, shifter_shaft_color, shifter_shaft_thickness, true)
 
 func _process(delta: float) -> void:
@@ -48,7 +50,7 @@ func set_shifter_animation_gear(gear: int):
 
 class ShifterAnimationBase:
     func update_shifter_position(shifter: Node2D, factor: float, origin: Vector2):
-        pass
+        shifter.position = origin
 
     func numerical_gear() -> int:
         return 0
@@ -90,7 +92,7 @@ class ShifterAnimationThirdGear extends ShifterAnimationBase:
     func update_shifter_position(shifter, factor, origin):
         shifter.position = origin
 
-        shifter.position += Vector2(-10, 10) * ((factor - 0.5) * 2)
+        shifter.position += Vector2(-10, 10) * factor
 
     func numerical_gear() -> int:
         return 3
@@ -99,7 +101,7 @@ class ShifterAnimationFourthGear extends ShifterAnimationBase:
     func update_shifter_position(shifter, factor, origin):
         shifter.position = origin
 
-        shifter.position += Vector2(10, 10) * ((factor - 0.5) * 2)
+        shifter.position += Vector2(10, 10) * factor
 
     func numerical_gear() -> int:
         return 4
@@ -135,10 +137,10 @@ class ShifterAnimationReverse extends ShifterAnimationBase:
         shifter.position = origin
 
         if factor >= 0.5:
-            shifter.position += Vector2(-16, 0)
+            shifter.position += Vector2(-20, 0)
             shifter.position += Vector2(10, 10) * ((factor - 0.5) * 2)
         else:
-            shifter.position += Vector2(-16, 0) * (factor * 2)
+            shifter.position += Vector2(-20, 0) * (factor * 2)
 
     func numerical_gear() -> int:
         return -1

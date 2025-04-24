@@ -21,6 +21,9 @@ extends Node2D
 @onready var right_foot: Sprite2D = %RightFoot
 @onready var left_foot: Sprite2D = %LeftFoot
 
+@onready var pedals_container: PedalsContainer = $PedalsContainer
+
+@onready var pedals: Node2D = $PedalsContainer/PedalsOffsetContainer/Pedals
 @onready var clutch_pedal: Node2D = %ClutchPedal
 @onready var brake_pedal: Node2D = %BrakePedal
 @onready var throttle_pedal: Node2D = %ThrottlePedal
@@ -71,24 +74,16 @@ func _ready() -> void:
     )
 
 func _process(delta: float) -> void:
-    feet_manager.update_with_pedals(
-        input_manager.normalized_clutch_amount(),
-        input_manager.normalized_brake_amount(),
-        input_manager.normalized_throttle_amount(),
-    )
-
-    right_hand_manager.process(delta)
-    feet_manager.process(delta)
-    keyboard_handler.process(delta)
-
     clutch_progress.value = input_manager.clutch_amount() * 100
     brake_progress.value = input_manager.brake_amount() * 100
     throttle_progress.value = input_manager.throttle_amount() * 100
     steering_wheel.rotation_degrees = input_manager.steering_amount() * -450
 
-    update_pedal_position(clutch_pedal, input_manager.normalized_clutch_amount())
-    update_pedal_position(brake_pedal, input_manager.normalized_brake_amount())
-    update_pedal_position(throttle_pedal, input_manager.normalized_throttle_amount())
+    pedals_container.update_pedals(
+        input_manager.normalized_clutch_amount(),
+        input_manager.normalized_brake_amount(),
+        input_manager.normalized_throttle_amount(),
+    )
 
     update_handbrake_position(input_manager.handbrake_amount())
 
@@ -100,8 +95,15 @@ func _process(delta: float) -> void:
     update_button(button_6_th, input_manager.shift_6th())
     update_button(button_reverse, input_manager.shift_reverse())
 
-func update_pedal_position(pedal: Node2D, amount: float):
-    pedal.position.y = amount * 25
+    feet_manager.update_with_pedals(
+        input_manager.normalized_clutch_amount(),
+        input_manager.normalized_brake_amount(),
+        input_manager.normalized_throttle_amount(),
+    )
+
+    right_hand_manager.process(delta)
+    feet_manager.process(delta)
+    keyboard_handler.process(delta)
 
 func update_handbrake_position(amount: float):
     ebrake.global_rotation = amount * deg_to_rad(10)
