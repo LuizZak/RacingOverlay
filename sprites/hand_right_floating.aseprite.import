@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://dwe3dbsosjqv6"
+path="res://.godot/imported/hand_right_floating.aseprite-6f4dd9ba2d8dc4c6e0922e048bd67c78.res"
+
+[deps]
+
+source_file="res://sprites/hand_right_floating.aseprite"
+dest_files=["res://.godot/imported/hand_right_floating.aseprite-6f4dd9ba2d8dc4c6e0922e048bd67c78.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

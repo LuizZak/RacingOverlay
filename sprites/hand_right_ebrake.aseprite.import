@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://c6yse5bx5g8t1"
+path="res://.godot/imported/hand_right_ebrake.aseprite-85feb9b59af2b9da5fbad1ab0267a14c.res"
+
+[deps]
+
+source_file="res://sprites/hand_right_ebrake.aseprite"
+dest_files=["res://.godot/imported/hand_right_ebrake.aseprite-85feb9b59af2b9da5fbad1ab0267a14c.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

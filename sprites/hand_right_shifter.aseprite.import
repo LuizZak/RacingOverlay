@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://ely1a7aad65"
+path="res://.godot/imported/hand_right_shifter.aseprite-27de3d035d7680bd2ccbc58124277ee3.res"
+
+[deps]
+
+source_file="res://sprites/hand_right_shifter.aseprite"
+dest_files=["res://.godot/imported/hand_right_shifter.aseprite-27de3d035d7680bd2ccbc58124277ee3.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

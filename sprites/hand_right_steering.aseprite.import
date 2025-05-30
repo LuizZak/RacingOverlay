@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://yjemygt4jr31"
+path="res://.godot/imported/hand_right_steering.aseprite-8f1e3b2ec80ae055997e8d258248a38f.res"
+
+[deps]
+
+source_file="res://sprites/hand_right_steering.aseprite"
+dest_files=["res://.godot/imported/hand_right_steering.aseprite-8f1e3b2ec80ae055997e8d258248a38f.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

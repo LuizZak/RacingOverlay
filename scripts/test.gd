@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var ui_container: MarginContainer = %UIContainer
+@onready var controls_rebind: ControlsRebind = %ControlsRebind
 
 @onready var clutch_progress: ProgressBar = %ClutchProgress
 @onready var brake_progress: ProgressBar = %BrakeProgress
@@ -33,7 +34,7 @@ extends Node2D
 @onready var shifter_container: ShifterContainer = $ShifterContainer
 @onready var shifter_knob: Sprite2D = $ShifterContainer/ShifterKnob
 
-@onready var right_hand: AnimatedSprite2D = %RightHand
+@onready var right_hand: Sprite2D = %RightHand
 
 var ui_container_tween: Tween = null
 
@@ -44,8 +45,8 @@ var right_hand_manager: RightHandManager
 var feet_manager: FeetManager
 
 func _ready() -> void:
-    input_manager = InputManagerBase.new()
-    #keyboard_handler = KeyboardInputHandler.new(input_manager)
+    input_manager = SimulatedInputManager.new()
+    keyboard_handler = KeyboardInputHandler.new(input_manager)
 
     shifter_container.input_manager = input_manager
 
@@ -142,3 +143,9 @@ func update_handbrake_position(amount: float):
 
 func update_button(sprite: AnimatedSprite2D, is_pressed: bool):
     sprite.frame = 1 if is_pressed else 0
+
+func _on_bindings_button_pressed() -> void:
+    controls_rebind.show()
+
+func _on_controls_rebind_on_close_pressed() -> void:
+    controls_rebind.hide()

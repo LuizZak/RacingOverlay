@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c8qh0jqb3l0jl"]
+[gd_scene load_steps=21 format=3 uid="uid://c8qh0jqb3l0jl"]
 
 [ext_resource type="Script" uid="uid://dd2jlovf26ngf" path="res://scripts/test.gd" id="1_37kl0"]
 [ext_resource type="Texture2D" uid="uid://ceq67qrlthk" path="res://sprites/steering_wheel.aseprite" id="2_8uh7m"]
@@ -11,14 +11,15 @@
 [ext_resource type="Texture2D" uid="uid://c266ky1f2xadx" path="res://sprites/ebrake_base.aseprite" id="4_a3se8"]
 [ext_resource type="Texture2D" uid="uid://brdbj25jrd26x" path="res://sprites/pedal_fixture.aseprite" id="4_ppyta"]
 [ext_resource type="Texture2D" uid="uid://dkuimems20gmn" path="res://sprites/ebrake.aseprite" id="4_uty7l"]
-[ext_resource type="Texture2D" uid="uid://dk0gj0aftifv6" path="res://sprites/foot.aseprite" id="4_xersf"]
+[ext_resource type="Texture2D" uid="uid://dk0gj0aftifv6" path="res://sprites/foot_right.aseprite" id="4_xersf"]
 [ext_resource type="Texture2D" uid="uid://sm3moqhubiaa" path="res://sprites/pedal_throttle.aseprite" id="4_ykrsh"]
 [ext_resource type="Texture2D" uid="uid://deiquwky503a" path="res://sprites/pedal_brake.aseprite" id="5_vbegm"]
 [ext_resource type="Texture2D" uid="uid://ewwqucx1krhi" path="res://sprites/pedal_clutch.aseprite" id="6_ehkex"]
 [ext_resource type="Texture2D" uid="uid://w5ac6afdofsx" path="res://sprites/pedal_base.aseprite" id="8_ehkex"]
-[ext_resource type="SpriteFrames" uid="uid://d15k8016mnt" path="res://sprites/hand_right.aseprite" id="8_mhym6"]
 [ext_resource type="Theme" uid="uid://dx3lsu6ufvl3v" path="res://theme.tres" id="10_00tp4"]
+[ext_resource type="Texture2D" uid="uid://yjemygt4jr31" path="res://sprites/hand_right_steering.aseprite" id="10_82xsv"]
 [ext_resource type="Script" uid="uid://df1h86p5ogkk5" path="res://scripts/pedals_container.gd" id="12_45l4g"]
+[ext_resource type="Texture2D" uid="uid://b75xbmi0nkhur" path="res://sprites/foot_left.aseprite" id="14_82xsv"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_37kl0")
@@ -85,12 +86,11 @@ theme = ExtResource("10_00tp4")
 text = "1st"
 horizontal_alignment = 1
 
-[node name="RightHand" type="AnimatedSprite2D" parent="."]
+[node name="RightHand" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(148, 79)
-sprite_frames = ExtResource("8_mhym6")
-animation = &"shifter"
+texture = ExtResource("10_82xsv")
 
 [node name="ShifterHints" type="Node2D" parent="."]
 visible = false
@@ -230,7 +230,7 @@ texture = ExtResource("4_xersf")
 [node name="LeftFoot" type="Sprite2D" parent="PedalsContainer"]
 unique_name_in_owner = true
 position = Vector2(44, -61)
-texture = ExtResource("4_xersf")
+texture = ExtResource("14_82xsv")
 
 [node name="PedalsOffsetContainer" type="Node2D" parent="PedalsContainer"]
 texture_filter = 1
@@ -381,9 +381,15 @@ offset_bottom = 340.0
 layout_mode = 2
 
 [node name="BindingsButton" type="Button" parent="UIContainer/VBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Bindings"
 
 [node name="ControlsRebind" parent="UIContainer" instance=ExtResource("2_cegan")]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
+
+[connection signal="pressed" from="UIContainer/VBox/BindingsButton" to="." method="_on_bindings_button_pressed"]
+[connection signal="on_close_pressed" from="UIContainer/ControlsRebind" to="." method="_on_controls_rebind_on_close_pressed"]

@@ -1,5 +1,5 @@
 class_name ControlsRebind
-extends Node
+extends MarginContainer
 
 @onready
 var pedal_rebind_container: PedalRebindContainer = %PedalRebindContainer
@@ -61,6 +61,8 @@ var all_action_rebinds: Array[RebindEntry] = [
 
 @onready
 var load_defaults_button: Button = %LoadDefaultsButton
+
+signal on_close_pressed()
 
 var _current_rebind_action: String = ""
 
@@ -175,3 +177,6 @@ func _is_action_analog(action_name: String) -> bool:
             return true
         _:
             return false
+
+func _on_close_button_pressed() -> void:
+    on_close_pressed.emit()
