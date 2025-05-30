@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var ui_container: MarginContainer = %UIContainer
+
 @onready var clutch_progress: ProgressBar = %ClutchProgress
 @onready var brake_progress: ProgressBar = %BrakeProgress
 @onready var throttle_progress: ProgressBar = %ThrottleProgress
@@ -33,6 +35,8 @@ extends Node2D
 
 @onready var right_hand: AnimatedSprite2D = %RightHand
 
+var ui_container_tween: Tween = null
+
 var input_manager: InputManagerBase
 var keyboard_handler: KeyboardInputHandler
 
@@ -40,8 +44,8 @@ var right_hand_manager: RightHandManager
 var feet_manager: FeetManager
 
 func _ready() -> void:
-    input_manager = SimulatedInputManager.new()
-    keyboard_handler = KeyboardInputHandler.new(input_manager)
+    input_manager = InputManagerBase.new()
+    #keyboard_handler = KeyboardInputHandler.new(input_manager)
 
     shifter_container.input_manager = input_manager
 
@@ -103,7 +107,35 @@ func _process(delta: float) -> void:
 
     right_hand_manager.process(delta)
     feet_manager.process(delta)
-    keyboard_handler.process(delta)
+
+    if keyboard_handler != null:
+        keyboard_handler.process(delta)
+
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_WM_MOUSE_ENTER:
+        show_ui()
+    elif what == NOTIFICATION_WM_MOUSE_EXIT:
+        hide_ui()
+
+func show_ui():
+    if get_tree() == null:
+        return
+
+    if ui_container_tween != null && ui_container_tween.is_running():
+        ui_container_tween.kill()
+
+    ui_container_tween = get_tree().create_tween()
+    ui_container_tween.tween_property(ui_container, "modulate:a", 1.0, 0.3)
+
+func hide_ui():
+    if get_tree() == null:
+        return
+
+    if ui_container_tween != null && ui_container_tween.is_running():
+        ui_container_tween.kill()
+
+    ui_container_tween = get_tree().create_tween()
+    ui_container_tween.tween_property(ui_container, "modulate:a", 0.0, 0.3)
 
 func update_handbrake_position(amount: float):
     ebrake.global_rotation = amount * deg_to_rad(10)

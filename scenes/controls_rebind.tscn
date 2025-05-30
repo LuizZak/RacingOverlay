@@ -1,15 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://bb7eldms6h3lh"]
+[gd_scene load_steps=6 format=3 uid="uid://bb7eldms6h3lh"]
 
+[ext_resource type="Script" uid="uid://3v4s4kb4n1dy" path="res://scripts/controls_rebind/controls_rebind.gd" id="1_6x7f4"]
 [ext_resource type="PackedScene" uid="uid://bsdnnkxkts7lc" path="res://nodes/controls_rebind/rebind_entry.tscn" id="1_mputf"]
+[ext_resource type="PackedScene" uid="uid://dtj786n4q0vl5" path="res://nodes/controls_rebind/pedal_rebind_container.tscn" id="3_l4l3h"]
+[ext_resource type="PackedScene" uid="uid://bi5x2lywuyprc" path="res://nodes/controls_rebind/analog_rebind_container.tscn" id="4_vuftn"]
 
-[node name="ControlsRebind" type="Node"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4l3h"]
+bg_color = Color(0, 0, 0, 0.847059)
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="ControlsRebind" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_6x7f4")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l4l3h")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -38,10 +49,12 @@ text = "Steering"
 horizontal_alignment = 1
 
 [node name="RebindSteerLeft" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Steer_left"
 
 [node name="RebindSteerRight" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Steer_right"
 
@@ -54,26 +67,32 @@ text = "Pedals"
 horizontal_alignment = 1
 
 [node name="RebindClutchDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Clutch_down"
 
 [node name="RebindClutchUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Clutch_up"
 
 [node name="RebindBrakeDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Brake_down"
 
 [node name="RebindBrakeUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Brake_up"
 
 [node name="RebindThrottleDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Throttle_down"
 
 [node name="RebindThrottleUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Throttle_up"
 
@@ -86,30 +105,37 @@ text = "Shifter"
 horizontal_alignment = 1
 
 [node name="RebindShift1st" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Shift_1st"
 
 [node name="RebindShift2nd" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Shift_2nd"
 
 [node name="RebindShift3rd" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Shift_3rd"
 
 [node name="RebindShift4th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Shift_4th"
 
 [node name="RebindShift5th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Shift_5th"
 
 [node name="RebindShift6th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Shift_6th"
 
 [node name="RebindShiftReverse" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Shift_reverse"
 
@@ -122,16 +148,46 @@ text = "Handbrake"
 horizontal_alignment = 1
 
 [node name="RebindHandbrake" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
 layout_mode = 2
 action_name = "Handbrake"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LoadDefaultsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Save Changes"
+text = "Load Defaults"
 
 [node name="DiscardButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Discard Changes"
+
+[node name="PedalRebindContainer" parent="." instance=ExtResource("3_l4l3h")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="AnalogRebindContainer" parent="." instance=ExtResource("4_vuftn")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindSteerLeft" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindSteerRight" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindClutchDown" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindClutchUp" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindBrakeDown" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindBrakeUp" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindThrottleDown" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindThrottleUp" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShift1st" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShift2nd" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShift3rd" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShift4th" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShift5th" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShift6th" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShiftReverse" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindHandbrake" to="." method="_on_did_click_rebind"]

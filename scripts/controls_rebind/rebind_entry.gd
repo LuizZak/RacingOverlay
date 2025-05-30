@@ -11,14 +11,17 @@ extends HBoxContainer
 ## If `null`, no changes are made to the action.
 var rebound_event: InputEvent = null
 
-signal did_click_rebind()
+signal did_click_rebind(action_name: String)
 
 func _ready() -> void:
-    label.text = _prepare_action_name()
-    button.text = _prepare_action_input()
+    refresh()
 
 func _on_button_pressed() -> void:
-    did_click_rebind.emit()
+    did_click_rebind.emit(action_name)
+
+func refresh():
+    label.text = _prepare_action_name()
+    button.text = _prepare_action_input()
 
 func _prepare_action_name() -> String:
     var components := action_name.split("_")

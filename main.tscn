@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://c8qh0jqb3l0jl"]
+[gd_scene load_steps=20 format=3 uid="uid://c8qh0jqb3l0jl"]
 
 [ext_resource type="Script" uid="uid://dd2jlovf26ngf" path="res://scripts/test.gd" id="1_37kl0"]
 [ext_resource type="Texture2D" uid="uid://ceq67qrlthk" path="res://sprites/steering_wheel.aseprite" id="2_8uh7m"]
+[ext_resource type="PackedScene" uid="uid://bb7eldms6h3lh" path="res://scenes/controls_rebind.tscn" id="2_cegan"]
 [ext_resource type="Script" uid="uid://beflgpdwajjr3" path="res://scripts/shifter_container.gd" id="3_0m0f1"]
 [ext_resource type="SpriteFrames" uid="uid://84br2cbn81l0" path="res://sprites/button.aseprite" id="3_6uqi0"]
 [ext_resource type="Texture2D" uid="uid://cgala46fiimuo" path="res://sprites/shifter_base.aseprite" id="3_77dp3"]
@@ -370,3 +371,19 @@ theme = ExtResource("10_00tp4")
 min_value = -100.0
 fill_mode = 3
 show_percentage = false
+
+[node name="UIContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+offset_right = 300.0
+offset_bottom = 340.0
+
+[node name="VBox" type="VBoxContainer" parent="UIContainer"]
+layout_mode = 2
+
+[node name="BindingsButton" type="Button" parent="UIContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Bindings"
+
+[node name="ControlsRebind" parent="UIContainer" instance=ExtResource("2_cegan")]
+layout_mode = 2
