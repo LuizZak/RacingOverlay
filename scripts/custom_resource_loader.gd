@@ -25,7 +25,24 @@ func refresh():
     pass
 
 func load_texture(key: String) -> Texture2D:
+    var local := _load_file_texture(key)
+    if local != null:
+        return local
+
     return load_default_texture(key)
+
+func _load_file_texture(key: String) -> Texture2D:
+    var base_path = OS.get_executable_path().get_base_dir()
+    var resolved_path = base_path.path_join("%s.png" % [key])
+    print(resolved_path)
+    var access = FileAccess.open(resolved_path, FileAccess.READ)
+    if access == null:
+        return null
+
+    access.close()
+
+    var image = Image.load_from_file(resolved_path)
+    return ImageTexture.create_from_image(image)
 
 func load_default_texture(key: String) -> Texture2D:
     match key:

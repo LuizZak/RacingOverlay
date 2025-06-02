@@ -34,6 +34,18 @@ extends Node2D
 @onready var shifter_container: ShifterContainer = $ShifterContainer
 @onready var shifter_knob: Sprite2D = $ShifterContainer/ShifterKnob
 
+@onready var steering_wheel_sprite: Sprite2D = %SteeringWheelSprite
+@onready var ebrake_base: Sprite2D = %EbrakeBase
+@onready var shifter_base: Sprite2D = %ShifterBase
+@onready var pedal_throttle: Sprite2D = %PedalThrottle
+@onready var throttle_pedal_fixture: Sprite2D = %ThrottlePedalFixture
+@onready var pedal_brake: Sprite2D = %PedalBrake
+@onready var brake_pedal_fixture: Sprite2D = %BrakePedalFixture
+@onready var pedal_clutch: Sprite2D = %PedalClutch
+@onready var clutch_pedal_fixture: Sprite2D = %ClutchPedalFixture
+@onready var pedal_base: Sprite2D = %PedalBase
+
+@onready var left_hand: Sprite2D = %LeftHand
 @onready var right_hand: Sprite2D = %RightHand
 
 var ui_container_tween: Tween = null
@@ -45,8 +57,10 @@ var right_hand_manager: RightHandManager
 var feet_manager: FeetManager
 
 func _ready() -> void:
-    input_manager = SimulatedInputManager.new()
-    keyboard_handler = KeyboardInputHandler.new(input_manager)
+    hide_ui()
+
+    input_manager = InputManagerBase.new()
+    #keyboard_handler = KeyboardInputHandler.new(input_manager)
 
     shifter_container.input_manager = input_manager
 
@@ -77,6 +91,8 @@ func _ready() -> void:
     right_hand_manager.transition(
         RightHandManager.OnSteeringWheelState.new()
     )
+
+    _reload_assets()
 
 func _process(delta: float) -> void:
     clutch_progress.value = input_manager.clutch_amount() * 100
@@ -144,8 +160,55 @@ func update_handbrake_position(amount: float):
 func update_button(sprite: AnimatedSprite2D, is_pressed: bool):
     sprite.frame = 1 if is_pressed else 0
 
+func _reload_assets():
+    left_foot.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.FOOT_LEFT
+    )
+    right_foot.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.FOOT_RIGHT
+    )
+    ebrake.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.EBRAKE
+    )
+    ebrake_base.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.EBRAKE_BASE
+    )
+    left_hand.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.HAND_LEFT
+    )
+    pedal_base.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.PEDAL_BASE
+    )
+    pedal_clutch.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.PEDAL_CLUTCH
+    )
+    clutch_pedal_fixture.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.PEDAL_FIXTURE
+    )
+    brake_pedal_fixture.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.PEDAL_FIXTURE
+    )
+    throttle_pedal_fixture.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.PEDAL_FIXTURE
+    )
+    shifter_base.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.SHIFTER_BASE
+    )
+    shifter_knob.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.SHIFTER_KNOB
+    )
+    steering_wheel_sprite.texture = CustomResourceLoader.instance.load_texture(
+        CustomResourceLoader.STEERING_WHEEL
+    )
+    right_hand_manager.transition(
+        RightHandManager.OnSteeringWheelState.new()
+    )
+
 func _on_bindings_button_pressed() -> void:
     controls_rebind.show()
 
 func _on_controls_rebind_on_close_pressed() -> void:
     controls_rebind.hide()
+
+func _on_reload_assets_button_pressed() -> void:
+    _reload_assets()
