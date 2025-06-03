@@ -36,7 +36,7 @@ func start_listening(action_name: String):
 
     _change_state(State.AWAITING)
 
-    rebind_panel_label.text = "Rebind %s" % [_prepare_action_name(action_name)]
+    rebind_panel_label.text = "Rebind %s" % [StringUtils.prepare_action_name(action_name)]
     rebind_panel_input_label.text = "Awaiting input..."
 
     _is_listening = true
@@ -108,13 +108,6 @@ func _input(event: InputEvent) -> void:
     if event is InputEventJoypadButton:
         if event.pressed == true:
             _process_event(event)
-
-func _prepare_action_name(action_name: String) -> String:
-    var components := action_name.split("_")
-    for i in range(components.size()):
-        components[i] = StringUtils.uppercased_first(components[i])
-
-    return " ".join(components)
 
 func _on_accept_button_pressed() -> void:
     if _latest_input != null:

@@ -9,3 +9,12 @@ static func uppercased_first(value: String) -> String:
         return value
 
     return value[0].to_upper() + value.substr(1)
+
+## Prepares an action name making it human readable by splitting at the undescores
+## and re-joining with capitalization.
+static func prepare_action_name(action_name: String) -> String:
+    var components := action_name.split("_")
+    for i in range(components.size()):
+        components[i] = StringUtils.uppercased_first(components[i])
+
+    return " ".join(components)

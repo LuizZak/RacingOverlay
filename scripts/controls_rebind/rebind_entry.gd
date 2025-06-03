@@ -20,15 +20,8 @@ func _on_button_pressed() -> void:
     did_click_rebind.emit(action_name)
 
 func refresh():
-    label.text = _prepare_action_name()
+    label.text = StringUtils.prepare_action_name(action_name)
     button.text = _prepare_action_input()
-
-func _prepare_action_name() -> String:
-    var components := action_name.split("_")
-    for i in range(components.size()):
-        components[i] = StringUtils.uppercased_first(components[i])
-
-    return " ".join(components)
 
 func _prepare_action_input() -> String:
     var events := InputMap.action_get_events(action_name)
