@@ -27,6 +27,11 @@ var pedal_vibration: bool = true:
         pedal_vibration = value
         on_settings_changed.emit()
 
+var pedal_vibration_strength: float = 1.0:
+    set(value):
+        pedal_vibration_strength = value
+        on_settings_changed.emit()
+
 var pedal_sink: bool = true:
     set(value):
         pedal_sink = value
@@ -45,6 +50,7 @@ func _make_settings_dictionary() -> Dictionary:
         "pedal_mode": pedal_mode,
         "smooth_textures": smooth_textures,
         "pedal_vibration": pedal_vibration,
+        "pedal_vibration_strength": pedal_vibration_strength,
         "pedal_sink": pedal_sink,
     }
 
@@ -55,6 +61,8 @@ func _from_settings_directory(dictionary: Dictionary):
         self.smooth_textures = dictionary["smooth_textures"]
     if dictionary.has("pedal_vibration"):
         self.pedal_vibration = dictionary["pedal_vibration"]
+    if dictionary.has("pedal_vibration_strength"):
+        self.pedal_vibration_strength = dictionary["pedal_vibration_strength"]
     if dictionary.has("pedal_sink"):
         self.pedal_sink = dictionary["pedal_sink"]
 

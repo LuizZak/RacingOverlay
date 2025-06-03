@@ -28,7 +28,7 @@ class MovingToHandbrakeState extends State:
     var last_rotation: float = 0.0
     var elapsed: float = 0.0
 
-    func on_enter(last, state_machine):
+    func on_enter(_last, state_machine):
         var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
         var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
@@ -73,7 +73,7 @@ class MovingToHandbrakeState extends State:
 class HandbrakingState extends State:
     var latest_gear: int = 0
 
-    func on_enter(last, state_machine):
+    func on_enter(_last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
         var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
         var handbrake_pin = state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
@@ -92,7 +92,7 @@ class HandbrakingState extends State:
         right_hand.rotation = 0.0
         right_hand.position = Vector2.ZERO
 
-    func on_exit(next, state_machine):
+    func on_exit(_next, state_machine):
         var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
         var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
@@ -105,7 +105,7 @@ class HandbrakingState extends State:
 
         right_hand.global_position = last_position
 
-    func process(delta, state_machine):
+    func process(_delta, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
         var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
 
@@ -126,7 +126,7 @@ class ShiftingState extends State:
     var is_towards_neutral: bool = false
     var elapsed: float = 0.0
 
-    func on_enter(last, state_machine):
+    func on_enter(_last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
         var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
         var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
@@ -186,7 +186,7 @@ class MovingToShifterState extends State:
     var last_rotation: float = 0.0
     var elapsed: float = 0.0
 
-    func on_enter(last, state_machine):
+    func on_enter(_last, state_machine):
         var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
         var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
@@ -228,7 +228,7 @@ class MovingToSteeringWheelState extends State:
     var last_rotation: float = 0.0
     var elapsed: float = 0.0
 
-    func on_enter(last, state_machine):
+    func on_enter(_last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
         var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
 
@@ -250,7 +250,6 @@ class MovingToSteeringWheelState extends State:
 
         var eased = ease(elapsed / TRANSITION_SPEED, -2)
 
-        var initial_distance = last_position.distance_to(steering_pin.global_position)
         right_hand.global_position = last_position.lerp(steering_pin.global_position, eased)
         right_hand.global_rotation = lerpf(last_rotation, steering_pin.global_rotation, eased)
 
@@ -269,7 +268,7 @@ class MovingToSteeringWheelState extends State:
 class OnSteeringWheelState extends State:
     var latest_gear: int = 0
 
-    func on_enter(last, state_machine):
+    func on_enter(_last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
         var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
         var steering_pin = state_machine.parameters[RHM_STEERING_PIN] as Node2D
@@ -288,7 +287,7 @@ class OnSteeringWheelState extends State:
         right_hand.rotation = 0.0
         right_hand.position = Vector2.ZERO
 
-    func process(delta, state_machine):
+    func process(_delta, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
 
         if input_manager.numerical_gear() != self.latest_gear:

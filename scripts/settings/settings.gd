@@ -6,6 +6,8 @@ var pedal_mode_option_button: OptionButton = %PedalModeOptionButton
 @onready
 var pedal_vibration_checkbox: CheckBox = %PedalVibrationCheckbox
 @onready
+var pedal_vibration_slider: HSlider = %PedalVibrationSlider
+@onready
 var pedal_sink_checkbox: CheckBox = %PedalSinkCheckbox
 
 signal on_close_pressed()
@@ -16,6 +18,7 @@ func _ready():
 func _populate_settings():
     _populate_pedal_mode()
     pedal_vibration_checkbox.button_pressed = Settings.instance.pedal_vibration
+    pedal_vibration_slider.value = Settings.instance.pedal_vibration_strength
     pedal_sink_checkbox.button_pressed = Settings.instance.pedal_sink
 
 func _populate_pedal_mode():
@@ -42,6 +45,10 @@ func _on_smooth_textures_checkbox_toggled(toggled_on: bool) -> void:
 
 func _on_pedal_vibration_checkbox_toggled(toggled_on: bool) -> void:
     Settings.instance.pedal_vibration = toggled_on
+    Settings.instance.save_to_disk()
+
+func _on_pedal_vibration_slider_value_changed(value: float) -> void:
+    Settings.instance.pedal_vibration_strength = value
     Settings.instance.save_to_disk()
 
 func _on_pedal_sink_checkbox_toggled(toggled_on: bool) -> void:

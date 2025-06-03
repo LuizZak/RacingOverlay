@@ -23,7 +23,7 @@ func _draw() -> void:
     draw_line(shifter_base.position, shifter_knob.position, shifter_shaft_outline_color, shifter_shaft_thickness + 4, true)
     draw_line(shifter_base.position, shifter_knob.position, shifter_shaft_color, shifter_shaft_thickness, true)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
     if input_manager != null:
         shifter_label.text = input_manager.readable_gear()
 
@@ -49,14 +49,14 @@ func set_shifter_animation_gear(gear: int):
         shifter_animation = ShifterAnimationReverse.new()
 
 class ShifterAnimationBase:
-    func update_shifter_position(shifter: Node2D, factor: float, origin: Vector2):
+    func update_shifter_position(shifter: Node2D, _factor: float, origin: Vector2):
         shifter.position = origin
 
     func numerical_gear() -> int:
         return 0
 
 class ShifterAnimationNeutral extends ShifterAnimationBase:
-    func update_shifter_position(shifter, factor, origin):
+    func update_shifter_position(shifter, _factor, origin):
         shifter.position = origin
 
     func numerical_gear() -> int:

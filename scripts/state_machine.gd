@@ -22,13 +22,13 @@ func transition(new_state: State) -> void:
 #
 
 class State:
-    func on_enter(last: State, state_machine: StateMachine):
+    func on_enter(_last: State, _state_machine: StateMachine):
         pass
 
-    func on_exit(next: State, state_machine: StateMachine):
+    func on_exit(_next: State, _state_machine: StateMachine):
         pass
 
-    func process(delta, state_machine: StateMachine):
+    func process(_delta: float, _state_machine: StateMachine):
         pass
 
     func description() -> String:

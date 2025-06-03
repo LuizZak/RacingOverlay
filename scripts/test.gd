@@ -142,7 +142,7 @@ func _notification(what: int) -> void:
         hide_ui()
 
 func show_ui():
-    if get_tree() == null:
+    if not is_inside_tree():
         return
 
     if ui_container_tween != null && ui_container_tween.is_running():
@@ -152,7 +152,7 @@ func show_ui():
     ui_container_tween.tween_property(ui_container, "modulate:a", 1.0, 0.3)
 
 func hide_ui():
-    if get_tree() == null:
+    if not is_inside_tree():
         return
 
     if ui_container_tween != null && ui_container_tween.is_running():

@@ -17,8 +17,10 @@ func _process(delta: float) -> void:
     pedals_jiggle_phase += delta
 
     if Settings.instance.pedal_vibration:
-        var x_jiggle = cos(pedals_jiggle_phase * pedals_jiggle_frequency) * pedals_jiggle_amplitude
-        var y_jiggle = sin(pedals_jiggle_phase * pedals_jiggle_frequency) * pedals_jiggle_amplitude
+        var strength = Settings.instance.pedal_vibration_strength
+
+        var x_jiggle = cos(pedals_jiggle_phase * pedals_jiggle_frequency) * pedals_jiggle_amplitude * strength
+        var y_jiggle = sin(pedals_jiggle_phase * pedals_jiggle_frequency) * pedals_jiggle_amplitude * strength
 
         pedals_offset_container.position = Vector2(x_jiggle, y_jiggle) * _latest_throttle_position
     else:
