@@ -43,7 +43,6 @@ class MovingToHandbrakeState extends State:
         right_hand.global_position = last_position
         right_hand.global_rotation = last_rotation
 
-        #right_hand.play("floating")
         right_hand.texture = CustomResourceLoader.instance.load_texture(
             CustomResourceLoader.HAND_RIGHT_FLOATING
         )
@@ -86,7 +85,6 @@ class HandbrakingState extends State:
 
         latest_gear = input_manager.numerical_gear()
 
-        #right_hand.play("ebrake")
         right_hand.texture = CustomResourceLoader.instance.load_texture(
             CustomResourceLoader.HAND_RIGHT_EBRAKE
         )
@@ -137,7 +135,6 @@ class ShiftingState extends State:
         self.is_in_neutral = shifter_container.shifter_animation.numerical_gear() == 0
         self.is_towards_neutral = self.latest_gear == 0
 
-        #right_hand.play("shifter")
         right_hand.texture = CustomResourceLoader.instance.load_texture(
             CustomResourceLoader.HAND_RIGHT_SHIFTER
         )
@@ -204,7 +201,6 @@ class MovingToShifterState extends State:
         right_hand.global_position = last_position
         right_hand.global_rotation = last_rotation
 
-        #right_hand.play("floating")
         right_hand.texture = CustomResourceLoader.instance.load_texture(
             CustomResourceLoader.HAND_RIGHT_FLOATING
         )
@@ -241,7 +237,6 @@ class MovingToSteeringWheelState extends State:
         last_position = right_hand.global_position
         last_rotation = right_hand.global_rotation
 
-        #right_hand.play("floating")
         right_hand.texture = CustomResourceLoader.instance.load_texture(
             CustomResourceLoader.HAND_RIGHT_FLOATING
         )
@@ -286,7 +281,6 @@ class OnSteeringWheelState extends State:
 
         steering_pin.add_child(right_hand)
 
-        #right_hand.play("steering")
         right_hand.texture = CustomResourceLoader.instance.load_texture(
             CustomResourceLoader.HAND_RIGHT_STEERING
         )

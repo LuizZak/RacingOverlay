@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var ui_container: MarginContainer = %UIContainer
 @onready var controls_rebind: ControlsRebind = %ControlsRebind
+@onready var settings_panel: SettingsPanel = %SettingsPanel
 
 @onready var clutch_progress: ProgressBar = %ClutchProgress
 @onready var brake_progress: ProgressBar = %BrakeProgress
@@ -57,7 +58,8 @@ var right_hand_manager: RightHandManager
 var feet_manager: FeetManager
 
 func _ready() -> void:
-    hide_ui()
+    if not get_viewport_rect().has_point(get_local_mouse_position()):
+        hide_ui()
 
     input_manager = InputManagerBase.new()
     #keyboard_handler = KeyboardInputHandler.new(input_manager)
@@ -93,6 +95,11 @@ func _ready() -> void:
     )
 
     _reload_assets()
+
+    Settings.instance.on_settings_changed.connect(_on_settings_changed)
+
+    # Force-apply current settings
+    _on_settings_changed()
 
 func _process(delta: float) -> void:
     clutch_progress.value = input_manager.clutch_amount() * 100
@@ -204,6 +211,13 @@ func _reload_assets():
         RightHandManager.OnSteeringWheelState.new()
     )
 
+func _on_settings_changed():
+    var filter = Node2D.TEXTURE_FILTER_NEAREST
+    if Settings.instance.smooth_textures:
+        filter = Node2D.TEXTURE_FILTER_LINEAR
+
+    self.texture_filter = filter
+
 func _on_bindings_button_pressed() -> void:
     controls_rebind.show()
 
@@ -212,3 +226,9 @@ func _on_controls_rebind_on_close_pressed() -> void:
 
 func _on_reload_assets_button_pressed() -> void:
     _reload_assets()
+
+func _on_settings_button_pressed() -> void:
+    settings_panel.show()
+
+func _on_settings_panel_on_close_pressed() -> void:
+    settings_panel.hide()

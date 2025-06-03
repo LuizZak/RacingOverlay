@@ -4,16 +4,34 @@ extends Object
 ## Returns a value between -1 and 1, representing the amount of clutch pedal that
 ## is depressed.
 func clutch_amount() -> float:
+    match Settings.instance.pedal_mode:
+        Settings.PedalMode.DUAL_AXIS:
+            return Input.get_axis("Clutch_up", "Clutch_down")
+        Settings.PedalMode.SINGLE_AXIS:
+            return Input.get_action_strength("Clutch_down") * 2 - 1
+
     return Input.get_axis("Clutch_up", "Clutch_down")
 
 ## Returns a value between -1 and 1, representing the amount of brake pedal that
 ## is depressed.
 func brake_amount() -> float:
+    match Settings.instance.pedal_mode:
+        Settings.PedalMode.DUAL_AXIS:
+            return Input.get_axis("Brake_up", "Brake_down")
+        Settings.PedalMode.SINGLE_AXIS:
+            return Input.get_action_strength("Brake_down") * 2 - 1
+
     return Input.get_axis("Brake_up", "Brake_down")
 
 ## Returns a value between -1 and 1, representing the amount of throttle pedal
 ## that is depressed.
 func throttle_amount() -> float:
+    match Settings.instance.pedal_mode:
+        Settings.PedalMode.DUAL_AXIS:
+            return Input.get_axis("Throttle_up", "Throttle_down")
+        Settings.PedalMode.SINGLE_AXIS:
+            return Input.get_action_strength("Throttle_down") * 2 - 1
+
     return Input.get_axis("Throttle_up", "Throttle_down")
 
 ## Returns a value between 0 and 1, representing the amount of handbrake that is
