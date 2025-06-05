@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://clyp31sfrkmhu"]
+
+[ext_resource type="Script" uid="uid://6h3ny41kwold" path="res://scripts/steering_wheel_indicator.gd" id="1_jle1g"]
+
+[node name="SteeringWheelIndicator" type="Node2D"]
+script = ExtResource("1_jle1g")

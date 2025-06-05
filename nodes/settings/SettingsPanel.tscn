@@ -93,6 +93,18 @@ if you wish to retain the pixel-art
 aesthetic."
 text = "Smooth Textures"
 
+[node name="HBoxContainer5" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="SteeringWheelProgressBar" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer5"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Whether to render the textures
+with smoothing on. Leave off
+if you wish to retain the pixel-art
+aesthetic."
+text = "Steering Wheel Progress Bar"
+
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Visuals - Animations"
@@ -145,6 +157,7 @@ text = "Close"
 
 [connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer/PedalModeOptionButton" to="." method="_on_pedal_mode_option_button_item_selected"]
 [connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer4/SmoothTexturesCheckbox" to="." method="_on_smooth_textures_checkbox_toggled"]
+[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer5/SteeringWheelProgressBar" to="." method="_on_steering_wheel_progress_bar_toggled"]
 [connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationCheckbox" to="." method="_on_pedal_vibration_checkbox_toggled"]
 [connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationSlider" to="." method="_on_pedal_vibration_slider_value_changed"]
 [connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer3/PedalSinkCheckbox" to="." method="_on_pedal_sink_checkbox_toggled"]

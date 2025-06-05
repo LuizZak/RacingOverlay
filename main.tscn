@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8qh0jqb3l0jl"]
+[gd_scene load_steps=22 format=3 uid="uid://c8qh0jqb3l0jl"]
 
 [ext_resource type="Script" uid="uid://dd2jlovf26ngf" path="res://scripts/test.gd" id="1_37kl0"]
 [ext_resource type="Texture2D" uid="uid://ceq67qrlthk" path="res://sprites/steering_wheel.aseprite" id="2_8uh7m"]
 [ext_resource type="PackedScene" uid="uid://bb7eldms6h3lh" path="res://scenes/controls_rebind.tscn" id="2_cegan"]
+[ext_resource type="PackedScene" uid="uid://clyp31sfrkmhu" path="res://nodes/steering_wheel_indicator.tscn" id="2_getpj"]
 [ext_resource type="Script" uid="uid://beflgpdwajjr3" path="res://scripts/shifter_container.gd" id="3_0m0f1"]
 [ext_resource type="Texture2D" uid="uid://cgala46fiimuo" path="res://sprites/shifter_base.aseprite" id="3_77dp3"]
 [ext_resource type="Texture2D" uid="uid://d3h56rxxj63nb" path="res://sprites/hand_left.aseprite" id="3_b0q6j"]
@@ -25,6 +26,10 @@
 script = ExtResource("1_37kl0")
 
 [node name="Container" type="Node2D" parent="."]
+
+[node name="SteeringWheelIndicator" parent="Container" instance=ExtResource("2_getpj")]
+unique_name_in_owner = true
+position = Vector2(201, 88)
 
 [node name="SteeringWheel" type="Node2D" parent="Container"]
 unique_name_in_owner = true

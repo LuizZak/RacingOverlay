@@ -10,8 +10,9 @@ extends Node
 @onready var brake_progress: ProgressBar = %BrakeProgress
 @onready var throttle_progress: ProgressBar = %ThrottleProgress
 
+@onready var steering_wheel_indicator: SteeringWheelIndicator = %SteeringWheelIndicator
 @onready var steering_wheel: Node2D = %SteeringWheel
-@onready var right_hand_pin: Marker2D = $Container/SteeringWheel/RightHandPin
+@onready var right_hand_pin: Marker2D = %SteeringWheel/RightHandPin
 
 @onready var ebrake: Sprite2D = %Ebrake
 @onready var ebrake_marker: Marker2D = %EbrakeMarker
@@ -55,8 +56,8 @@ func _ready() -> void:
     if not container.get_viewport_rect().has_point(container.get_local_mouse_position()):
         hide_ui()
 
-    input_manager = InputManagerBase.new()
-    #keyboard_handler = KeyboardInputHandler.new(input_manager)
+    input_manager = SimulatedInputManager.new()
+    keyboard_handler = KeyboardInputHandler.new(input_manager)
 
     shifter_container.input_manager = input_manager
 
@@ -82,7 +83,7 @@ func _ready() -> void:
 
     right_hand_manager.parameters[RightHandManager.RHM_HANDBRAKE_PIN] = ebrake_marker
 
-    right_hand_manager.parameters[RightHandManager.RHM_GLOBAL_CONTAINER] = self
+    right_hand_manager.parameters[RightHandManager.RHM_GLOBAL_CONTAINER] = container
 
     right_hand_manager.transition(
         RightHandManager.OnSteeringWheelState.new()
@@ -100,6 +101,7 @@ func _process(delta: float) -> void:
     brake_progress.value = input_manager.brake_amount() * 100
     throttle_progress.value = input_manager.throttle_amount() * 100
     steering_wheel.rotation_degrees = input_manager.steering_amount() * -450
+    steering_wheel_indicator.normalized_value = input_manager.steering_amount()
 
     pedals_container.update_pedals(
         input_manager.normalized_clutch_amount(),
@@ -203,6 +205,8 @@ func _on_settings_changed():
         filter = Node2D.TEXTURE_FILTER_LINEAR
 
     container.texture_filter = filter
+
+    steering_wheel_indicator.visible = Settings.instance.steering_wheel_progress
 
 func _on_bindings_button_pressed() -> void:
     controls_rebind.show()

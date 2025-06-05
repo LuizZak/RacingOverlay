@@ -22,6 +22,11 @@ var smooth_textures: bool = false:
         smooth_textures = value
         on_settings_changed.emit()
 
+var steering_wheel_progress: bool = false:
+    set(value):
+        steering_wheel_progress = value
+        on_settings_changed.emit()
+
 var pedal_vibration: bool = true:
     set(value):
         pedal_vibration = value
@@ -49,6 +54,7 @@ func _make_settings_dictionary() -> Dictionary:
     return {
         "pedal_mode": pedal_mode,
         "smooth_textures": smooth_textures,
+        "steering_wheel_progress": steering_wheel_progress,
         "pedal_vibration": pedal_vibration,
         "pedal_vibration_strength": pedal_vibration_strength,
         "pedal_sink": pedal_sink,
@@ -59,6 +65,8 @@ func _from_settings_directory(dictionary: Dictionary):
         self.pedal_mode = dictionary["pedal_mode"]
     if dictionary.has("smooth_textures"):
         self.smooth_textures = dictionary["smooth_textures"]
+    if dictionary.has("steering_wheel_progress"):
+        self.steering_wheel_progress = dictionary["steering_wheel_progress"]
     if dictionary.has("pedal_vibration"):
         self.pedal_vibration = dictionary["pedal_vibration"]
     if dictionary.has("pedal_vibration_strength"):
