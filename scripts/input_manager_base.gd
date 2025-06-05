@@ -37,7 +37,7 @@ func throttle_amount() -> float:
 ## Returns a value between 0 and 1, representing the amount of handbrake that is
 ## depressed.
 func handbrake_amount() -> float:
-    return 1 if Input.is_action_pressed("Handbrake") else 0
+    return Input.get_action_strength("Handbrake")
 
 ## Returns a value between 0 and 1, representing the amount of clutch pedal that
 ## is depressed.
