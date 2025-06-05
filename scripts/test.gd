@@ -51,6 +51,7 @@ var keyboard_handler: KeyboardInputHandler
 
 var right_hand_manager: RightHandManager
 var feet_manager: FeetManager
+var sequential_shifter_manager: SequentialShifterManager
 
 func _ready() -> void:
     if not container.get_viewport_rect().has_point(container.get_local_mouse_position()):
@@ -58,6 +59,7 @@ func _ready() -> void:
 
     input_manager = InputManagerBase.new()
     #keyboard_handler = KeyboardInputHandler.new(input_manager)
+    sequential_shifter_manager = SequentialShifterManager.new()
 
     shifter_container.input_manager = input_manager
 
@@ -84,6 +86,8 @@ func _ready() -> void:
     right_hand_manager.parameters[RightHandManager.RHM_HANDBRAKE_PIN] = ebrake_marker
 
     right_hand_manager.parameters[RightHandManager.RHM_GLOBAL_CONTAINER] = container
+
+    right_hand_manager.parameters[RightHandManager.RHM_SEQUENTIAL_SHIFTER_MANAGER] = sequential_shifter_manager
 
     right_hand_manager.transition(
         RightHandManager.OnSteeringWheelState.new()
@@ -116,6 +120,8 @@ func _process(delta: float) -> void:
         input_manager.normalized_brake_amount(),
         input_manager.normalized_throttle_amount(),
     )
+
+    sequential_shifter_manager.update_inputs(input_manager)
 
     right_hand_manager.process(delta)
     feet_manager.process(delta)

@@ -139,6 +139,16 @@ unique_name_in_owner = true
 layout_mode = 2
 action_name = "Shift_reverse"
 
+[node name="RebindShiftUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
+layout_mode = 2
+action_name = "Shift_up"
+
+[node name="RebindShiftDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+unique_name_in_owner = true
+layout_mode = 2
+action_name = "Shift_down"
+
 [node name="HandbrakeHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -190,5 +200,7 @@ layout_mode = 2
 [connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShift5th" to="." method="_on_did_click_rebind"]
 [connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShift6th" to="." method="_on_did_click_rebind"]
 [connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShiftReverse" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShiftUp" to="." method="_on_did_click_rebind"]
+[connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShiftDown" to="." method="_on_did_click_rebind"]
 [connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindHandbrake" to="." method="_on_did_click_rebind"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
