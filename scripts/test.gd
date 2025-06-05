@@ -56,8 +56,8 @@ func _ready() -> void:
     if not container.get_viewport_rect().has_point(container.get_local_mouse_position()):
         hide_ui()
 
-    input_manager = SimulatedInputManager.new()
-    keyboard_handler = KeyboardInputHandler.new(input_manager)
+    input_manager = InputManagerBase.new()
+    #keyboard_handler = KeyboardInputHandler.new(input_manager)
 
     shifter_container.input_manager = input_manager
 
