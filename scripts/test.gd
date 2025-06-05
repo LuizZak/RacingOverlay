@@ -1,39 +1,33 @@
-extends Node2D
+extends Node
 
 @onready var ui_container: MarginContainer = %UIContainer
 @onready var controls_rebind: ControlsRebind = %ControlsRebind
 @onready var settings_panel: SettingsPanel = %SettingsPanel
+
+@onready var container: Node2D = $Container
 
 @onready var clutch_progress: ProgressBar = %ClutchProgress
 @onready var brake_progress: ProgressBar = %BrakeProgress
 @onready var throttle_progress: ProgressBar = %ThrottleProgress
 
 @onready var steering_wheel: Node2D = %SteeringWheel
-@onready var right_hand_pin: Marker2D = $SteeringWheel/RightHandPin
+@onready var right_hand_pin: Marker2D = $Container/SteeringWheel/RightHandPin
 
 @onready var ebrake: Sprite2D = %Ebrake
 @onready var ebrake_marker: Marker2D = %EbrakeMarker
 
-@onready var button_1_st: AnimatedSprite2D = $ShifterHints/Button_1st
-@onready var button_2_nd: AnimatedSprite2D = $ShifterHints/Button_2nd
-@onready var button_3_rd: AnimatedSprite2D = $ShifterHints/Button_3rd
-@onready var button_4_th: AnimatedSprite2D = $ShifterHints/Button_4th
-@onready var button_5_th: AnimatedSprite2D = $ShifterHints/Button_5th
-@onready var button_6_th: AnimatedSprite2D = $ShifterHints/Button_6th
-@onready var button_reverse: AnimatedSprite2D = $ShifterHints/Button_reverse
-
 @onready var right_foot: Sprite2D = %RightFoot
 @onready var left_foot: Sprite2D = %LeftFoot
 
-@onready var pedals_container: PedalsContainer = $PedalsContainer
+@onready var pedals_container: PedalsContainer = $Container/PedalsContainer
 
-@onready var pedals: Node2D = $PedalsContainer/PedalsOffsetContainer/Pedals
+@onready var pedals: Node2D = $Container/PedalsContainer/PedalsOffsetContainer/Pedals
 @onready var clutch_pedal: Node2D = %ClutchPedal
 @onready var brake_pedal: Node2D = %BrakePedal
 @onready var throttle_pedal: Node2D = %ThrottlePedal
 
-@onready var shifter_container: ShifterContainer = $ShifterContainer
-@onready var shifter_knob: Sprite2D = $ShifterContainer/ShifterKnob
+@onready var shifter_container: ShifterContainer = $Container/ShifterContainer
+@onready var shifter_knob: Sprite2D = %ShifterKnob
 
 @onready var steering_wheel_sprite: Sprite2D = %SteeringWheelSprite
 @onready var ebrake_base: Sprite2D = %EbrakeBase
@@ -58,7 +52,7 @@ var right_hand_manager: RightHandManager
 var feet_manager: FeetManager
 
 func _ready() -> void:
-    if not get_viewport_rect().has_point(get_local_mouse_position()):
+    if not container.get_viewport_rect().has_point(container.get_local_mouse_position()):
         hide_ui()
 
     input_manager = InputManagerBase.new()
@@ -114,14 +108,6 @@ func _process(delta: float) -> void:
     )
 
     update_handbrake_position(input_manager.handbrake_amount())
-
-    update_button(button_1_st, input_manager.shift_1st())
-    update_button(button_2_nd, input_manager.shift_2nd())
-    update_button(button_3_rd, input_manager.shift_3rd())
-    update_button(button_4_th, input_manager.shift_4th())
-    update_button(button_5_th, input_manager.shift_5th())
-    update_button(button_6_th, input_manager.shift_6th())
-    update_button(button_reverse, input_manager.shift_reverse())
 
     feet_manager.update_with_pedals(
         input_manager.normalized_clutch_amount(),
@@ -216,7 +202,7 @@ func _on_settings_changed():
     if Settings.instance.smooth_textures:
         filter = Node2D.TEXTURE_FILTER_LINEAR
 
-    self.texture_filter = filter
+    container.texture_filter = filter
 
 func _on_bindings_button_pressed() -> void:
     controls_rebind.show()
