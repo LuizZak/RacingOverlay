@@ -1,0 +1,197 @@
+[gd_scene load_steps=17 format=3 uid="uid://wv0g0knxbn4d"]
+
+[ext_resource type="Script" uid="uid://dqh2jc11ssxq2" path="res://network_testbed.gd" id="1_f2cly"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_k3n7r"]
+top_radius = 0.01
+bottom_radius = 0.01
+
+[sub_resource type="PlaceholderMaterial" id="PlaceholderMaterial_4ffjy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gg23a"]
+next_pass = SubResource("PlaceholderMaterial_4ffjy")
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f2cly"]
+top_radius = 0.01
+bottom_radius = 0.1
+height = 0.2
+
+[sub_resource type="PlaceholderMaterial" id="PlaceholderMaterial_tfvk1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cj1sd"]
+next_pass = SubResource("PlaceholderMaterial_tfvk1")
+albedo_color = Color(0, 1, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+
+[sub_resource type="PlaceholderMaterial" id="PlaceholderMaterial_k3n7r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3n7r"]
+next_pass = SubResource("PlaceholderMaterial_k3n7r")
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaceholderMaterial" id="PlaceholderMaterial_f2cly"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ffjy"]
+next_pass = SubResource("PlaceholderMaterial_f2cly")
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaceholderMaterial" id="PlaceholderMaterial_gg23a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tfvk1"]
+next_pass = SubResource("PlaceholderMaterial_gg23a")
+albedo_color = Color(0, 0, 1, 1)
+emission_enabled = true
+emission = Color(0, 0, 1, 1)
+
+[sub_resource type="PlaceholderMaterial" id="PlaceholderMaterial_cj1sd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vkwjw"]
+next_pass = SubResource("PlaceholderMaterial_cj1sd")
+albedo_color = Color(0, 0, 1, 1)
+emission_enabled = true
+emission = Color(0, 0, 1, 1)
+
+[sub_resource type="Environment" id="Environment_f2cly"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+ambient_light_source = 1
+
+[node name="NetworkTestbed" type="Node3D"]
+script = ExtResource("1_f2cly")
+
+[node name="PitchArrow" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Node3D" type="Node3D" parent="PitchArrow"]
+transform = Transform3D(1, 0, 0, 0, -0.00160567, 0.999999, 0, -0.999999, -0.00160567, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PitchArrow/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.527961, 0, 0, 0, 1, 0, 0.536077, 0)
+mesh = SubResource("CylinderMesh_k3n7r")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/NetworkTestbed")
+surface_material_override/0 = SubResource("StandardMaterial3D_gg23a")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="PitchArrow/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09945, 0)
+mesh = SubResource("CylinderMesh_f2cly")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/NetworkTestbed/PitchArrow")
+surface_material_override/0 = SubResource("StandardMaterial3D_cj1sd")
+
+[node name="RollArrow" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-0.011292, 0, 0.999936, 0, 1, 0, -0.999936, 0, -0.011292, 0, 0, 0)
+
+[node name="Node3D" type="Node3D" parent="RollArrow"]
+transform = Transform3D(1, 0, 0, 0, -0.00160567, 0.999999, 0, -0.999999, -0.00160567, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RollArrow/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.527961, 0, 0, 0, 1, 0, 0.536077, 0)
+mesh = SubResource("CylinderMesh_k3n7r")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/NetworkTestbed")
+surface_material_override/0 = SubResource("StandardMaterial3D_k3n7r")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RollArrow/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09945, 0)
+mesh = SubResource("CylinderMesh_f2cly")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/NetworkTestbed/PitchArrow")
+surface_material_override/0 = SubResource("StandardMaterial3D_4ffjy")
+
+[node name="YawArrow" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -0.00171046, -0.999999, 0, 0.999999, -0.00171046, 0, 0, 0)
+
+[node name="Node3D" type="Node3D" parent="YawArrow"]
+transform = Transform3D(1, 0, 0, 0, -0.00160567, 0.999999, 0, -0.999999, -0.00160567, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="YawArrow/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.527961, 0, 0, 0, 1, 0, 0.536077, 0)
+mesh = SubResource("CylinderMesh_k3n7r")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/NetworkTestbed")
+surface_material_override/0 = SubResource("StandardMaterial3D_tfvk1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="YawArrow/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09945, 0)
+mesh = SubResource("CylinderMesh_f2cly")
+skeleton = NodePath("../../root/@EditorNode@21272/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11482/@VSplitContainer@11134/@HSplitContainer@11136/@HSplitContainer@11138/@Control@11139/@SubViewportContainer@11140/@SubViewport@11141/NetworkTestbed/PitchArrow")
+surface_material_override/0 = SubResource("StandardMaterial3D_vkwjw")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.853587, 0.52095, 0, -0.52095, 0.853587, 0.0758212, 1.1861, 1.69838)
+environment = SubResource("Environment_f2cly")
+
+[node name="SubViewport" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewport/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="SaveMockDataButton" type="Button" parent="SubViewport/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save Mock Data"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewport/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SubViewport/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Roll:"
+
+[node name="RollAngleLabel" type="Label" parent="SubViewport/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "0°"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SubViewport/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="SubViewport/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "RPM:"
+
+[node name="RPMLabel" type="Label" parent="SubViewport/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1234"
+
+[node name="Label2" type="Label" parent="SubViewport/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Gear"
+
+[node name="GearLabel" type="Label" parent="SubViewport/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "1"
+
+[connection signal="pressed" from="SubViewport/MarginContainer/HBoxContainer/SaveMockDataButton" to="." method="_on_save_mock_data_button_pressed"]

@@ -1,0 +1,101 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx3ax8uxgctpt"]
+
+[ext_resource type="Script" uid="uid://dhvajf02eah5y" path="res://scripts/settings/game_connection_panel.gd" id="1_7g46p"]
+
+[node name="GameConnectionPanel" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_7g46p")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 24
+
+[node name="ConnectToGameCheckbox" type="CheckBox" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Connect to Game"
+
+[node name="GameOptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Port:"
+
+[node name="PortSpinBox" type="SpinBox" parent="ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+max_value = 100000.0
+value = 20777.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="HSeparator" type="HSeparator" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RollWithVehicleCheckbox" type="CheckBox" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Whether to rotate the entire overlay
+according to the in-game vehicle's
+roll."
+text = "Roll with vehicle"
+
+[node name="ScaleWithSpeedCheckbox" type="CheckBox" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Whether to scale the overlay down with
+speed, making it shrink as the speed of
+the vehicle increases."
+text = "Scale down with speed"
+
+[node name="MoveVerticallyCheckbox" type="CheckBox" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Whether to move the overlay up and
+down according to the vehicle's vertical
+speed."
+text = "Move vertically with vertical speed"
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Status:"
+
+[node name="StatusLabel" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Disconnected"
+
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/ConnectToGameCheckbox" to="." method="_on_connect_to_game_checkbox_toggled"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer/GameOptionButton" to="." method="_on_game_option_button_item_selected"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/VBoxContainer/HBoxContainer/PortSpinBox" to="." method="_on_port_spin_box_value_changed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/VBoxContainer/RollWithVehicleCheckbox" to="." method="_on_roll_with_vehicle_checkbox_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/VBoxContainer/ScaleWithSpeedCheckbox" to="." method="_on_scale_with_speed_checkbox_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/VBoxContainer/MoveVerticallyCheckbox" to="." method="_on_move_vertically_checkbox_toggled"]

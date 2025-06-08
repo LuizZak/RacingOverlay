@@ -1,10 +1,14 @@
 extends Node
 
+const CONTAINER_ROTATION_SPEED: float = deg_to_rad(180)
+const CONTAINER_SCALE_SPEED: float = 0.1
+const CONTAINER_MOVE_SPEED: float = 10
+
 @onready var ui_container: MarginContainer = %UIContainer
 @onready var controls_rebind: ControlsRebind = %ControlsRebind
 @onready var settings_panel: SettingsPanel = %SettingsPanel
 
-@onready var container: Node2D = $Container
+@onready var container: Node2D = %Container
 
 @onready var clutch_progress: ProgressBar = %ClutchProgress
 @onready var brake_progress: ProgressBar = %BrakeProgress
@@ -20,14 +24,14 @@ extends Node
 @onready var right_foot: Sprite2D = %RightFoot
 @onready var left_foot: Sprite2D = %LeftFoot
 
-@onready var pedals_container: PedalsContainer = $Container/PedalsContainer
+@onready var pedals_container: PedalsContainer = %Container/PedalsContainer
 
-@onready var pedals: Node2D = $Container/PedalsContainer/PedalsOffsetContainer/Pedals
+@onready var pedals: Node2D = %Container/PedalsContainer/PedalsOffsetContainer/Pedals
 @onready var clutch_pedal: Node2D = %ClutchPedal
 @onready var brake_pedal: Node2D = %BrakePedal
 @onready var throttle_pedal: Node2D = %ThrottlePedal
 
-@onready var shifter_container: ShifterContainer = $Container/ShifterContainer
+@onready var shifter_container: ShifterContainer = %Container/ShifterContainer
 @onready var shifter_knob: Sprite2D = %ShifterKnob
 
 @onready var steering_wheel_sprite: Sprite2D = %SteeringWheelSprite
@@ -53,8 +57,12 @@ var right_hand_manager: RightHandManager
 var feet_manager: FeetManager
 var sequential_shifter_manager: SequentialShifterManager
 
+var target_container_rotation: float = 0.0
+var target_container_scale: Vector2 = Vector2.ONE
+var target_container_position: Vector2 = Vector2.ONE
+
 func _ready() -> void:
-    if not container.get_viewport_rect().has_point(container.get_local_mouse_position()):
+    if not container.get_viewport_rect().has_point(container.get_global_mouse_position()):
         hide_ui()
 
     input_manager = InputManagerBase.new()
@@ -99,8 +107,22 @@ func _ready() -> void:
 
     # Force-apply current settings
     _on_settings_changed()
+    _reset_game_state()
 
 func _process(delta: float) -> void:
+    Networking.instance.poll_connections()
+
+    if Networking.instance.is_connected_to_game():
+        while Networking.instance.has_packets():
+            var packet = Networking.instance.fetch_packet()
+            _update_with_game_state(packet)
+    else:
+        _reset_game_state()
+
+    container.rotation = rotate_toward(container.rotation, target_container_rotation, CONTAINER_ROTATION_SPEED * delta)
+    container.scale = container.scale.move_toward(target_container_scale, CONTAINER_SCALE_SPEED * delta)
+    container.position = container.position.move_toward(target_container_position, CONTAINER_MOVE_SPEED * delta)
+
     clutch_progress.value = input_manager.clutch_amount() * 100
     brake_progress.value = input_manager.brake_amount() * 100
     throttle_progress.value = input_manager.throttle_amount() * 100
@@ -135,6 +157,34 @@ func _notification(what: int) -> void:
     elif what == NOTIFICATION_WM_MOUSE_EXIT:
         hide_ui()
 
+func _reset_game_state():
+    target_container_rotation = 0.0
+    target_container_scale = Vector2.ONE
+    target_container_position = Vector2.ZERO
+
+func _update_with_game_state(packet: GamePacket):
+    # Zeroed out packet means this is a close packet
+    if packet.roll == Vector3.ZERO:
+        _reset_game_state()
+        return
+
+    if Settings.instance.active_game_settings().move_vertically:
+        target_container_position.y = packet.vel.y
+    else:
+        target_container_position = Vector2.ZERO
+
+    if Settings.instance.active_game_settings().scale_with_speed:
+        target_container_scale = Vector2.ONE - Vector2.ONE * (sqrt(packet.speed_ms) / 100)
+    else:
+        target_container_scale = Vector2.ONE
+
+    if Settings.instance.active_game_settings().roll_with_vehicle:
+        var roll_angle = Vector3.UP.angle_to(packet.roll)
+
+        target_container_rotation = -roll_angle + PI / 2
+    else:
+        target_container_rotation = 0.0
+
 func show_ui():
     if not is_inside_tree():
         return
@@ -156,7 +206,7 @@ func hide_ui():
     ui_container_tween.tween_property(ui_container, "modulate:a", 0.0, 0.3)
 
 func update_handbrake_position(amount: float):
-    ebrake.global_rotation = amount * deg_to_rad(10)
+    ebrake.rotation = amount * deg_to_rad(10)
 
 func update_button(sprite: AnimatedSprite2D, is_pressed: bool):
     sprite.frame = 1 if is_pressed else 0
@@ -213,6 +263,14 @@ func _on_settings_changed():
     container.texture_filter = filter
 
     steering_wheel_indicator.visible = Settings.instance.steering_wheel_progress
+
+    Networking.instance.set_port(
+        Settings.instance.active_game_settings().port
+    )
+    if Settings.instance.connect_to_game:
+        Networking.instance.set_mode(NetworkingBase.Mode.CONNECT)
+    else:
+        Networking.instance.set_mode(NetworkingBase.Mode.DISCONNECT)
 
 func _on_bindings_button_pressed() -> void:
     controls_rebind.show()

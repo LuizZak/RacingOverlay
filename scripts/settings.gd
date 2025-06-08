@@ -42,23 +42,45 @@ var pedal_sink: bool = true:
         pedal_sink = value
         on_settings_changed.emit()
 
+var connect_to_game: bool = true:
+    set(value):
+        connect_to_game = value
+        on_settings_changed.emit()
+
+var active_game: GameConnectionSettings.Game = GameConnectionSettings.Game.DIRT_2:
+    set(value):
+        active_game = value
+        on_settings_changed.emit()
+
+var game_connections: Dictionary[GameConnectionSettings.Game, GameConnectionSettings] = {}
+
 #endregion
 
 ## Emitted when one of the setting values has been changed.
 signal on_settings_changed()
 
 func _init():
+    _populage_default_game_settings()
     load_from_disk()
 
 func _make_settings_dictionary() -> Dictionary:
-    return {
+    var dict = {
         "pedal_mode": pedal_mode,
         "smooth_textures": smooth_textures,
         "steering_wheel_progress": steering_wheel_progress,
         "pedal_vibration": pedal_vibration,
         "pedal_vibration_strength": pedal_vibration_strength,
         "pedal_sink": pedal_sink,
+        "connect_to_game": connect_to_game,
+        "active_game": active_game,
+        "game_connections": { }
     }
+
+    for key in game_connections.keys():
+        var settings = game_connections[key]
+        dict["game_connections"][key] = settings.to_dictionary()
+
+    return dict
 
 func _from_settings_directory(dictionary: Dictionary):
     if dictionary.has("pedal_mode"):
@@ -73,6 +95,20 @@ func _from_settings_directory(dictionary: Dictionary):
         self.pedal_vibration_strength = dictionary["pedal_vibration_strength"]
     if dictionary.has("pedal_sink"):
         self.pedal_sink = dictionary["pedal_sink"]
+    if dictionary.has("connect_to_game"):
+        self.connect_to_game = dictionary["connect_to_game"]
+    if dictionary.has("active_game"):
+        self.active_game = dictionary["active_game"]
+    if dictionary.has("game_connections"):
+        for key in dictionary["game_connections"].keys():
+            game_connections[key] = GameConnectionSettings.from_dictionary(dictionary["game_connections"][key])
+
+func _populage_default_game_settings():
+    for value in GameConnectionSettings.Game.values():
+        game_connections[value] = GameConnectionSettings.new()
+
+func active_game_settings() -> GameConnectionSettings:
+    return game_connections[active_game]
 
 ## Restores the settings from disk. Automatically done on instantiation.
 func load_from_disk():

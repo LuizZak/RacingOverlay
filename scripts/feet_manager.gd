@@ -104,7 +104,7 @@ class ThrottleBrakeState extends State:
 
         left_foot.global_position = left_foot.global_position.move_toward(brake.global_position, FM_FOOT_MOVE_SPEED * delta)
         right_foot.global_position = right_foot.global_position.move_toward(throttle.global_position, FM_FOOT_MOVE_SPEED * delta)
-        right_foot.global_rotation = rotate_toward(right_foot.global_rotation, 0.0, FM_FOOT_ROTATE_SPEED * delta)
+        right_foot.rotation = rotate_toward(right_foot.rotation, 0.0, FM_FOOT_ROTATE_SPEED * delta)
 
     func description() -> String:
         return "ThrottleBrakeState"
@@ -119,7 +119,7 @@ class ThrotleClutchState extends State:
 
         left_foot.global_position = left_foot.global_position.move_toward(clutch.global_position, FM_FOOT_MOVE_SPEED * delta)
         right_foot.global_position = right_foot.global_position.move_toward(throttle.global_position, FM_FOOT_MOVE_SPEED * delta)
-        right_foot.global_rotation = rotate_toward(right_foot.global_rotation, 0.0, FM_FOOT_ROTATE_SPEED * delta)
+        right_foot.rotation = rotate_toward(right_foot.rotation, 0.0, FM_FOOT_ROTATE_SPEED * delta)
 
     func description() -> String:
         return "ThrotleClutchState"
@@ -134,7 +134,7 @@ class ClutchBrakeState extends State:
 
         left_foot.global_position = left_foot.global_position.move_toward(clutch.global_position, FM_FOOT_MOVE_SPEED * delta)
         right_foot.global_position = right_foot.global_position.move_toward(brake.global_position, FM_FOOT_MOVE_SPEED * delta)
-        right_foot.global_rotation = rotate_toward(right_foot.global_rotation, 0.0, FM_FOOT_ROTATE_SPEED * delta)
+        right_foot.rotation = rotate_toward(right_foot.rotation, 0.0, FM_FOOT_ROTATE_SPEED * delta)
 
     func description() -> String:
         return "ClutchBrakeState"
@@ -151,7 +151,7 @@ class HeelAndToeState extends State:
         left_foot.global_position = left_foot.global_position.move_toward(clutch.global_position, FM_FOOT_MOVE_SPEED * delta)
         var midPoint = (brake.global_position + throttle.global_position) / 2
         right_foot.global_position = right_foot.global_position.move_toward(midPoint, FM_FOOT_MOVE_SPEED * delta)
-        right_foot.global_rotation = rotate_toward(right_foot.global_rotation, 20, FM_FOOT_ROTATE_SPEED * delta)
+        right_foot.rotation = rotate_toward(right_foot.rotation, 20, FM_FOOT_ROTATE_SPEED * delta)
 
     func description() -> String:
         return "HeelAndToeState"

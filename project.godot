@@ -27,8 +27,8 @@ gdscript/warnings/shadowed_global_identifier=0
 
 [display]
 
-window/size/viewport_width=300
-window/size/viewport_height=340
+window/size/viewport_width=400
+window/size/viewport_height=400
 
 [editor_plugins]
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbjowoa4gcx16"]
+[gd_scene load_steps=4 format=3 uid="uid://bbjowoa4gcx16"]
 
 [ext_resource type="Script" uid="uid://cwr3d4lnc0r23" path="res://scripts/settings/settings.gd" id="1_2lbdr"]
+[ext_resource type="PackedScene" uid="uid://dx3ax8uxgctpt" path="res://nodes/settings/GameConnectionPanel.tscn" id="2_pww3c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lbdr"]
 bg_color = Color(0, 0, 0, 0.741176)
@@ -13,49 +14,59 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2lbdr")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 1
+
+[node name="General" type="PanelContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2lbdr")
+metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TabContainer/General"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer"]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer"]
 custom_minimum_size = Vector2(284, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Input"
 horizontal_alignment = 1
 
-[node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Pedal Mode"
 
-[node name="PedalModeOptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
+[node name="PedalModeOptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -73,18 +84,18 @@ popup/item_0/id = 0
 popup/item_1/text = "Single Axis"
 popup/item_1/id = 1
 
-[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="Label3" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Visuals"
 horizontal_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="SmoothTexturesCheckbox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer4"]
+[node name="SmoothTexturesCheckbox" type="CheckBox" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Whether to render the textures
@@ -93,10 +104,10 @@ if you wish to retain the pixel-art
 aesthetic."
 text = "Smooth Textures"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="SteeringWheelProgressBar" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer5"]
+[node name="SteeringWheelProgressBar" type="CheckBox" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer5"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Whether to render the textures
@@ -105,26 +116,26 @@ if you wish to retain the pixel-art
 aesthetic."
 text = "Steering Wheel Progress Bar"
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Visuals - Animations"
 horizontal_alignment = 1
 
-[node name="HSeparator3" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="PedalVibrationCheckbox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="PedalVibrationCheckbox" type="CheckBox" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Whether to animate a vibration
 when the Throttle pedal is down"
 text = "Pedal Vibration"
 
-[node name="PedalVibrationSlider" type="HSlider" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+[node name="PedalVibrationSlider" type="HSlider" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 clip_contents = true
 layout_mode = 2
@@ -136,10 +147,10 @@ value = 1.0
 tick_count = 10
 ticks_on_borders = true
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="PedalSinkCheckbox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
+[node name="PedalSinkCheckbox" type="CheckBox" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Whether to veritcally sink and
@@ -147,18 +158,26 @@ rotate pedal base when pedals
 are depressed."
 text = "Pedal Sink"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Game Connection" type="PanelContainer" parent="VBoxContainer/TabContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2lbdr")
+metadata/_tab_index = 1
+
+[node name="MarginContainer" parent="VBoxContainer/TabContainer/Game Connection" instance=ExtResource("2_pww3c")]
 layout_mode = 2
 
-[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Close"
 
-[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer/PedalModeOptionButton" to="." method="_on_pedal_mode_option_button_item_selected"]
-[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer4/SmoothTexturesCheckbox" to="." method="_on_smooth_textures_checkbox_toggled"]
-[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer5/SteeringWheelProgressBar" to="." method="_on_steering_wheel_progress_bar_toggled"]
-[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationCheckbox" to="." method="_on_pedal_vibration_checkbox_toggled"]
-[connection signal="value_changed" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationSlider" to="." method="_on_pedal_vibration_slider_value_changed"]
-[connection signal="toggled" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer3/PedalSinkCheckbox" to="." method="_on_pedal_sink_checkbox_toggled"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="item_selected" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer/PedalModeOptionButton" to="." method="_on_pedal_mode_option_button_item_selected"]
+[connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer4/SmoothTexturesCheckbox" to="." method="_on_smooth_textures_checkbox_toggled"]
+[connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer5/SteeringWheelProgressBar" to="." method="_on_steering_wheel_progress_bar_toggled"]
+[connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationCheckbox" to="." method="_on_pedal_vibration_checkbox_toggled"]
+[connection signal="value_changed" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationSlider" to="." method="_on_pedal_vibration_slider_value_changed"]
+[connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer3/PedalSinkCheckbox" to="." method="_on_pedal_sink_checkbox_toggled"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
