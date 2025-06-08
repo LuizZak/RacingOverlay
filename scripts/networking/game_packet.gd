@@ -50,6 +50,10 @@ var max_gears: float
 func _to_string() -> String:
     return "rpm: %s | max_rpm: %s | roll: %s | pitch: %s" % [rpm * 10, max_rpm * 10, roll, pitch]
 
+## Returns `true` if this is an end-of-signal packet.
+func is_end_packet() -> bool:
+    return roll == Vector3.ZERO and pitch == Vector3.ZERO
+
 ## Returns a Dirt 2.0-compatible data packet. Some sections of the packet that
 ## are unused are filled with zeroes.
 func to_data() -> PackedByteArray:

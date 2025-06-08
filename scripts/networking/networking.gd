@@ -115,6 +115,9 @@ func fetch_packet() -> GamePacket:
             var data = _peer.get_packet()
             var packet = GamePacket.from_data(data)
 
+            if packet.is_end_packet():
+                disconnect_from_game()
+
             return packet
 
         Mode.DISCONNECT:
