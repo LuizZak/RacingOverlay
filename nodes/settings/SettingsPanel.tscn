@@ -20,10 +20,9 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="General" type="PanelContainer" parent="VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2lbdr")
 metadata/_tab_index = 0
@@ -159,6 +158,7 @@ are depressed."
 text = "Pedal Sink"
 
 [node name="Game Connection" type="PanelContainer" parent="VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2lbdr")
 metadata/_tab_index = 1
