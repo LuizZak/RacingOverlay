@@ -53,6 +53,10 @@ func _settings_for_selected_item() -> GameConnectionSettings:
     return Settings.instance.game_connections[item]
 
 func _on_game_option_button_item_selected(index: int) -> void:
+    var active_game = game_option_button.get_item_id(index)
+    Settings.instance.active_game = active_game
+    Settings.instance.save_to_disk()
+
     _populate_settings()
 
 func _on_port_spin_box_value_changed(value: float) -> void:
