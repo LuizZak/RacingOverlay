@@ -1,6 +1,5 @@
 extends Node
 
-const CONTAINER_ROTATION_SPEED: float = deg_to_rad(180)
 const CONTAINER_SCALE_SPEED: float = 0.1
 const CONTAINER_MOVE_SPEED: float = 10
 
@@ -119,7 +118,7 @@ func _process(delta: float) -> void:
     else:
         _reset_game_state()
 
-    container.rotation = rotate_toward(container.rotation, target_container_rotation, CONTAINER_ROTATION_SPEED * delta)
+    container.rotation = target_container_rotation
     container.scale = container.scale.move_toward(target_container_scale, CONTAINER_SCALE_SPEED * delta)
     container.position = container.position.move_toward(target_container_position, CONTAINER_MOVE_SPEED * delta)
 
