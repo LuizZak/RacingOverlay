@@ -13,7 +13,8 @@ var _status: Status = Status.AWAITING
 signal on_status_changed(status: Status)
 
 func _init():
-    server.listen(_port)
+    if _mode == Mode.CONNECT:
+        server.listen(_port)
 
 func _set_status(status: Status):
     if status == _status:
