@@ -43,6 +43,10 @@ func computed_vertical_velocity() -> float:
 func computed_forward_velocity() -> float:
     return 0.0
 
+## Returns `true` if this packet has been detected as a valid game packet.
+func is_valid_game_packet() -> bool:
+    return magic.get_string_from_ascii() == "BNG1"
+
 ## Returns `true` if this is an end-of-signal packet.
 func is_end_packet() -> bool:
     return upVec == Vector3.ZERO

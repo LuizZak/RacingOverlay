@@ -125,17 +125,23 @@ func has_packets() -> bool:
 func fetch_packet() -> GamePacketBase:
     match _mode:
         Mode.CONNECT:
-            if !is_connected_to_game():
-                disconnect_from_game()
-                return null
+            while has_packets():
+                if !is_connected_to_game():
+                    disconnect_from_game()
+                    return null
 
-            var data = _peer.get_packet()
-            var packet = GamePacketBase.from_generic_data(_game, data)
+                var data = _peer.get_packet()
+                var packet = GamePacketBase.from_generic_data(_game, data)
 
-            if packet.is_end_packet():
-                disconnect_from_game()
+                # Skip invalid/unknown packets
+                if !packet.is_valid_game_packet():
+                    continue
+                if packet.is_end_packet():
+                    disconnect_from_game()
 
-            return packet
+                return packet
+
+            return null
 
         Mode.DISCONNECT:
             return null

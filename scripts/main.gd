@@ -162,6 +162,8 @@ func _reset_game_state():
     target_container_position = Vector2.ZERO
 
 func _update_with_game_state(packet: GamePacketBase):
+    if packet == null:
+        return
     # Zeroed out packet means this is a close packet
     if packet.is_end_packet():
         _reset_game_state()

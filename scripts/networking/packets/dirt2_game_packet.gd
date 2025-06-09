@@ -66,6 +66,10 @@ func computed_vertical_velocity() -> float:
 func computed_forward_velocity() -> float:
     return speed_ms
 
+## Returns `true` if this packet has been detected as a valid game packet.
+func is_valid_game_packet() -> bool:
+    return true
+
 ## Returns `true` if this is an end-of-signal packet.
 func is_end_packet() -> bool:
     return roll == Vector3.ZERO and pitch == Vector3.ZERO
