@@ -161,26 +161,24 @@ func _reset_game_state():
     target_container_scale = Vector2.ONE
     target_container_position = Vector2.ZERO
 
-func _update_with_game_state(packet: GamePacket):
+func _update_with_game_state(packet: GamePacketBase):
     # Zeroed out packet means this is a close packet
-    if packet.roll == Vector3.ZERO:
+    if packet.is_end_packet():
         _reset_game_state()
         return
 
     if Settings.instance.active_game_settings().move_vertically:
-        target_container_position.y = packet.vel.y
+        target_container_position.y = packet.computed_vertical_velocity()
     else:
         target_container_position = Vector2.ZERO
 
     if Settings.instance.active_game_settings().scale_with_speed:
-        target_container_scale = Vector2.ONE - Vector2.ONE * (sqrt(packet.speed_ms) / 100)
+        target_container_scale = Vector2.ONE - Vector2.ONE * (sqrt(packet.computed_forward_velocity()) / 100)
     else:
         target_container_scale = Vector2.ONE
 
     if Settings.instance.active_game_settings().roll_with_vehicle:
-        var roll_angle = Vector3.UP.angle_to(packet.roll)
-
-        target_container_rotation = -roll_angle + PI / 2
+        target_container_rotation = packet.computed_roll_angle()
     else:
         target_container_rotation = 0.0
 
@@ -265,6 +263,11 @@ func _on_settings_changed():
 
     Networking.instance.set_port(
         Settings.instance.active_game_settings().port
+    )
+    Networking.instance.set_game(
+        GamePacketBase.game_from_game_connection_settings(
+            Settings.instance.active_game
+        )
     )
     if Settings.instance.connect_to_game:
         Networking.instance.set_mode(NetworkingBase.Mode.CONNECT)

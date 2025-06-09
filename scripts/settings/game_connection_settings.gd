@@ -4,6 +4,8 @@ extends Resource
 enum Game {
     ## Dirt 2.0 by Codemasters
     DIRT_2,
+    ## BeamNG
+    BEAMNG,
 }
 
 var port: int = 20777
@@ -31,5 +33,7 @@ static func game_title(game: Game) -> String:
     match game:
         Game.DIRT_2:
             return "Dirt 2.0"
+        Game.BEAMNG:
+            return "BeamNG"
         _:
             return "Unknown game"

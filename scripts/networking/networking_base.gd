@@ -33,7 +33,7 @@ func is_connected_to_game() -> bool:
 func has_packets() -> bool:
     return false
 
-func fetch_packet() -> GamePacket:
+func fetch_packet() -> GamePacketBase:
     return null
 
 func is_connection_available() -> bool:

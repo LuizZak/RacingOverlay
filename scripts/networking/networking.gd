@@ -4,6 +4,7 @@ extends NetworkingBase
 static var instance: Networking = Networking.new()
 
 var server: UDPServer = UDPServer.new()
+var _game: GamePacketBase.Game
 var _peer: PacketPeerUDP
 var _port: int = 20777
 var _mode: Mode = Mode.CONNECT
@@ -20,6 +21,20 @@ func _set_status(status: Status):
 
     _status = status
     on_status_changed.emit(status)
+
+func set_game(game: GamePacketBase.Game):
+    if _game == game:
+        return
+
+    _game = game
+
+    match _mode:
+        Mode.DISCONNECT:
+            pass
+        Mode.CONNECT:
+            _set_status(Status.AWAITING)
+            server.stop()
+            server.listen(_port)
 
 func set_port(port: int):
     if port == _port:
@@ -106,14 +121,14 @@ func has_packets() -> bool:
         _:
             return false
 
-func fetch_packet() -> GamePacket:
+func fetch_packet() -> GamePacketBase:
     match _mode:
         Mode.CONNECT:
             if !is_connected_to_game():
                 return null
 
             var data = _peer.get_packet()
-            var packet = GamePacket.from_data(data)
+            var packet = GamePacketBase.from_generic_data(_game, data)
 
             if packet.is_end_packet():
                 disconnect_from_game()

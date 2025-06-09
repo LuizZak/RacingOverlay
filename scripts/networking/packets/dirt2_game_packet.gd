@@ -1,5 +1,5 @@
-class_name GamePacket
-extends Object
+class_name Dirt2GamePacket
+extends GamePacketBase
 
 const PACKET_SIZE: int = 264
 
@@ -47,12 +47,30 @@ var max_rpm: float
 var idle_rpm: float
 var max_gears: float
 
-func _to_string() -> String:
-    return "rpm: %s | max_rpm: %s | roll: %s | pitch: %s" % [rpm * 10, max_rpm * 10, roll, pitch]
+## Gets the game associated with this packet type.
+func get_game() -> Game:
+    return Game.DIRT_2
+
+#region Required
+
+## Gets the computed roll angle of the packet's information.
+func computed_roll_angle() -> float:
+    var roll_angle = Vector3.UP.angle_to(roll)
+    return -roll_angle + PI / 2
+
+## Gets the computed vertical velocity of the packet's information.
+func computed_vertical_velocity() -> float:
+    return vel.y
+
+## Gets the computed forward velocity of the packet's information.
+func computed_forward_velocity() -> float:
+    return speed_ms
 
 ## Returns `true` if this is an end-of-signal packet.
 func is_end_packet() -> bool:
     return roll == Vector3.ZERO and pitch == Vector3.ZERO
+
+#endregion
 
 ## Returns a Dirt 2.0-compatible data packet. Some sections of the packet that
 ## are unused are filled with zeroes.
@@ -106,9 +124,9 @@ func to_data() -> PackedByteArray:
 
     return data
 
-## Initializes this game packet from a Dirt 2.0-received data packet.
-static func from_data(data: PackedByteArray) -> GamePacket:
-    var packet = GamePacket.new()
+## Creates a new game packet from a given set of data.
+static func from_data(data: PackedByteArray) -> GamePacketBase:
+    var packet = Dirt2GamePacket.new()
 
     packet.run_time = data.decode_float(0)
     packet.lap_time = data.decode_float(4)
