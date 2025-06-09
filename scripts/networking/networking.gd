@@ -125,6 +125,7 @@ func fetch_packet() -> GamePacketBase:
     match _mode:
         Mode.CONNECT:
             if !is_connected_to_game():
+                disconnect_from_game()
                 return null
 
             var data = _peer.get_packet()

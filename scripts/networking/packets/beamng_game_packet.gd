@@ -31,9 +31,7 @@ func get_game() -> Game:
 
 ## Gets the computed roll angle of the packet's information.
 func computed_roll_angle() -> float:
-    var angle = Vector3(0, 0, 1).angle_to(upVec)
-
-    return angle#-rollPos
+    return -rollPos
 
 ## Gets the computed vertical velocity of the packet's information.
 func computed_vertical_velocity() -> float:
