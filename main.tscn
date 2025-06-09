@@ -323,6 +323,14 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Settings"
 
+[node name="ResetTransformsButton" type="Button" parent="UIContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+tooltip_text = "Press this if game connection is on and
+the overlay gets stuck rotated/scaled/moved
+undesirably."
+text = "Reset Transforms"
+
 [node name="ControlsRebind" parent="UIContainer" instance=ExtResource("2_cegan")]
 unique_name_in_owner = true
 visible = false
@@ -336,5 +344,6 @@ layout_mode = 2
 [connection signal="pressed" from="UIContainer/VBox/BindingsButton" to="." method="_on_bindings_button_pressed"]
 [connection signal="pressed" from="UIContainer/VBox/ReloadAssetsButton" to="." method="_on_reload_assets_button_pressed"]
 [connection signal="pressed" from="UIContainer/VBox/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="UIContainer/VBox/ResetTransformsButton" to="." method="_on_reset_transforms_button_pressed"]
 [connection signal="on_close_pressed" from="UIContainer/ControlsRebind" to="." method="_on_controls_rebind_on_close_pressed"]
 [connection signal="on_close_pressed" from="UIContainer/SettingsPanel" to="." method="_on_settings_panel_on_close_pressed"]

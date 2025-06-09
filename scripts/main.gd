@@ -288,3 +288,6 @@ func _on_settings_button_pressed() -> void:
 
 func _on_settings_panel_on_close_pressed() -> void:
     settings_panel.hide()
+
+func _on_reset_transforms_button_pressed() -> void:
+    _reset_game_state()

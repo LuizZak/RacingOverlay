@@ -31,6 +31,8 @@ func get_game() -> Game:
 
 ## Gets the computed roll angle of the packet's information.
 func computed_roll_angle() -> float:
+    # TODO: Figure out why rollPos only goes from -1 to 1, and not the full expected
+    # -PI to PI range.
     return -rollPos
 
 ## Gets the computed vertical velocity of the packet's information.
