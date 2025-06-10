@@ -125,7 +125,7 @@ func _process(delta: float) -> void:
     clutch_progress.value = input_manager.clutch_amount() * 100
     brake_progress.value = input_manager.brake_amount() * 100
     throttle_progress.value = input_manager.throttle_amount() * 100
-    steering_wheel.rotation_degrees = input_manager.steering_amount() * -450
+    steering_wheel.rotation_degrees = input_manager.steering_amount() * -(Settings.instance.steering_range / 2.0)
     steering_wheel_indicator.normalized_value = input_manager.steering_amount()
 
     pedals_container.update_pedals(

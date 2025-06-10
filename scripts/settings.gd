@@ -17,6 +17,11 @@ var pedal_mode: PedalMode = PedalMode.DUAL_AXIS:
         pedal_mode = value
         on_settings_changed.emit()
 
+var steering_range: float = 900:
+    set(value):
+        steering_range = value
+        on_settings_changed.emit()
+
 var smooth_textures: bool = false:
     set(value):
         smooth_textures = value
@@ -66,6 +71,7 @@ func _init():
 func _make_settings_dictionary() -> Dictionary:
     var dict = {
         "pedal_mode": pedal_mode,
+        "steering_range": steering_range,
         "smooth_textures": smooth_textures,
         "steering_wheel_progress": steering_wheel_progress,
         "pedal_vibration": pedal_vibration,
@@ -73,7 +79,7 @@ func _make_settings_dictionary() -> Dictionary:
         "pedal_sink": pedal_sink,
         "connect_to_game": connect_to_game,
         "active_game": active_game,
-        "game_connections": { }
+        "game_connections": { },
     }
 
     for key in game_connections.keys():
@@ -85,6 +91,8 @@ func _make_settings_dictionary() -> Dictionary:
 func _from_settings_directory(dictionary: Dictionary):
     if dictionary.has("pedal_mode"):
         self.pedal_mode = dictionary["pedal_mode"]
+    if dictionary.has("steering_range"):
+        self.steering_range = dictionary["steering_range"]
     if dictionary.has("smooth_textures"):
         self.smooth_textures = dictionary["smooth_textures"]
     if dictionary.has("steering_wheel_progress"):

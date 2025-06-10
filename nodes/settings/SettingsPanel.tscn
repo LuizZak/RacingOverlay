@@ -83,6 +83,22 @@ popup/item_0/id = 0
 popup/item_1/text = "Single Axis"
 popup/item_1/id = 1
 
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+text = "Steering Range"
+
+[node name="SteeringRangeSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer6"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "The end-to-end steering range to animate,
+in degrees."
+max_value = 1800.0
+value = 900.0
+suffix = "º"
+
 [node name="Label3" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Visuals"
@@ -175,6 +191,7 @@ layout_mode = 2
 text = "Close"
 
 [connection signal="item_selected" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer/PedalModeOptionButton" to="." method="_on_pedal_mode_option_button_item_selected"]
+[connection signal="value_changed" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer6/SteeringRangeSpinBox" to="." method="_on_steering_range_spin_box_value_changed"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer4/SmoothTexturesCheckbox" to="." method="_on_smooth_textures_checkbox_toggled"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer5/SteeringWheelProgressBar" to="." method="_on_steering_wheel_progress_bar_toggled"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationCheckbox" to="." method="_on_pedal_vibration_checkbox_toggled"]
