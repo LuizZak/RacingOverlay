@@ -31,6 +31,10 @@ func get_game() -> Game:
 
 ## Gets the computed roll angle of the packet's information.
 func computed_roll_angle() -> float:
+    #var basis = Basis.from_euler(
+    #    Vector3(-pitchPos, yawPos, -rollPos)
+    #)
+
     # TODO: Figure out why rollPos only goes from -1 to 1, and not the full expected
     # -PI to PI range.
     return -rollPos
@@ -41,7 +45,7 @@ func computed_vertical_velocity() -> float:
 
 ## Gets the computed forward velocity of the packet's information.
 func computed_forward_velocity() -> float:
-    return 0.0
+    return vel.length()
 
 ## Returns `true` if this packet has been detected as a valid game packet.
 func is_valid_game_packet() -> bool:
