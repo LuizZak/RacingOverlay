@@ -60,9 +60,13 @@ var target_container_rotation: float = 0.0
 var target_container_scale: Vector2 = Vector2.ONE
 var target_container_position: Vector2 = Vector2.ONE
 
+var packet_manager: PacketManagerBase
+
 func _ready() -> void:
     if not container.get_viewport_rect().has_point(container.get_global_mouse_position()):
         hide_ui()
+
+    packet_manager = PacketManagerBase.new(Networking.instance)
 
     input_manager = InputManagerBase.new()
     #keyboard_handler = KeyboardInputHandler.new(input_manager)
@@ -112,9 +116,8 @@ func _process(delta: float) -> void:
     Networking.instance.poll_connections()
 
     if Networking.instance.is_connected_to_game():
-        while Networking.instance.has_packets():
-            var packet = Networking.instance.fetch_packet()
-            _update_with_game_state(packet)
+        packet_manager.process(delta)
+        _update_game_state()
     else:
         _reset_game_state()
 
@@ -161,26 +164,24 @@ func _reset_game_state():
     target_container_scale = Vector2.ONE
     target_container_position = Vector2.ZERO
 
-func _update_with_game_state(packet: GamePacketBase):
-    if packet == null:
-        return
+func _update_game_state():
     # Zeroed out packet means this is a close packet
-    if packet.is_end_packet():
+    if packet_manager.is_end_packet():
         _reset_game_state()
         return
 
     if Settings.instance.active_game_settings().move_vertically:
-        target_container_position.y = packet.computed_vertical_velocity()
+        target_container_position.y = packet_manager.vertical_velocity()
     else:
         target_container_position = Vector2.ZERO
 
     if Settings.instance.active_game_settings().scale_with_speed:
-        target_container_scale = Vector2.ONE - Vector2.ONE * (sqrt(packet.computed_forward_velocity()) / 100)
+        target_container_scale = Vector2.ONE - Vector2.ONE * (sqrt(packet_manager.forward_velocity()) / 100)
     else:
         target_container_scale = Vector2.ONE
 
     if Settings.instance.active_game_settings().roll_with_vehicle:
-        target_container_rotation = packet.computed_roll_angle()
+        target_container_rotation = packet_manager.roll_angle()
     else:
         target_container_rotation = 0.0
 
