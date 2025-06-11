@@ -100,7 +100,6 @@ horizontal_alignment = 1
 
 [node name="RightHand" type="Sprite2D" parent="Base/Container"]
 unique_name_in_owner = true
-texture_filter = 1
 position = Vector2(-6, -70)
 texture = ExtResource("10_82xsv")
 
@@ -303,27 +302,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="UIContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UIContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="UIContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="BindingsButton" type="Button" parent="UIContainer/VBox"]
+[node name="BindingsButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Bindings"
 
-[node name="ReloadAssetsButton" type="Button" parent="UIContainer/VBox"]
+[node name="ReloadAssetsButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Reload Assets"
 
-[node name="SettingsButton" type="Button" parent="UIContainer/VBox"]
+[node name="SettingsButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Settings"
 
-[node name="ResetTransformsButton" type="Button" parent="UIContainer/VBox"]
+[node name="ResetTransformsButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
 layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "Press this if game connection is on and
@@ -341,9 +347,9 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[connection signal="pressed" from="UIContainer/VBox/BindingsButton" to="." method="_on_bindings_button_pressed"]
-[connection signal="pressed" from="UIContainer/VBox/ReloadAssetsButton" to="." method="_on_reload_assets_button_pressed"]
-[connection signal="pressed" from="UIContainer/VBox/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="UIContainer/VBox/ResetTransformsButton" to="." method="_on_reset_transforms_button_pressed"]
+[connection signal="pressed" from="UIContainer/MarginContainer/VBox/BindingsButton" to="." method="_on_bindings_button_pressed"]
+[connection signal="pressed" from="UIContainer/MarginContainer/VBox/ReloadAssetsButton" to="." method="_on_reload_assets_button_pressed"]
+[connection signal="pressed" from="UIContainer/MarginContainer/VBox/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="UIContainer/MarginContainer/VBox/ResetTransformsButton" to="." method="_on_reset_transforms_button_pressed"]
 [connection signal="on_close_pressed" from="UIContainer/ControlsRebind" to="." method="_on_controls_rebind_on_close_pressed"]
 [connection signal="on_close_pressed" from="UIContainer/SettingsPanel" to="." method="_on_settings_panel_on_close_pressed"]
