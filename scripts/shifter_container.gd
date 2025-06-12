@@ -3,8 +3,8 @@ extends Node2D
 
 var input_manager: InputManagerBase
 
-@onready var shifter_base: Sprite2D = $ShifterBase
-@onready var shifter_knob: Sprite2D = $ShifterKnob
+@onready var shifter_base: VisualNode = $ShifterBase
+@onready var shifter_knob: VisualNode = $ShifterKnob
 @onready var shifter_label: Label = $PanelContainer/ShifterLabel
 
 @export var shifter_shaft_thickness: float = 10.0

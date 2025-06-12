@@ -17,11 +17,11 @@ const CONTAINER_MOVE_SPEED: float = 10
 @onready var steering_wheel: Node2D = %SteeringWheel
 @onready var right_hand_pin: Marker2D = %SteeringWheel/RightHandPin
 
-@onready var ebrake: Sprite2D = %Ebrake
+@onready var ebrake: VisualNode = %Ebrake
 @onready var ebrake_marker: Marker2D = %EbrakeMarker
 
-@onready var right_foot: Sprite2D = %RightFoot
-@onready var left_foot: Sprite2D = %LeftFoot
+@onready var right_foot: VisualNode = %RightFoot
+@onready var left_foot: VisualNode = %LeftFoot
 
 @onready var pedals_container: PedalsContainer = %Container/PedalsContainer
 
@@ -31,21 +31,21 @@ const CONTAINER_MOVE_SPEED: float = 10
 @onready var throttle_pedal: Node2D = %ThrottlePedal
 
 @onready var shifter_container: ShifterContainer = %Container/ShifterContainer
-@onready var shifter_knob: Sprite2D = %ShifterKnob
+@onready var shifter_knob: VisualNode = %ShifterKnob
 
-@onready var steering_wheel_sprite: Sprite2D = %SteeringWheelSprite
-@onready var ebrake_base: Sprite2D = %EbrakeBase
-@onready var shifter_base: Sprite2D = %ShifterBase
-@onready var pedal_throttle: Sprite2D = %PedalThrottle
-@onready var throttle_pedal_fixture: Sprite2D = %ThrottlePedalFixture
-@onready var pedal_brake: Sprite2D = %PedalBrake
-@onready var brake_pedal_fixture: Sprite2D = %BrakePedalFixture
-@onready var pedal_clutch: Sprite2D = %PedalClutch
-@onready var clutch_pedal_fixture: Sprite2D = %ClutchPedalFixture
-@onready var pedal_base: Sprite2D = %PedalBase
+@onready var steering_wheel_sprite: VisualNode = %SteeringWheelSprite
+@onready var ebrake_base: VisualNode = %EbrakeBase
+@onready var shifter_base: VisualNode = %ShifterBase
+@onready var pedal_throttle: VisualNode = %PedalThrottle
+@onready var throttle_pedal_fixture: VisualNode = %ThrottlePedalFixture
+@onready var pedal_brake: VisualNode = %PedalBrake
+@onready var brake_pedal_fixture: VisualNode = %BrakePedalFixture
+@onready var pedal_clutch: VisualNode = %PedalClutch
+@onready var clutch_pedal_fixture: VisualNode = %ClutchPedalFixture
+@onready var pedal_base: VisualNode = %PedalBase
 
-@onready var left_hand: Sprite2D = %LeftHand
-@onready var right_hand: Sprite2D = %RightHand
+@onready var left_hand: VisualNode = %LeftHand
+@onready var right_hand: VisualNode = %RightHand
 
 var ui_container_tween: Tween = null
 
@@ -212,45 +212,20 @@ func update_button(sprite: AnimatedSprite2D, is_pressed: bool):
     sprite.frame = 1 if is_pressed else 0
 
 func _reload_assets():
-    left_foot.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.FOOT_LEFT
-    )
-    right_foot.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.FOOT_RIGHT
-    )
-    ebrake.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.EBRAKE
-    )
-    ebrake_base.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.EBRAKE_BASE
-    )
-    left_hand.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.HAND_LEFT
-    )
-    pedal_base.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.PEDAL_BASE
-    )
-    pedal_clutch.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.PEDAL_CLUTCH
-    )
-    clutch_pedal_fixture.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.PEDAL_FIXTURE
-    )
-    brake_pedal_fixture.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.PEDAL_FIXTURE
-    )
-    throttle_pedal_fixture.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.PEDAL_FIXTURE
-    )
-    shifter_base.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.SHIFTER_BASE
-    )
-    shifter_knob.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.SHIFTER_KNOB
-    )
-    steering_wheel_sprite.texture = CustomResourceLoader.instance.load_texture(
-        CustomResourceLoader.STEERING_WHEEL
-    )
+    left_foot.refresh_display()
+    right_foot.refresh_display()
+    ebrake.refresh_display()
+    ebrake_base.refresh_display()
+    left_hand.refresh_display()
+    pedal_base.refresh_display()
+    pedal_clutch.refresh_display()
+    clutch_pedal_fixture.refresh_display()
+    pedal_brake.refresh_display()
+    brake_pedal_fixture.refresh_display()
+    throttle_pedal_fixture.refresh_display()
+    shifter_base.refresh_display()
+    shifter_knob.refresh_display()
+    steering_wheel_sprite.refresh_display()
     right_hand_manager.transition(
         RightHandManager.OnSteeringWheelState.new()
     )

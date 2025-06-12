@@ -13,8 +13,14 @@ var sprite: Sprite2D = $Sprite
 @onready
 var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 
+func _ready() -> void:
+    refresh_display()
+
 func refresh_display():
-    var visual_resource = CustomResourceLoader.instance.load_as_resource(key)
+    if sprite == null or animated_sprite == null:
+        return
+
+    var visual_resource = resource_loader().load_as_resource(key)
 
     if visual_resource.sprite_frames != null:
         sprite.visible = false
@@ -27,3 +33,6 @@ func refresh_display():
         animated_sprite.visible = false
 
         sprite.texture = visual_resource.texture
+
+func resource_loader() -> CustomResourceLoader:
+    return CustomResourceLoader.new()

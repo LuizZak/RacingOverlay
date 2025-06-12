@@ -3,7 +3,7 @@ extends StateMachine
 
 ## Type: InputManagerBase
 const RHM_INPUT_MANAGER = "input_manager"
-## Type: Sprite2D
+## Type: VisualNode
 const RHM_RIGHT_HAND = "right_hand"
 ## Type: Node2D
 const RHM_SHIFTER_KNOB = "shifter_knob"
@@ -31,7 +31,7 @@ class MovingToHandbrakeState extends State:
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
         last_position = right_hand.global_position
@@ -45,15 +45,13 @@ class MovingToHandbrakeState extends State:
         right_hand.global_position = last_position
         right_hand.global_rotation = last_rotation
 
-        right_hand.texture = CustomResourceLoader.instance.load_texture(
-            CustomResourceLoader.HAND_RIGHT_FLOATING
-        )
+        right_hand.key = CustomResourceLoader.HAND_RIGHT_FLOATING
 
     func process(delta, state_machine):
         self.elapsed += delta
 
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var handbrake_pin = state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
 
         var eased = ease(elapsed / TRANSITION_SPEED, -2)
@@ -77,7 +75,7 @@ class HandbrakingState extends State:
 
     func on_enter(_last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var handbrake_pin = state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
 
         if right_hand.get_parent():
@@ -87,15 +85,13 @@ class HandbrakingState extends State:
 
         latest_gear = input_manager.numerical_gear()
 
-        right_hand.texture = CustomResourceLoader.instance.load_texture(
-            CustomResourceLoader.HAND_RIGHT_EBRAKE
-        )
+        right_hand.key = CustomResourceLoader.HAND_RIGHT_EBRAKE
 
         right_hand.rotation = 0.0
         right_hand.position = Vector2.ZERO
 
     func on_exit(_next, state_machine):
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
         var last_position = right_hand.global_position
@@ -134,7 +130,7 @@ class ShiftingSequentialState extends State:
     func on_enter(_last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
         var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
         var is_shift_up = seq_shifter.dequeue_gear_change()
@@ -144,15 +140,13 @@ class ShiftingSequentialState extends State:
         else:
             pseudo_gear = 4
 
-        right_hand.texture = CustomResourceLoader.instance.load_texture(
-            CustomResourceLoader.HAND_RIGHT_SHIFTER
-        )
+        right_hand.key = CustomResourceLoader.HAND_RIGHT_SHIFTER
 
     func process(delta, state_machine):
         elapsed += delta
 
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
         var shifter_knob = state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
         var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
@@ -195,21 +189,19 @@ class ShiftingState extends State:
     func on_enter(_last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
         var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
 
         self.latest_gear = input_manager.numerical_gear()
         self.is_in_neutral = shifter_container.shifter_animation.numerical_gear() == 0
         self.is_towards_neutral = self.latest_gear == 0
 
-        right_hand.texture = CustomResourceLoader.instance.load_texture(
-            CustomResourceLoader.HAND_RIGHT_SHIFTER
-        )
+        right_hand.key = CustomResourceLoader.HAND_RIGHT_SHIFTER
 
     func process(delta, state_machine):
         self.elapsed += delta
 
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
         var shifter_knob = state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
         var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
@@ -257,7 +249,7 @@ class MovingToShifterState extends State:
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
         last_position = right_hand.global_position
@@ -271,14 +263,12 @@ class MovingToShifterState extends State:
         right_hand.global_position = last_position
         right_hand.global_rotation = last_rotation
 
-        right_hand.texture = CustomResourceLoader.instance.load_texture(
-            CustomResourceLoader.HAND_RIGHT_FLOATING
-        )
+        right_hand.key = CustomResourceLoader.HAND_RIGHT_FLOATING
 
     func process(delta, state_machine):
         self.elapsed += delta
 
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var shifter_knob = state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
         var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
@@ -306,22 +296,20 @@ class MovingToSteeringWheelState extends State:
 
     func on_enter(_last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
 
         self.latest_gear = input_manager.numerical_gear()
 
         last_position = right_hand.global_position
         last_rotation = right_hand.global_rotation
 
-        right_hand.texture = CustomResourceLoader.instance.load_texture(
-            CustomResourceLoader.HAND_RIGHT_FLOATING
-        )
+        right_hand.key = CustomResourceLoader.HAND_RIGHT_FLOATING
 
     func process(delta, state_machine):
         self.elapsed += delta
 
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var steering_pin = state_machine.parameters[RHM_STEERING_PIN] as Node2D
         var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
@@ -347,7 +335,7 @@ class OnSteeringWheelState extends State:
 
     func on_enter(_last, state_machine):
         var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as Sprite2D
+        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var steering_pin = state_machine.parameters[RHM_STEERING_PIN] as Node2D
 
         self.latest_gear = input_manager.numerical_gear()
@@ -357,9 +345,7 @@ class OnSteeringWheelState extends State:
 
         steering_pin.add_child(right_hand)
 
-        right_hand.texture = CustomResourceLoader.instance.load_texture(
-            CustomResourceLoader.HAND_RIGHT_STEERING
-        )
+        right_hand.key = CustomResourceLoader.HAND_RIGHT_STEERING
 
         right_hand.rotation = 0.0
         right_hand.position = Vector2.ZERO
