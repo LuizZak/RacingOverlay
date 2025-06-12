@@ -24,6 +24,14 @@ static var instance = CustomResourceLoader.new()
 func refresh():
     pass
 
+func load_as_resource(key: String) -> VisualResource:
+    var resource = VisualResource.new()
+
+    resource.key = key
+    resource.texture = load_texture(key)
+
+    return resource
+
 func load_texture(key: String) -> Texture2D:
     var local := _load_file_texture(key)
     if local != null:
