@@ -93,33 +93,6 @@ key = &"hand_right_steering"
 position = Vector2(51, 124)
 script = ExtResource("12_45l4g")
 
-[node name="ClutchLabel" type="Label" parent="Base/Container/PedalsContainer"]
-texture_filter = 2
-offset_left = 26.0
-offset_top = 23.0
-offset_right = 63.0
-offset_bottom = 40.0
-theme = ExtResource("10_00tp4")
-text = "Clutch"
-
-[node name="BrakeLabel" type="Label" parent="Base/Container/PedalsContainer"]
-texture_filter = 2
-offset_left = -18.0
-offset_top = 23.0
-offset_right = 16.0
-offset_bottom = 40.0
-theme = ExtResource("10_00tp4")
-text = "Brake"
-
-[node name="ThrottleLabel" type="Label" parent="Base/Container/PedalsContainer"]
-texture_filter = 2
-offset_left = -72.0
-offset_top = 23.0
-offset_right = -25.0
-offset_bottom = 40.0
-theme = ExtResource("10_00tp4")
-text = "Throttle"
-
 [node name="RightFoot" parent="Base/Container/PedalsContainer" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(-48, -61)
@@ -221,6 +194,33 @@ theme = ExtResource("10_00tp4")
 min_value = -100.0
 fill_mode = 3
 show_percentage = false
+
+[node name="ClutchLabel" type="Label" parent="Base/Container/PedalsContainer"]
+texture_filter = 2
+offset_left = 26.0
+offset_top = 23.0
+offset_right = 63.0
+offset_bottom = 40.0
+theme = ExtResource("10_00tp4")
+text = "Clutch"
+
+[node name="BrakeLabel" type="Label" parent="Base/Container/PedalsContainer"]
+texture_filter = 2
+offset_left = -18.0
+offset_top = 23.0
+offset_right = 16.0
+offset_bottom = 40.0
+theme = ExtResource("10_00tp4")
+text = "Brake"
+
+[node name="ThrottleLabel" type="Label" parent="Base/Container/PedalsContainer"]
+texture_filter = 2
+offset_left = -72.0
+offset_top = 23.0
+offset_right = -25.0
+offset_bottom = 40.0
+theme = ExtResource("10_00tp4")
+text = "Throttle"
 
 [node name="UIContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true

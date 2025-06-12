@@ -27,7 +27,7 @@ func refresh_display():
         animated_sprite.visible = true
 
         animated_sprite.sprite_frames = visual_resource.sprite_frames
-        animated_sprite.play("default")
+        animated_sprite.play(&"default")
     else:
         sprite.visible = true
         animated_sprite.visible = false
