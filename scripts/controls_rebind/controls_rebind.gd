@@ -35,6 +35,10 @@ var rebind_shift_5_th: RebindEntry = %RebindShift5th
 @onready
 var rebind_shift_6_th: RebindEntry = %RebindShift6th
 @onready
+var rebind_shift_up: RebindEntry = %RebindShiftUp
+@onready
+var rebind_shift_down: RebindEntry = %RebindShiftDown
+@onready
 var rebind_shift_reverse: RebindEntry = %RebindShiftReverse
 @onready
 var rebind_handbrake: RebindEntry = %RebindHandbrake
@@ -56,6 +60,8 @@ var all_action_rebinds: Array[RebindEntry] = [
     rebind_shift_5_th,
     rebind_shift_6_th,
     rebind_shift_reverse,
+    rebind_shift_up,
+    rebind_shift_down,
     rebind_handbrake,
 ]
 
