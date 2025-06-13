@@ -4,6 +4,8 @@ extends MarginContainer
 @onready
 var pedal_mode_option_button: OptionButton = %PedalModeOptionButton
 @onready
+var rest_hand_position_option_button: OptionButton = %RestHandPositionOptionButton
+@onready
 var steering_range_spin_box: SpinBox = %SteeringRangeSpinBox
 @onready
 var smooth_textures_checkbox: CheckBox = %SmoothTexturesCheckbox
@@ -23,6 +25,7 @@ func _ready():
 
 func _populate_settings():
     _populate_pedal_mode()
+    _populate_rest_hand_position()
     pedal_vibration_checkbox.button_pressed = Settings.instance.pedal_vibration
     steering_range_spin_box.value = Settings.instance.steering_range
     smooth_textures_checkbox.button_pressed = Settings.instance.smooth_textures
@@ -39,12 +42,30 @@ func _populate_pedal_mode():
         Settings.PedalMode.SINGLE_AXIS:
             pedal_mode_option_button.selected = 1
 
+func _populate_rest_hand_position():
+    var rest_hand_position = Settings.instance.rest_hand_position
+
+    match rest_hand_position:
+        Settings.RestHandPosition.STEERING_WHEEL:
+            rest_hand_position_option_button.selected = 0
+        Settings.RestHandPosition.SHIFTER:
+            rest_hand_position_option_button.selected = 1
+
 func _on_pedal_mode_option_button_item_selected(index: int) -> void:
     match index:
         0:
             Settings.instance.pedal_mode = Settings.PedalMode.DUAL_AXIS
         1:
             Settings.instance.pedal_mode = Settings.PedalMode.SINGLE_AXIS
+
+    Settings.instance.save_to_disk()
+
+func _on_rest_hand_position_option_button_item_selected(index: int) -> void:
+    match index:
+        0:
+            Settings.instance.rest_hand_position = Settings.RestHandPosition.STEERING_WHEEL
+        1:
+            Settings.instance.rest_hand_position = Settings.RestHandPosition.SHIFTER
 
     Settings.instance.save_to_disk()
 

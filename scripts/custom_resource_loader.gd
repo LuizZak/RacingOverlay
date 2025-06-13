@@ -47,13 +47,13 @@ func _load_file_texture(key: StringName) -> Texture2D:
 
     var resolved_png_path = base_path.path_join("%s.png" % [key])
 
-    var access = FileAccess.open(resolved_png_path, FileAccess.READ)
-    if access == null:
+    if not FileAccess.file_exists(resolved_png_path):
         return null
 
-    access.close()
-
     var image = Image.load_from_file(resolved_png_path)
+    if image == null:
+        return null
+
     return ImageTexture.create_from_image(image)
 
 func _load_file_sprite_frames(key: StringName) -> SpriteFrames:

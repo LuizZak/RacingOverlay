@@ -5,6 +5,10 @@ enum PedalMode {
     DUAL_AXIS,
     SINGLE_AXIS,
 }
+enum RestHandPosition {
+    STEERING_WHEEL,
+    SHIFTER,
+}
 
 const SETTINGS_PATH = "user://settings.data"
 
@@ -15,6 +19,11 @@ static var instance: Settings = Settings.new()
 var pedal_mode: PedalMode = PedalMode.DUAL_AXIS:
     set(value):
         pedal_mode = value
+        on_settings_changed.emit()
+
+var rest_hand_position: RestHandPosition = RestHandPosition.STEERING_WHEEL:
+    set(value):
+        rest_hand_position = value
         on_settings_changed.emit()
 
 var steering_range: float = 900:
@@ -71,6 +80,7 @@ func _init():
 func _make_settings_dictionary() -> Dictionary:
     var dict = {
         "pedal_mode": pedal_mode,
+        "rest_hand_position": rest_hand_position,
         "steering_range": steering_range,
         "smooth_textures": smooth_textures,
         "steering_wheel_progress": steering_wheel_progress,
@@ -91,6 +101,8 @@ func _make_settings_dictionary() -> Dictionary:
 func _from_settings_directory(dictionary: Dictionary):
     if dictionary.has("pedal_mode"):
         self.pedal_mode = dictionary["pedal_mode"]
+    if dictionary.has("rest_hand_position"):
+        self.rest_hand_position = dictionary["rest_hand_position"]
     if dictionary.has("steering_range"):
         self.steering_range = dictionary["steering_range"]
     if dictionary.has("smooth_textures"):

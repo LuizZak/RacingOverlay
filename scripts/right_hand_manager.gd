@@ -17,11 +17,31 @@ const RHM_HANDBRAKE_PIN = "handbrake_pin"
 const RHM_GLOBAL_CONTAINER = "global_container"
 ## Type: SequentialShifterManager
 const RHM_SEQUENTIAL_SHIFTER_MANAGER = "sequential_shifter_manager"
+## Type: Settings.RestHandPosition
+const RHM_REST_HAND_POSITION = "rest_hand_position"
 
 ## Transition speed, in seconds, to move between shifter and steering wheel.
 const TRANSITION_SPEED = 0.15
 ## Transition speed, in seconds, to shift between gears in the shifter.
 const SHIFT_SPEED = 0.2
+
+func transition_to_rest_state():
+    match parameters[RHM_REST_HAND_POSITION]:
+        Settings.RestHandPosition.STEERING_WHEEL:
+            if current_state is OnSteeringWheelState:
+                return
+
+            transition(
+                MovingToSteeringWheelState.new()
+            )
+
+        Settings.RestHandPosition.SHIFTER:
+            if current_state is ShiftingState:
+                return
+
+            transition(
+                MovingToShifterState.new()
+            )
 
 #
 
@@ -60,9 +80,7 @@ class MovingToHandbrakeState extends State:
         right_hand.global_rotation = lerpf(last_rotation, 0.0, eased)
 
         if input_manager.handbrake_amount() == 0.0:
-            state_machine.transition(
-                MovingToSteeringWheelState.new()
-            )
+            state_machine.transition_to_rest_state()
             return
 
         if self.elapsed >= TRANSITION_SPEED:
@@ -109,9 +127,7 @@ class HandbrakingState extends State:
         var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
         if input_manager.handbrake_amount() == 0.0:
-            state_machine.transition(
-                MovingToSteeringWheelState.new()
-            )
+            state_machine.transition_to_rest_state()
             return
 
         if seq_shifter.has_gear_changes():
@@ -175,15 +191,14 @@ class ShiftingSequentialState extends State:
                     ShiftingSequentialState.new()
                 )
             else:
-                state_machine.transition(
-                    MovingToSteeringWheelState.new()
-                )
+                state_machine.transition_to_rest_state()
             return
 
 class ShiftingState extends State:
     var latest_gear: int = 0
     var is_in_neutral: bool = false
     var is_towards_neutral: bool = false
+    var is_same_gear: bool = false
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
@@ -194,6 +209,7 @@ class ShiftingState extends State:
         self.latest_gear = input_manager.numerical_gear()
         self.is_in_neutral = shifter_container.shifter_animation.numerical_gear() == 0
         self.is_towards_neutral = self.latest_gear == 0
+        self.is_same_gear = shifter_container.shifter_animation.numerical_gear() == input_manager.numerical_gear()
 
         right_hand.key = CustomResourceLoader.HAND_RIGHT_SHIFTER
 
@@ -224,6 +240,8 @@ class ShiftingState extends State:
             shifter_container.shifter_animation_factor = elapsed / SHIFT_SPEED
         elif is_towards_neutral:
             shifter_container.shifter_animation_factor = 1 - elapsed / SHIFT_SPEED
+        elif is_same_gear:
+            pass
         else:
             # Shift away from current gear
             if elapsed < SHIFT_SPEED / 2:
@@ -239,9 +257,13 @@ class ShiftingState extends State:
             if self.is_towards_neutral:
                 shifter_container.set_shifter_animation_gear(0)
 
-            state_machine.transition(
-                MovingToSteeringWheelState.new()
-            )
+            if input_manager.handbrake_amount() > 0.0:
+                state_machine.transition(
+                    MovingToHandbrakeState.new()
+                )
+                return
+
+            state_machine.transition_to_rest_state()
 
 class MovingToShifterState extends State:
     var last_position: Vector2 = Vector2.ZERO
@@ -358,7 +380,11 @@ class OnSteeringWheelState extends State:
             state_machine.transition(
                 MovingToShifterState.new()
             )
+            return
         if input_manager.handbrake_amount() > 0.0:
             state_machine.transition(
                 MovingToHandbrakeState.new()
             )
+            return
+
+        state_machine.transition_to_rest_state()

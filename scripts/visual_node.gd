@@ -17,7 +17,7 @@ func _ready() -> void:
     refresh_display()
 
 func refresh_display():
-    if sprite == null or animated_sprite == null:
+    if sprite == null or animated_sprite == null or key == &"":
         return
 
     var visual_resource = resource_loader().load_as_resource(key)
@@ -35,4 +35,7 @@ func refresh_display():
         sprite.texture = visual_resource.texture
 
 func resource_loader() -> CustomResourceLoader:
+    if CustomResourceLoader.instance != null:
+        return CustomResourceLoader.instance
+
     return CustomResourceLoader.new()

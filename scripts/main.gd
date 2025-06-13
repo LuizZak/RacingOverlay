@@ -68,8 +68,8 @@ func _ready() -> void:
 
     packet_manager = PacketManagerBase.new(Networking.instance)
 
-    input_manager = InputManagerBase.new()
-    #keyboard_handler = KeyboardInputHandler.new(input_manager)
+    input_manager = SimulatedInputManager.new()
+    keyboard_handler = KeyboardInputHandler.new(input_manager)
     sequential_shifter_manager = SequentialShifterManager.new()
 
     shifter_container.input_manager = input_manager
@@ -99,6 +99,8 @@ func _ready() -> void:
     right_hand_manager.parameters[RightHandManager.RHM_GLOBAL_CONTAINER] = container
 
     right_hand_manager.parameters[RightHandManager.RHM_SEQUENTIAL_SHIFTER_MANAGER] = sequential_shifter_manager
+
+    right_hand_manager.parameters[RightHandManager.RHM_REST_HAND_POSITION] = Settings.instance.rest_hand_position
 
     right_hand_manager.transition(
         RightHandManager.OnSteeringWheelState.new()
@@ -231,6 +233,8 @@ func _reload_assets():
     )
 
 func _on_settings_changed():
+    right_hand_manager.parameters[RightHandManager.RHM_REST_HAND_POSITION] = Settings.instance.rest_hand_position
+
     var filter = Node2D.TEXTURE_FILTER_NEAREST
     if Settings.instance.smooth_textures:
         filter = Node2D.TEXTURE_FILTER_LINEAR
