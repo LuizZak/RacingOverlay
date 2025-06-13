@@ -144,8 +144,6 @@ class ShiftingSequentialState extends State:
     var pseudo_gear: int = 0
 
     func on_enter(_last, state_machine):
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
         var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 

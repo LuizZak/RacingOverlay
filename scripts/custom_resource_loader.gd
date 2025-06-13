@@ -43,8 +43,6 @@ func load_texture(key: StringName) -> Texture2D:
 
 func _load_file_texture(key: StringName) -> Texture2D:
     var base_path = OS.get_executable_path().get_base_dir()
-    var resolved_dir_path = base_path.path_join(key)
-
     var resolved_png_path = base_path.path_join("%s.png" % [key])
 
     if not FileAccess.file_exists(resolved_png_path):

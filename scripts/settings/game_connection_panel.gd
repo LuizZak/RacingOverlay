@@ -69,7 +69,7 @@ func _on_game_option_button_item_selected(index: int) -> void:
         )
     )
 
-    Settings.instance.active_game = active_game
+    Settings.instance.active_game = active_game as GameConnectionSettings.Game
     Settings.instance.save_to_disk()
 
     _populate_settings()

@@ -35,11 +35,11 @@ var rebind_shift_5_th: RebindEntry = %RebindShift5th
 @onready
 var rebind_shift_6_th: RebindEntry = %RebindShift6th
 @onready
+var rebind_shift_reverse: RebindEntry = %RebindShiftReverse
+@onready
 var rebind_shift_up: RebindEntry = %RebindShiftUp
 @onready
 var rebind_shift_down: RebindEntry = %RebindShiftDown
-@onready
-var rebind_shift_reverse: RebindEntry = %RebindShiftReverse
 @onready
 var rebind_handbrake: RebindEntry = %RebindHandbrake
 
