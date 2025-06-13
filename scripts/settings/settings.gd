@@ -12,6 +12,10 @@ var smooth_textures_checkbox: CheckBox = %SmoothTexturesCheckbox
 @onready
 var steering_wheel_progress_bar: CheckBox = %SteeringWheelProgressBar
 @onready
+var shifter_fill_color_button: ColorPickerButton = %ShifterFillColorButton
+@onready
+var shifter_outline_color_button: ColorPickerButton = %ShifterOutlineColorButton
+@onready
 var pedal_vibration_checkbox: CheckBox = %PedalVibrationCheckbox
 @onready
 var pedal_vibration_slider: HSlider = %PedalVibrationSlider
@@ -30,6 +34,8 @@ func _populate_settings():
     steering_range_spin_box.value = Settings.instance.steering_range
     smooth_textures_checkbox.button_pressed = Settings.instance.smooth_textures
     steering_wheel_progress_bar.button_pressed = Settings.instance.steering_wheel_progress
+    shifter_fill_color_button.color = Settings.instance.shifter_shaft_fill_color
+    shifter_outline_color_button.color = Settings.instance.shifter_shaft_outline_color
     pedal_vibration_slider.value = Settings.instance.pedal_vibration_strength
     pedal_sink_checkbox.button_pressed = Settings.instance.pedal_sink
 
@@ -79,6 +85,24 @@ func _on_smooth_textures_checkbox_toggled(toggled_on: bool) -> void:
 
 func _on_steering_wheel_progress_bar_toggled(toggled_on: bool) -> void:
     Settings.instance.steering_wheel_progress = toggled_on
+    Settings.instance.save_to_disk()
+
+func _on_shifter_fill_color_button_color_changed(color: Color) -> void:
+    Settings.instance.shifter_shaft_fill_color = color
+    Settings.instance.save_to_disk()
+
+func _on_reset_shifter_fill_color_button_pressed() -> void:
+    Settings.instance.shifter_shaft_fill_color = Color.from_rgba8(99, 155, 255) # TODO: Move this constant somewhere else
+    shifter_fill_color_button.color = Color.from_rgba8(99, 155, 255)
+    Settings.instance.save_to_disk()
+
+func _on_shifter_outline_color_button_color_changed(color: Color) -> void:
+    Settings.instance.shifter_shaft_outline_color = color
+    Settings.instance.save_to_disk()
+
+func _on_reset_shifter_outline_color_button_pressed() -> void:
+    Settings.instance.shifter_shaft_outline_color = Color.WHITE # TODO: Move this constant somewhere else
+    shifter_outline_color_button.color = Color.WHITE
     Settings.instance.save_to_disk()
 
 func _on_pedal_vibration_checkbox_toggled(toggled_on: bool) -> void:

@@ -243,6 +243,9 @@ func _on_settings_changed():
 
     steering_wheel_indicator.visible = Settings.instance.steering_wheel_progress
 
+    shifter_container.shifter_shaft_color = Settings.instance.shifter_shaft_fill_color
+    shifter_container.shifter_shaft_outline_color = Settings.instance.shifter_shaft_outline_color
+
     Networking.instance.set_port(
         Settings.instance.active_game_settings().port
     )

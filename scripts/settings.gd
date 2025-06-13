@@ -41,6 +41,16 @@ var steering_wheel_progress: bool = false:
         steering_wheel_progress = value
         on_settings_changed.emit()
 
+var shifter_shaft_fill_color: Color = Color.from_rgba8(99, 155, 255):
+    set(value):
+        shifter_shaft_fill_color = value
+        on_settings_changed.emit()
+
+var shifter_shaft_outline_color: Color = Color.WHITE:
+    set(value):
+        shifter_shaft_outline_color = value
+        on_settings_changed.emit()
+
 var pedal_vibration: bool = true:
     set(value):
         pedal_vibration = value
@@ -84,6 +94,8 @@ func _make_settings_dictionary() -> Dictionary:
         "steering_range": steering_range,
         "smooth_textures": smooth_textures,
         "steering_wheel_progress": steering_wheel_progress,
+        "shifter_shaft_fill_color": shifter_shaft_fill_color,
+        "shifter_shaft_outline_color": shifter_shaft_outline_color,
         "pedal_vibration": pedal_vibration,
         "pedal_vibration_strength": pedal_vibration_strength,
         "pedal_sink": pedal_sink,
@@ -109,6 +121,10 @@ func _from_settings_directory(dictionary: Dictionary):
         self.smooth_textures = dictionary["smooth_textures"]
     if dictionary.has("steering_wheel_progress"):
         self.steering_wheel_progress = dictionary["steering_wheel_progress"]
+    if dictionary.has("shifter_shaft_fill_color"):
+        self.shifter_shaft_fill_color = dictionary["shifter_shaft_fill_color"]
+    if dictionary.has("shifter_shaft_outline_color"):
+        self.shifter_shaft_outline_color = dictionary["shifter_shaft_outline_color"]
     if dictionary.has("pedal_vibration"):
         self.pedal_vibration = dictionary["pedal_vibration"]
     if dictionary.has("pedal_vibration_strength"):

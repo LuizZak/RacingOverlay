@@ -7,9 +7,21 @@ var input_manager: InputManagerBase
 @onready var shifter_knob: VisualNode = $ShifterKnob
 @onready var shifter_label: Label = $PanelContainer/ShifterLabel
 
-@export var shifter_shaft_thickness: float = 10.0
-@export var shifter_shaft_color: Color = Color.from_rgba8(99, 155, 255)
-@export var shifter_shaft_outline_color: Color = Color.WHITE
+@export
+var shifter_shaft_thickness: float = 10.0:
+    set(value):
+        shifter_shaft_thickness = value
+        queue_redraw()
+@export
+var shifter_shaft_color: Color = Color.from_rgba8(99, 155, 255):
+    set(value):
+        shifter_shaft_color = value
+        queue_redraw()
+@export
+var shifter_shaft_outline_color: Color = Color.WHITE:
+    set(value):
+        shifter_shaft_outline_color = value
+        queue_redraw()
 
 var shifter_animation: ShifterAnimationBase
 var shifter_animation_factor: float = 0.0
