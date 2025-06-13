@@ -114,6 +114,8 @@ func _end_rebind():
     _current_rebind_action = ""
     pedal_rebind_container.stop_listening()
     pedal_rebind_container.hide()
+    analog_rebind_container.stop_listening()
+    analog_rebind_container.hide()
 
 func _begin_pedal_rebind(action_name: String) -> void:
     _current_rebind_action = action_name

@@ -68,8 +68,8 @@ func _ready() -> void:
 
     packet_manager = PacketManagerBase.new(Networking.instance)
 
-    input_manager = SimulatedInputManager.new()
-    keyboard_handler = KeyboardInputHandler.new(input_manager)
+    input_manager = InputManagerBase.new()
+    #keyboard_handler = KeyboardInputHandler.new(input_manager)
     sequential_shifter_manager = SequentialShifterManager.new()
 
     shifter_container.input_manager = input_manager
