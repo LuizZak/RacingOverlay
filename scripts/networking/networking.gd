@@ -33,9 +33,9 @@ func set_game(game: GamePacketBase.Game):
         Mode.DISCONNECT:
             pass
         Mode.CONNECT:
-            _set_status(Status.AWAITING)
             server.stop()
             server.listen(_port)
+            _set_status(Status.AWAITING)
 
 func set_port(port: int):
     if port == _port:
@@ -58,8 +58,8 @@ func set_mode(mode: Mode):
             server.stop()
 
         Mode.CONNECT:
-            _set_status(Status.AWAITING)
             server.listen(_port)
+            _set_status(Status.AWAITING)
 
 func poll_connections() -> Error:
     match _mode:
