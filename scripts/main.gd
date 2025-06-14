@@ -210,9 +210,6 @@ func hide_ui():
 func update_handbrake_position(amount: float):
     ebrake.rotation = amount * deg_to_rad(10)
 
-func update_button(sprite: AnimatedSprite2D, is_pressed: bool):
-    sprite.frame = 1 if is_pressed else 0
-
 func _reload_assets():
     left_foot.refresh_display()
     right_foot.refresh_display()
