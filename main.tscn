@@ -57,6 +57,11 @@ unique_name_in_owner = true
 position = Vector2(35, 178)
 key = &"ebrake_base"
 
+[node name="EbrakeEffect" parent="Base/Container/EbrakeContainer" instance=ExtResource("3_kek77")]
+unique_name_in_owner = true
+position = Vector2(35, 178)
+key = &"ebrake_effect"
+
 [node name="ShifterContainer" type="Node2D" parent="Base/Container"]
 position = Vector2(-70, 37)
 script = ExtResource("3_0m0f1")

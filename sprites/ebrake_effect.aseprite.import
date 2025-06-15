@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://c2icbl6gxhtr6"
+path="res://.godot/imported/ebrake_effect.aseprite-cd0f5ad0bdcbbc616b5df2478ad5b0e4.res"
+
+[deps]
+
+source_file="res://sprites/ebrake_effect.aseprite"
+dest_files=["res://.godot/imported/ebrake_effect.aseprite-cd0f5ad0bdcbbc616b5df2478ad5b0e4.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

@@ -5,6 +5,7 @@ const FOOT_LEFT := &"foot_left"
 const FOOT_RIGHT := &"foot_right"
 const EBRAKE := &"ebrake"
 const EBRAKE_BASE := &"ebrake_base"
+const EBRAKE_EFFECT := &"ebrake_effect"
 const HAND_LEFT := &"hand_left"
 const HAND_RIGHT := &"hand_right"
 const HAND_RIGHT_EBRAKE := &"hand_right_ebrake"
@@ -73,6 +74,8 @@ func load_default_texture(key: StringName) -> Texture2D:
             return preload("res://sprites/ebrake.aseprite")
         EBRAKE_BASE:
             return preload("res://sprites/ebrake_base.aseprite")
+        EBRAKE_EFFECT:
+            return preload("res://sprites/ebrake_effect.aseprite")
         HAND_LEFT:
             return preload("res://sprites/hand_left.aseprite")
         HAND_RIGHT_EBRAKE:

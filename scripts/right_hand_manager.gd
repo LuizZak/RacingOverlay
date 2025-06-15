@@ -231,15 +231,15 @@ class ShiftingState extends State:
             )
             return
 
-        if is_in_neutral:
+        if is_same_gear:
+            elapsed = SHIFT_SPEED
+        elif is_in_neutral:
             if shifter_container.shifter_animation.numerical_gear() != latest_gear:
                 shifter_container.set_shifter_animation_gear(latest_gear)
 
             shifter_container.shifter_animation_factor = elapsed / SHIFT_SPEED
         elif is_towards_neutral:
             shifter_container.shifter_animation_factor = 1 - elapsed / SHIFT_SPEED
-        elif is_same_gear:
-            pass
         else:
             # Shift away from current gear
             if elapsed < SHIFT_SPEED / 2:

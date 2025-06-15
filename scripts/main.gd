@@ -35,6 +35,7 @@ const CONTAINER_MOVE_SPEED: float = 10
 
 @onready var steering_wheel_sprite: VisualNode = %SteeringWheelSprite
 @onready var ebrake_base: VisualNode = %EbrakeBase
+@onready var ebrake_effect: VisualNode = %EbrakeEffect
 @onready var shifter_base: VisualNode = %ShifterBase
 @onready var pedal_throttle: VisualNode = %PedalThrottle
 @onready var throttle_pedal_fixture: VisualNode = %ThrottlePedalFixture
@@ -217,6 +218,7 @@ func hide_ui():
 
 func update_handbrake_position(amount: float):
     ebrake.rotation = amount * deg_to_rad(10)
+    ebrake_effect.modulate.a = amount
 
 func _reload_assets():
     left_foot.refresh_display()
