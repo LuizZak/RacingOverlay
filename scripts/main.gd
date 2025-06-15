@@ -166,6 +166,15 @@ func _reset_game_state():
     target_container_scale = Vector2.ONE
     target_container_position = Vector2.ZERO
 
+func _update_progress_bar_styles():
+    var style = StyleBoxFlat.new()
+    style.set_corner_radius_all(8.0)
+    style.bg_color = Settings.instance.pedal_bar_fill_color
+
+    clutch_progress.add_theme_stylebox_override("fill", style)
+    brake_progress.add_theme_stylebox_override("fill", style)
+    throttle_progress.add_theme_stylebox_override("fill", style)
+
 func _update_game_state():
     # Zeroed out packet means this is a close packet
     if packet_manager.is_end_packet():
@@ -242,6 +251,8 @@ func _on_settings_changed():
 
     shifter_container.shifter_shaft_color = Settings.instance.shifter_shaft_fill_color
     shifter_container.shifter_shaft_outline_color = Settings.instance.shifter_shaft_outline_color
+
+    _update_progress_bar_styles()
 
     Networking.instance.set_port(
         Settings.instance.active_game_settings().port

@@ -181,6 +181,22 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Reset"
 
+[node name="HBoxContainer10" type="HBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer10"]
+layout_mode = 2
+text = "Pedal bar fill color:"
+
+[node name="PedalBarFillColorButton" type="ColorPickerButton" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer10"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResetPedalBarFillColorButton" type="Button" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer10"]
+layout_mode = 2
+text = "Reset"
+
 [node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Visuals - Animations"
@@ -249,6 +265,8 @@ text = "Close"
 [connection signal="pressed" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer8/ResetShifterFillColorButton" to="." method="_on_reset_shifter_fill_color_button_pressed"]
 [connection signal="color_changed" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer9/ShifterOutlineColorButton" to="." method="_on_shifter_outline_color_button_color_changed"]
 [connection signal="pressed" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer9/ResetShifterOutlineColorButton" to="." method="_on_reset_shifter_outline_color_button_pressed"]
+[connection signal="color_changed" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer10/PedalBarFillColorButton" to="." method="_on_pedal_bar_fill_color_button_color_changed"]
+[connection signal="pressed" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer10/ResetPedalBarFillColorButton" to="." method="_on_reset_pedal_bar_fill_color_button_pressed"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationCheckbox" to="." method="_on_pedal_vibration_checkbox_toggled"]
 [connection signal="value_changed" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationSlider" to="." method="_on_pedal_vibration_slider_value_changed"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer3/PedalSinkCheckbox" to="." method="_on_pedal_sink_checkbox_toggled"]
