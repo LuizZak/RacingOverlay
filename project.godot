@@ -11,6 +11,8 @@ config_version=5
 [application]
 
 config/name="RacingOverlay"
+config/description="A racing overlay for streaming racing games."
+config/version="1.1.0"
 run/main_scene="uid://c8qh0jqb3l0jl"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"

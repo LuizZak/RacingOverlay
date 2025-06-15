@@ -168,7 +168,7 @@ func _reset_game_state():
 
 func _update_progress_bar_styles():
     var style = StyleBoxFlat.new()
-    style.set_corner_radius_all(8.0)
+    style.set_corner_radius_all(8)
     style.bg_color = Settings.instance.pedal_bar_fill_color
 
     clutch_progress.add_theme_stylebox_override("fill", style)
