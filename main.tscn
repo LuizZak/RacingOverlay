@@ -50,7 +50,7 @@ key = &"ebrake"
 
 [node name="EbrakeMarker" type="Marker2D" parent="Base/Container/EbrakeContainer/Ebrake"]
 unique_name_in_owner = true
-position = Vector2(0, -55)
+position = Vector2(0, -61)
 
 [node name="EbrakeBase" parent="Base/Container/EbrakeContainer" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
