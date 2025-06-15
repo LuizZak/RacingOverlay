@@ -176,7 +176,6 @@ func _update_progress_bar_styles():
     throttle_progress.add_theme_stylebox_override("fill", style)
 
 func _update_game_state():
-    # Zeroed out packet means this is a close packet
     if packet_manager.is_end_packet():
         _reset_game_state()
         return

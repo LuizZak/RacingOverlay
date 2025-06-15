@@ -63,6 +63,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Pedal Mode"
 
 [node name="PedalModeOptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
@@ -88,11 +89,13 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Steering Range"
 
 [node name="SteeringRangeSpinBox" type="SpinBox" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer6"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 tooltip_text = "The end-to-end steering range to animate,
 in degrees."
 max_value = 1800.0
@@ -104,6 +107,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Rest hand position"
 
 [node name="RestHandPositionOptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer7"]
@@ -157,12 +161,13 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer8"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Shifter shaft fill color:"
 
 [node name="ShifterFillColorButton" type="ColorPickerButton" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer8"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="ResetShifterFillColorButton" type="Button" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer8"]
 layout_mode = 2
@@ -173,12 +178,13 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer9"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Shifter shaft outline color:"
 
 [node name="ShifterOutlineColorButton" type="ColorPickerButton" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer9"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="ResetShifterOutlineColorButton" type="Button" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer9"]
 layout_mode = 2
@@ -189,12 +195,13 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer10"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Pedal bar fill color:"
 
 [node name="PedalBarFillColorButton" type="ColorPickerButton" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer10"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="ResetPedalBarFillColorButton" type="Button" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer10"]
 layout_mode = 2
