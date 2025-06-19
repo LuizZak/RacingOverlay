@@ -51,6 +51,9 @@ func _color_for_wheel(vehicle_speed: float, wheel_speed: float) -> Color:
     var diff := absf(vehicle_speed - wheel_speed)
     var ratio = minf(1.0, diff / tolerance)
 
+    if wheel_speed > vehicle_speed:
+        Color.GREEN.lerp(Color.YELLOW, ratio)
+
     return Color.GREEN.lerp(Color.RED, ratio)
 
 func _draw() -> void:
