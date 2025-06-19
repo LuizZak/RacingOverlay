@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8qh0jqb3l0jl"]
+[gd_scene load_steps=10 format=3 uid="uid://c8qh0jqb3l0jl"]
 
 [ext_resource type="Script" uid="uid://dd2jlovf26ngf" path="res://scripts/main.gd" id="1_37kl0"]
 [ext_resource type="PackedScene" uid="uid://bb7eldms6h3lh" path="res://scenes/controls_rebind.tscn" id="2_cegan"]
 [ext_resource type="PackedScene" uid="uid://clyp31sfrkmhu" path="res://nodes/steering_wheel_indicator.tscn" id="2_getpj"]
 [ext_resource type="Script" uid="uid://beflgpdwajjr3" path="res://scripts/shifter_container.gd" id="3_0m0f1"]
 [ext_resource type="PackedScene" uid="uid://dj2e4qiowlmf4" path="res://nodes/visual_node.tscn" id="3_kek77"]
+[ext_resource type="PackedScene" uid="uid://d4dysephj2r1g" path="res://nodes/wheel_metrics.tscn" id="7_kek77"]
 [ext_resource type="Theme" uid="uid://dx3lsu6ufvl3v" path="res://theme.tres" id="10_00tp4"]
 [ext_resource type="Script" uid="uid://df1h86p5ogkk5" path="res://scripts/pedals_container.gd" id="12_45l4g"]
 [ext_resource type="PackedScene" uid="uid://bbjowoa4gcx16" path="res://nodes/settings/SettingsPanel.tscn" id="21_getpj"]
@@ -20,11 +21,11 @@ unique_name_in_owner = true
 
 [node name="SteeringWheelIndicator" parent="Base/Container" instance=ExtResource("2_getpj")]
 unique_name_in_owner = true
-position = Vector2(47, -61)
+position = Vector2(47, -79)
 
 [node name="SteeringWheel" type="Node2D" parent="Base/Container"]
 unique_name_in_owner = true
-position = Vector2(47, -61)
+position = Vector2(47, -79)
 
 [node name="SteeringWheelSprite" parent="Base/Container/SteeringWheel" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
@@ -41,7 +42,7 @@ unique_name_in_owner = true
 key = &"hand_left"
 
 [node name="EbrakeContainer" type="Node2D" parent="Base/Container"]
-position = Vector2(-154, -149)
+position = Vector2(-154, -167)
 
 [node name="Ebrake" parent="Base/Container/EbrakeContainer" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
@@ -63,7 +64,7 @@ position = Vector2(35, 178)
 key = &"ebrake_effect"
 
 [node name="ShifterContainer" type="Node2D" parent="Base/Container"]
-position = Vector2(-70, 37)
+position = Vector2(-70, 19)
 script = ExtResource("3_0m0f1")
 shifter_shaft_thickness = 5.0
 
@@ -91,11 +92,11 @@ horizontal_alignment = 1
 
 [node name="RightHand" parent="Base/Container" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
-position = Vector2(-6, -70)
+position = Vector2(-6, -88)
 key = &"hand_right_steering"
 
 [node name="PedalsContainer" type="Node2D" parent="Base/Container"]
-position = Vector2(51, 124)
+position = Vector2(51, 106)
 script = ExtResource("12_45l4g")
 
 [node name="RightFoot" parent="Base/Container/PedalsContainer" instance=ExtResource("3_kek77")]
@@ -226,6 +227,21 @@ offset_right = -25.0
 offset_bottom = 40.0
 theme = ExtResource("10_00tp4")
 text = "Throttle"
+
+[node name="WheelMetrics" parent="Base" instance=ExtResource("7_kek77")]
+unique_name_in_owner = true
+position = Vector2(-151, 135)
+back_color = Color(1, 1, 1, 0.435294)
+
+[node name="Label" type="Label" parent="Base"]
+offset_left = -179.0
+offset_top = 58.0
+offset_right = -123.0
+offset_bottom = 78.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+text = "Traction"
 
 [node name="UIContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true

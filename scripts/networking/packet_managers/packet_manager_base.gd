@@ -7,6 +7,7 @@ var _vertical_velocity: float
 var _is_end_packet: bool = false
 
 var _networking: NetworkingBase
+var _latest_packet: GamePacketBase
 
 func _init(networking: NetworkingBase):
     _networking = networking
@@ -14,13 +15,17 @@ func _init(networking: NetworkingBase):
 ## Called at the start of a frame to digest packets from the Networking layer.
 func process(delta: float):
     while _networking.has_packets():
-        _update(_networking.fetch_packet())
+        _latest_packet = _networking.fetch_packet()
+        _update(_latest_packet)
 
 func _update(packet: GamePacketBase):
     _roll_angle = packet.computed_roll_angle()
     _forward_velocity = packet.computed_forward_velocity()
     _vertical_velocity = packet.computed_vertical_velocity()
     _is_end_packet = packet.is_end_packet()
+
+func latest_packet() -> GamePacketBase:
+    return _latest_packet
 
 func roll_angle() -> float:
     return _roll_angle

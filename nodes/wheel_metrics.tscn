@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4dysephj2r1g"]
+
+[ext_resource type="Script" uid="uid://b6qt48phe4i6j" path="res://scripts/wheel_metrics.gd" id="1_ce2ar"]
+
+[node name="WheelMetrics" type="Node2D"]
+script = ExtResource("1_ce2ar")

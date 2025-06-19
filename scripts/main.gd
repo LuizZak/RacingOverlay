@@ -48,6 +48,8 @@ const CONTAINER_MOVE_SPEED: float = 10
 @onready var left_hand: VisualNode = %LeftHand
 @onready var right_hand: VisualNode = %RightHand
 
+@onready var wheel_metrics: WheelMetrics = %WheelMetrics
+
 var ui_container_tween: Tween = null
 
 var input_manager: InputManagerBase
@@ -120,9 +122,12 @@ func _process(delta: float) -> void:
 
     if Networking.instance.is_connected_to_game():
         packet_manager.process(delta)
+        if packet_manager._latest_packet != null:
+            wheel_metrics.update_with_packet(packet_manager._latest_packet)
         _update_game_state()
     else:
         _reset_game_state()
+        wheel_metrics.reset()
 
     container.rotation = target_container_rotation
     container.scale = container.scale.move_toward(target_container_scale, CONTAINER_SCALE_SPEED * delta)

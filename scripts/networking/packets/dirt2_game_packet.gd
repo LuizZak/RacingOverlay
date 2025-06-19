@@ -3,53 +3,90 @@ extends GamePacketBase
 
 const PACKET_SIZE: int = 264
 
+## Run time, in seconds.
 var run_time: float
+## Lap time, in seconds.
 var lap_time: float
+## Distance traveled, in meters.
 var distance: float
+## Progress in current track.
 ## Note: 0.0 to 1.0
 var progress: float
+## Position in world space.
 var pos: Vector3
+## Velocity of vehicle, in meters per second.
 var speed_ms: float
+## Velocity in world space.
 var vel: Vector3
+## Roll vector of vehicle.
 var roll: Vector3
+## Pitch vector of vehicle.
 var pitch: Vector3
+## Positon of suspension, rear left.
 var susp_rl: float
+## Positon of suspension, rear right.
 var susp_rr: float
+## Positon of suspension, forwardleft.
 var susp_fl: float
+## Positon of suspension, forward right.
 var susp_fr: float
+## Velocity of suspension, rear left.
 var susp_vel_rl: float
+## Velocity of suspension, rear right.
 var susp_vel_rr: float
+## Velocity of suspension, forward left.
 var susp_vel_fl: float
+## Velocity of suspension, forward right.
 var susp_vel_fr: float
+## Velocity of rotation of wheel, in meters per second, rear left.
 var wsp_rl: float
+## Velocity of rotation of wheel, in meters per second, rear right.
 var wsp_rr: float
+## Velocity of rotation of wheel, in meters per second, forward left.
 var wsp_fl: float
+## Velocity of rotation of wheel, in meters per second, forward right.
 var wsp_fr: float
+## Throttle input.
 ## Note: 0.0 to 1.0
 var throttle: float
+## Steering input.
 ## Note: -1.0 to 1.0
 var steering: float
+## Brake input.
 ## Note: 0.0 to 1.0
 var brakes: float
+## Clutch input.
 ## Note: 0.0 to 1.0
 var clutch: float
+## Current gear.
 ## Note: 0 for neutral, 10 for reverse
 var gear: float
+## Lateral g-force (side to side).
 var g_force_lat: float
+## Logitudinal g-force (front to back).
 var g_force_lon: float
+## Current lap.
 var current_lap: float
+## Current car RPM.
 ## Note: * 10 for realistic values
 var rpm: float
+## Car race position.
 var car_pos: float
+## Max RPM.
 ## Note: * 10 for realistic values
 var max_rpm: float
+## Idle RPM.
 ## Note: * 10 for realistic values
 var idle_rpm: float
+## Maximum number of gears available.
 var max_gears: float
 
 ## Gets the game associated with this packet type.
 func get_game() -> Game:
     return Game.DIRT_2
+
+func _to_string() -> String:
+    return "speed_ms: %s | wsp_rr: %s | wsp_rl: %s | wsp_fr: %s | wsp_fl: %s" % [speed_ms, wsp_rr, wsp_rl, wsp_fr, wsp_fl]
 
 #region Required
 
