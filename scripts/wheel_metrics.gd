@@ -53,10 +53,10 @@ func _draw() -> void:
     const POWERTRAIN_COLOR := Color.BLACK
     const POWERTRAIN_WIDTH := 2.0
 
-    var rl = wheel_entries[Wheel.REAR_LEFT].get_center_right()
-    var rr = wheel_entries[Wheel.REAR_RIGHT].get_center_left()
-    var fl = wheel_entries[Wheel.FRONT_LEFT].get_center_right()
-    var fr = wheel_entries[Wheel.FRONT_RIGHT].get_center_left()
+    var rl = wheel_entries[Wheel.REAR_LEFT].get_center()
+    var rr = wheel_entries[Wheel.REAR_RIGHT].get_center()
+    var fl = wheel_entries[Wheel.FRONT_LEFT].get_center()
+    var fr = wheel_entries[Wheel.FRONT_RIGHT].get_center()
 
     var rear = (rl + rr) / 2.0
     var front = (fl + fr) / 2.0
@@ -81,6 +81,7 @@ func _bounds_for_drawing() -> Rect2:
 class WheelEntry:
     var position: Vector2
     var size: Vector2
+    var rotation: float = 0.0
     var fill_color: Color = Color.TRANSPARENT
     var is_locked: bool = false
 
@@ -111,8 +112,10 @@ class WheelEntry:
             is_locked = false
 
     func draw(canvas_item: CanvasItem) -> void:
-        canvas_item.draw_rect(bounds(), fill_color, true)
-        canvas_item.draw_rect(bounds(), Color.BLACK, false, 1, true)
+        canvas_item.draw_set_transform(position, rotation)
+
+        canvas_item.draw_rect(local_bounds(), fill_color, true)
+        canvas_item.draw_rect(local_bounds(), Color.BLACK, false, 1, true)
 
         if is_locked:
             draw_padlock(canvas_item)
@@ -121,7 +124,7 @@ class WheelEntry:
         var width := 0.7
 
         # Draw padlock body
-        var padlock_body_bounds := bounds()
+        var padlock_body_bounds := local_bounds()
         padlock_body_bounds = padlock_body_bounds.grow(-3)
         padlock_body_bounds.size.y = padlock_body_bounds.size.x
         padlock_body_bounds.position.y = self.get_center_left().y - padlock_body_bounds.size.y * 0.3
@@ -161,6 +164,12 @@ class WheelEntry:
 
     func bounds() -> Rect2:
         return Rect2(position - size / 2, size)
+
+    func local_bounds() -> Rect2:
+        return Rect2(Vector2.ZERO - size / 2, size)
+
+    func get_center() -> Vector2:
+        return position
 
     func get_center_left() -> Vector2:
         return position - size * Vector2(0.5, 0.0)
