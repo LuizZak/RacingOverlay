@@ -2,6 +2,8 @@
 
 ![cover](./cover.png)
 
+Builds for Windows available over at: https://luizzak.itch.io/racing-overlay
+
 A Godot-based racing overlay for streaming steering wheel inputs.
 
 Supports most steering wheel-based input devices with a rebinding screen, and on compatible games, supports connecting to telemetry to display extra fun information such as car roll and car speed as transformations of the overlay.
