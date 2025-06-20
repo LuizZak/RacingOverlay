@@ -16,6 +16,8 @@ var roll_with_vehicle_checkbox: CheckBox = %RollWithVehicleCheckbox
 var scale_with_speed_checkbox: CheckBox = %ScaleWithSpeedCheckbox
 @onready
 var move_vertically_checkbox: CheckBox = %MoveVerticallyCheckbox
+@onready
+var show_extra_game_info_checkbox: CheckBox = %ShowExtraGameInfoCheckbox
 
 @onready
 var status_label: Label = %StatusLabel
@@ -52,6 +54,7 @@ func _populate_settings() -> void:
     roll_with_vehicle_checkbox.button_pressed = settings.roll_with_vehicle
     scale_with_speed_checkbox.button_pressed = settings.scale_with_speed
     move_vertically_checkbox.button_pressed = settings.move_vertically
+    show_extra_game_info_checkbox.button_pressed = settings.show_extra_game_information
 
 func _settings_for_selected_item() -> GameConnectionSettings:
     if game_option_button.selected == -1:
@@ -74,16 +77,17 @@ func _on_game_option_button_item_selected(index: int) -> void:
 
     _populate_settings()
 
+func _on_connect_to_game_checkbox_toggled(toggled_on: bool) -> void:
+    Settings.instance.connect_to_game = toggled_on
+    Settings.instance.save_to_disk()
+
 func _on_port_spin_box_value_changed(value: float) -> void:
     var settings = _settings_for_selected_item()
     if !settings:
         return
 
     settings.port = int(value)
-    Settings.instance.save_to_disk()
-
-func _on_connect_to_game_checkbox_toggled(toggled_on: bool) -> void:
-    Settings.instance.connect_to_game = toggled_on
+    Settings.instance.emit_settings_changed()
     Settings.instance.save_to_disk()
 
 func _on_roll_with_vehicle_checkbox_toggled(toggled_on: bool) -> void:
@@ -92,6 +96,7 @@ func _on_roll_with_vehicle_checkbox_toggled(toggled_on: bool) -> void:
         return
 
     settings.roll_with_vehicle = toggled_on
+    Settings.instance.emit_settings_changed()
     Settings.instance.save_to_disk()
 
 func _on_scale_with_speed_checkbox_toggled(toggled_on: bool) -> void:
@@ -100,6 +105,7 @@ func _on_scale_with_speed_checkbox_toggled(toggled_on: bool) -> void:
         return
 
     settings.scale_with_speed = toggled_on
+    Settings.instance.emit_settings_changed()
     Settings.instance.save_to_disk()
 
 func _on_move_vertically_checkbox_toggled(toggled_on: bool) -> void:
@@ -108,6 +114,16 @@ func _on_move_vertically_checkbox_toggled(toggled_on: bool) -> void:
         return
 
     settings.move_vertically = toggled_on
+    Settings.instance.emit_settings_changed()
+    Settings.instance.save_to_disk()
+
+func _on_show_extra_game_info_checkbox_toggled(toggled_on: bool) -> void:
+    var settings = _settings_for_selected_item()
+    if !settings:
+        return
+
+    settings.show_extra_game_information = toggled_on
+    Settings.instance.emit_settings_changed()
     Settings.instance.save_to_disk()
 
 func _on_networking_status_changed(status: NetworkingBase.Status):

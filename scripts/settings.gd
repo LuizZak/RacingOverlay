@@ -19,67 +19,67 @@ static var instance: Settings = Settings.new()
 var pedal_mode: PedalMode = PedalMode.DUAL_AXIS:
     set(value):
         pedal_mode = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var rest_hand_position: RestHandPosition = RestHandPosition.STEERING_WHEEL:
     set(value):
         rest_hand_position = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var steering_range: float = 900:
     set(value):
         steering_range = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var smooth_textures: bool = false:
     set(value):
         smooth_textures = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var steering_wheel_progress: bool = false:
     set(value):
         steering_wheel_progress = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var shifter_shaft_fill_color: Color = Color.from_rgba8(99, 155, 255):
     set(value):
         shifter_shaft_fill_color = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var shifter_shaft_outline_color: Color = Color.WHITE:
     set(value):
         shifter_shaft_outline_color = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var pedal_bar_fill_color: Color = Color(0.082, 0.219, 0.225):
     set(value):
         pedal_bar_fill_color = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var pedal_vibration: bool = true:
     set(value):
         pedal_vibration = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var pedal_vibration_strength: float = 1.0:
     set(value):
         pedal_vibration_strength = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var pedal_sink: bool = true:
     set(value):
         pedal_sink = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var connect_to_game: bool = true:
     set(value):
         connect_to_game = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var active_game: GameConnectionSettings.Game = GameConnectionSettings.Game.DIRT_2:
     set(value):
         active_game = value
-        on_settings_changed.emit()
+        emit_settings_changed()
 
 var game_connections: Dictionary[GameConnectionSettings.Game, GameConnectionSettings] = {}
 
@@ -150,6 +150,9 @@ func _from_settings_directory(dictionary: Dictionary):
 func _populage_default_game_settings():
     for value in GameConnectionSettings.Game.values():
         game_connections[value] = GameConnectionSettings.new()
+
+func emit_settings_changed() -> void:
+    on_settings_changed.emit()
 
 func active_game_settings() -> GameConnectionSettings:
     return game_connections[active_game]

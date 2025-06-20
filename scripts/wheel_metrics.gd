@@ -90,6 +90,7 @@ func _bounds_for_drawing() -> Rect2:
 
     return bounds
 
+## A wheel entry, with information about positioning and color in local node space.
 class WheelEntry:
     var position: Vector2
     var size: Vector2

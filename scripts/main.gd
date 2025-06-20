@@ -268,10 +268,19 @@ func _on_settings_changed():
             Settings.instance.active_game
         )
     )
+
+    var show_wheel_metrics: bool = false
+
     if Settings.instance.connect_to_game:
         Networking.instance.set_mode(NetworkingBase.Mode.CONNECT)
+
+        if Settings.instance.active_game_settings().show_extra_game_information:
+            if Settings.instance.active_game == GameConnectionSettings.Game.DIRT_2:
+                show_wheel_metrics = true
     else:
         Networking.instance.set_mode(NetworkingBase.Mode.DISCONNECT)
+
+    wheel_metrics.visible = show_wheel_metrics
 
 func _on_bindings_button_pressed() -> void:
     controls_rebind.show()
