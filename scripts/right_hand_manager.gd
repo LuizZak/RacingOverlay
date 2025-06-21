@@ -20,9 +20,13 @@ const RHM_SEQUENTIAL_SHIFTER_MANAGER = "sequential_shifter_manager"
 ## Type: Settings.RestHandPosition
 const RHM_REST_HAND_POSITION = "rest_hand_position"
 
-## Transition speed, in seconds, to move between shifter and steering wheel.
+## Transition speed, in pixels per second, to move between shifter, steering wheel,
+## and handbrake.
+const TRANSITION_SPEED := 800.0
+
+## Transition time, in seconds, to move between shifter and steering wheel.
 const TRANSITION_TIME = 0.15
-## Transition speed, in seconds, to shift between gears in the shifter.
+## Transition time, in seconds, to shift between gears in the shifter.
 const SHIFT_TIME = 0.2
 
 ## Transitions from the current state towards the rest state of the hand, according
@@ -84,15 +88,15 @@ class MovingToHandbrakeState extends State:
 
         var eased := ease(elapsed / TRANSITION_TIME, -2)
 
-        right_hand.global_position = start_position.lerp(handbrake_pin.global_position, eased)
         right_hand.global_rotation = lerpf(start_rotation, 0.0, eased)
+        right_hand.global_position = right_hand.global_position.move_toward(handbrake_pin.global_position, TRANSITION_SPEED * delta)
 
         # Cancel back to rest state, if no handbrake is needed anymore.
         if input_manager.handbrake_amount() == 0.0:
             state_machine.transition_to_rest_state()
             return
 
-        if self.elapsed >= TRANSITION_TIME:
+        if right_hand.global_position == handbrake_pin.global_position:
             state_machine.transition(
                 HandbrakingState.new()
             )
@@ -332,10 +336,12 @@ class MovingToShifterState extends State:
 
         var eased := ease(elapsed / TRANSITION_TIME, -2)
 
-        right_hand.global_position = start_position.lerp(shifter_knob.global_position, eased)
+        #right_hand.global_position = start_position.lerp(shifter_knob.global_position, eased)
         right_hand.global_rotation = lerpf(start_rotation, 0.0, eased)
 
-        if self.elapsed >= TRANSITION_TIME:
+        right_hand.global_position = right_hand.global_position.move_toward(shifter_knob.global_position, TRANSITION_SPEED * delta)
+
+        if right_hand.global_position == shifter_knob.global_position:
             if seq_shifter.has_gear_changes():
                 state_machine.transition(
                     ShiftingSequentialState.new()
@@ -374,7 +380,7 @@ class MovingToSteeringWheelState extends State:
 
         var eased = ease(elapsed / TRANSITION_TIME, -2)
 
-        right_hand.global_position = start_position.lerp(steering_pin.global_position, eased)
+        right_hand.global_position = right_hand.global_position.move_toward(steering_pin.global_position, TRANSITION_SPEED * delta)
         right_hand.global_rotation = lerpf(start_rotation, steering_pin.global_rotation, eased)
 
         if input_manager.numerical_gear() != self.latest_gear or seq_shifter.has_gear_changes():
@@ -383,7 +389,13 @@ class MovingToSteeringWheelState extends State:
             )
             return
 
-        if self.elapsed >= TRANSITION_TIME:
+        if input_manager.handbrake_amount() != 0.0:
+            state_machine.transition(
+                MovingToHandbrakeState.new()
+            )
+            return
+
+        if right_hand.global_position == steering_pin.global_position:
             state_machine.transition(
                 OnSteeringWheelState.new()
             )
