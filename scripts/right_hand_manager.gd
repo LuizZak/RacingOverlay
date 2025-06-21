@@ -21,9 +21,9 @@ const RHM_SEQUENTIAL_SHIFTER_MANAGER = "sequential_shifter_manager"
 const RHM_REST_HAND_POSITION = "rest_hand_position"
 
 ## Transition speed, in seconds, to move between shifter and steering wheel.
-const TRANSITION_SPEED = 0.15
+const TRANSITION_TIME = 0.15
 ## Transition speed, in seconds, to shift between gears in the shifter.
-const SHIFT_SPEED = 0.2
+const SHIFT_TIME = 0.2
 
 ## Transitions from the current state towards the rest state of the hand, according
 ## to `RHM_REST_HAND_POSITION`.
@@ -52,16 +52,16 @@ func transition_to_rest_state():
 
 ## Moving hand to handbrake from its current position.
 class MovingToHandbrakeState extends State:
-    var last_position: Vector2 = Vector2.ZERO
-    var last_rotation: float = 0.0
+    var start_position: Vector2 = Vector2.ZERO
+    var start_rotation: float = 0.0
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
         var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var global_container := state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
-        last_position = right_hand.global_position
-        last_rotation = right_hand.global_rotation
+        start_position = right_hand.global_position
+        start_rotation = right_hand.global_rotation
 
         # Ensure hand is contained in the global container, so it can be moved
         # freely.
@@ -70,8 +70,8 @@ class MovingToHandbrakeState extends State:
 
         global_container.add_child(right_hand)
 
-        right_hand.global_position = last_position
-        right_hand.global_rotation = last_rotation
+        right_hand.global_position = start_position
+        right_hand.global_rotation = start_rotation
 
         right_hand.key = CustomResourceLoader.HAND_RIGHT_FLOATING
 
@@ -82,17 +82,17 @@ class MovingToHandbrakeState extends State:
         var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var handbrake_pin := state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
 
-        var eased := ease(elapsed / TRANSITION_SPEED, -2)
+        var eased := ease(elapsed / TRANSITION_TIME, -2)
 
-        right_hand.global_position = last_position.lerp(handbrake_pin.global_position, eased)
-        right_hand.global_rotation = lerpf(last_rotation, 0.0, eased)
+        right_hand.global_position = start_position.lerp(handbrake_pin.global_position, eased)
+        right_hand.global_rotation = lerpf(start_rotation, 0.0, eased)
 
         # Cancel back to rest state, if no handbrake is needed anymore.
         if input_manager.handbrake_amount() == 0.0:
             state_machine.transition_to_rest_state()
             return
 
-        if self.elapsed >= TRANSITION_SPEED:
+        if self.elapsed >= TRANSITION_TIME:
             state_machine.transition(
                 HandbrakingState.new()
             )
@@ -185,14 +185,14 @@ class ShiftingSequentialState extends State:
 
         right_hand.global_position = shifter_knob.global_position
 
-        if elapsed < SHIFT_SPEED / 2.0:
+        if elapsed < SHIFT_TIME / 2.0:
             # Shift towards gear
             if shifter_container.shifter_animation.numerical_gear() != pseudo_gear:
                 shifter_container.set_shifter_animation_gear(pseudo_gear)
 
-            shifter_container.shifter_animation_factor = elapsed / (SHIFT_SPEED / 2.0)
+            shifter_container.shifter_animation_factor = elapsed / (SHIFT_TIME / 2.0)
         else:
-            shifter_container.shifter_animation_factor = 1 - (elapsed - SHIFT_SPEED / 2.0) / (SHIFT_SPEED / 2.0)
+            shifter_container.shifter_animation_factor = 1 - (elapsed - SHIFT_TIME / 2.0) / (SHIFT_TIME / 2.0)
 
         # If H-pattern has been engaged, clear sequential shifts in queue and
         # move to H-pattern shifting state
@@ -203,7 +203,7 @@ class ShiftingSequentialState extends State:
             )
             return
 
-        if elapsed >= SHIFT_SPEED:
+        if elapsed >= SHIFT_TIME:
             # Shift again, if another shift is required.
             if seq_shifter.has_gear_changes():
                 state_machine.transition(
@@ -261,7 +261,7 @@ class ShiftingState extends State:
             # Do nothing, and enable state transitioning away from current state.
             # This usually means the hand is resting idly on the shifter and not
             # shifting gears.
-            elapsed = SHIFT_SPEED
+            elapsed = SHIFT_TIME
         # If shifting from neutral...
         elif is_in_neutral:
             # Engage next gear's animation
@@ -269,24 +269,24 @@ class ShiftingState extends State:
                 shifter_container.set_shifter_animation_gear(latest_gear)
 
             # Animate it forward
-            shifter_container.shifter_animation_factor = elapsed / SHIFT_SPEED
+            shifter_container.shifter_animation_factor = elapsed / SHIFT_TIME
         # If shifting towards neutral...
         elif is_towards_neutral:
             # Animate it backwards towards neutral
-            shifter_container.shifter_animation_factor = 1 - elapsed / SHIFT_SPEED
+            shifter_container.shifter_animation_factor = 1 - elapsed / SHIFT_TIME
         # If shifting from one gear to another...
         else:
             # Shift away from current gear
-            if elapsed < SHIFT_SPEED / 2:
-                shifter_container.shifter_animation_factor = 1 - elapsed / (SHIFT_SPEED / 2)
+            if elapsed < SHIFT_TIME / 2:
+                shifter_container.shifter_animation_factor = 1 - elapsed / (SHIFT_TIME / 2)
             # Shift towards target gear
             else:
                 if shifter_container.shifter_animation.numerical_gear() != latest_gear:
                     shifter_container.set_shifter_animation_gear(latest_gear)
 
-                shifter_container.shifter_animation_factor = (elapsed - SHIFT_SPEED / 2) / (SHIFT_SPEED / 2)
+                shifter_container.shifter_animation_factor = (elapsed - SHIFT_TIME / 2) / (SHIFT_TIME / 2)
 
-        if elapsed >= SHIFT_SPEED:
+        if elapsed >= SHIFT_TIME:
             if self.is_towards_neutral:
                 shifter_container.set_shifter_animation_gear(0)
 
@@ -300,16 +300,16 @@ class ShiftingState extends State:
 
 ## Moving hand towards shifter from its current position.
 class MovingToShifterState extends State:
-    var last_position: Vector2 = Vector2.ZERO
-    var last_rotation: float = 0.0
+    var start_position: Vector2 = Vector2.ZERO
+    var start_rotation: float = 0.0
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
         var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
         var global_container := state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
-        last_position = right_hand.global_position
-        last_rotation = right_hand.global_rotation
+        start_position = right_hand.global_position
+        start_rotation = right_hand.global_rotation
 
         # Ensure hand is contained in the global container, so it can be moved
         # freely.
@@ -318,8 +318,8 @@ class MovingToShifterState extends State:
 
         global_container.add_child(right_hand)
 
-        right_hand.global_position = last_position
-        right_hand.global_rotation = last_rotation
+        right_hand.global_position = start_position
+        right_hand.global_rotation = start_rotation
 
         right_hand.key = CustomResourceLoader.HAND_RIGHT_FLOATING
 
@@ -330,12 +330,12 @@ class MovingToShifterState extends State:
         var shifter_knob := state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
         var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
-        var eased := ease(elapsed / TRANSITION_SPEED, -2)
+        var eased := ease(elapsed / TRANSITION_TIME, -2)
 
-        right_hand.global_position = last_position.lerp(shifter_knob.global_position, eased)
-        right_hand.global_rotation = lerpf(last_rotation, 0.0, eased)
+        right_hand.global_position = start_position.lerp(shifter_knob.global_position, eased)
+        right_hand.global_rotation = lerpf(start_rotation, 0.0, eased)
 
-        if self.elapsed >= TRANSITION_SPEED:
+        if self.elapsed >= TRANSITION_TIME:
             if seq_shifter.has_gear_changes():
                 state_machine.transition(
                     ShiftingSequentialState.new()
@@ -349,8 +349,8 @@ class MovingToShifterState extends State:
 class MovingToSteeringWheelState extends State:
     var latest_gear: int = 0
 
-    var last_position: Vector2 = Vector2.ZERO
-    var last_rotation: float = 0.0
+    var start_position: Vector2 = Vector2.ZERO
+    var start_rotation: float = 0.0
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
@@ -359,8 +359,8 @@ class MovingToSteeringWheelState extends State:
 
         self.latest_gear = input_manager.numerical_gear()
 
-        last_position = right_hand.global_position
-        last_rotation = right_hand.global_rotation
+        start_position = right_hand.global_position
+        start_rotation = right_hand.global_rotation
 
         right_hand.key = CustomResourceLoader.HAND_RIGHT_FLOATING
 
@@ -372,10 +372,10 @@ class MovingToSteeringWheelState extends State:
         var steering_pin := state_machine.parameters[RHM_STEERING_PIN] as Node2D
         var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
-        var eased = ease(elapsed / TRANSITION_SPEED, -2)
+        var eased = ease(elapsed / TRANSITION_TIME, -2)
 
-        right_hand.global_position = last_position.lerp(steering_pin.global_position, eased)
-        right_hand.global_rotation = lerpf(last_rotation, steering_pin.global_rotation, eased)
+        right_hand.global_position = start_position.lerp(steering_pin.global_position, eased)
+        right_hand.global_rotation = lerpf(start_rotation, steering_pin.global_rotation, eased)
 
         if input_manager.numerical_gear() != self.latest_gear or seq_shifter.has_gear_changes():
             state_machine.transition(
@@ -383,7 +383,7 @@ class MovingToSteeringWheelState extends State:
             )
             return
 
-        if self.elapsed >= TRANSITION_SPEED:
+        if self.elapsed >= TRANSITION_TIME:
             state_machine.transition(
                 OnSteeringWheelState.new()
             )
