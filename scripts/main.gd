@@ -232,6 +232,7 @@ func _reload_assets():
     ebrake_base.refresh_display()
     ebrake_effect.refresh_display()
     left_hand.refresh_display()
+    right_hand.refresh_display()
     pedal_base.refresh_display()
     pedal_clutch.refresh_display()
     clutch_pedal_fixture.refresh_display()
@@ -241,9 +242,6 @@ func _reload_assets():
     shifter_base.refresh_display()
     shifter_knob.refresh_display()
     steering_wheel_sprite.refresh_display()
-    right_hand_manager.transition(
-        RightHandManager.OnSteeringWheelState.new()
-    )
 
 func _on_settings_changed():
     right_hand_manager.parameters[RightHandManager.RHM_REST_HAND_POSITION] = Settings.instance.rest_hand_position
