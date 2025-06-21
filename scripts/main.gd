@@ -230,6 +230,7 @@ func _reload_assets():
     right_foot.refresh_display()
     ebrake.refresh_display()
     ebrake_base.refresh_display()
+    ebrake_effect.refresh_display()
     left_hand.refresh_display()
     pedal_base.refresh_display()
     pedal_clutch.refresh_display()
