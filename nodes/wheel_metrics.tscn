@@ -4,3 +4,23 @@
 
 [node name="WheelMetrics" type="Node2D"]
 script = ExtResource("1_ce2ar")
+
+[node name="LeftLabel" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -8.0
+offset_right = -15.0
+offset_bottom = 9.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 12
+text = "L"
+
+[node name="RightLabel" type="Label" parent="."]
+offset_left = 16.0
+offset_top = -8.0
+offset_right = 24.0
+offset_bottom = 9.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 12
+text = "R"
