@@ -73,7 +73,7 @@ signal on_close_pressed()
 var _current_rebind_action: String = ""
 
 func _ready():
-    var workingMap = InputtyMap.new()
+    var workingMap := InputtyMap.new()
     workingMap.loadFromFile()
     workingMap.applyToMain()
 
@@ -90,7 +90,7 @@ func _ready():
 func _on_load_defaults_button_pressed():
     InputMap.load_from_project_settings()
 
-    var workingMap = InputtyMap.new()
+    var workingMap := InputtyMap.new()
     workingMap.copyFromMain()
     workingMap.saveToFile()
 
@@ -105,7 +105,7 @@ func _rebind_container_on_input_accepted(event: InputEvent):
         InputMap.action_erase_events(_current_rebind_action)
         InputMap.action_add_event(_current_rebind_action, event)
 
-        var workingMap = InputtyMap.new()
+        var workingMap := InputtyMap.new()
         workingMap.copyFromMain()
         workingMap.saveToFile()
 

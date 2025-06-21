@@ -13,7 +13,7 @@ func transition(new_state: State) -> void:
     if current_state != null:
         current_state.on_exit(new_state, self)
 
-    var last_state = current_state
+    var last_state := current_state
     current_state = new_state
 
     if new_state != null:

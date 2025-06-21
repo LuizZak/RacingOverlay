@@ -173,7 +173,7 @@ func _reset_game_state():
     target_container_position = Vector2.ZERO
 
 func _update_progress_bar_styles():
-    var style = StyleBoxFlat.new()
+    var style := StyleBoxFlat.new()
     style.set_corner_radius_all(8)
     style.bg_color = Settings.instance.pedal_bar_fill_color
 
@@ -247,7 +247,7 @@ func _reload_assets():
 func _on_settings_changed():
     right_hand_manager.parameters[RightHandManager.RHM_REST_HAND_POSITION] = Settings.instance.rest_hand_position
 
-    var filter = Node2D.TEXTURE_FILTER_NEAREST
+    var filter := Node2D.TEXTURE_FILTER_NEAREST
     if Settings.instance.smooth_textures:
         filter = Node2D.TEXTURE_FILTER_LINEAR
 

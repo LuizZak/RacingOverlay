@@ -51,8 +51,8 @@ class MovingToHandbrakeState extends State:
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var global_container := state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
         last_position = right_hand.global_position
         last_rotation = right_hand.global_rotation
@@ -70,11 +70,11 @@ class MovingToHandbrakeState extends State:
     func process(delta, state_machine):
         self.elapsed += delta
 
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var handbrake_pin = state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var handbrake_pin := state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
 
-        var eased = ease(elapsed / TRANSITION_SPEED, -2)
+        var eased := ease(elapsed / TRANSITION_SPEED, -2)
 
         right_hand.global_position = last_position.lerp(handbrake_pin.global_position, eased)
         right_hand.global_rotation = lerpf(last_rotation, 0.0, eased)
@@ -92,9 +92,9 @@ class HandbrakingState extends State:
     var latest_gear: int = 0
 
     func on_enter(_last, state_machine):
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var handbrake_pin = state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var handbrake_pin := state_machine.parameters[RHM_HANDBRAKE_PIN] as Node2D
 
         if right_hand.get_parent():
             right_hand.get_parent().remove_child(right_hand)
@@ -109,10 +109,10 @@ class HandbrakingState extends State:
         right_hand.position = Vector2.ZERO
 
     func on_exit(_next, state_machine):
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var global_container := state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
-        var last_position = right_hand.global_position
+        var last_position := right_hand.global_position
 
         if right_hand.get_parent():
             right_hand.get_parent().remove_child(right_hand)
@@ -122,9 +122,9 @@ class HandbrakingState extends State:
         right_hand.global_position = last_position
 
     func process(_delta, state_machine):
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
-        var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var shifter_container := state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
+        var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
         if input_manager.handbrake_amount() == 0.0:
             state_machine.transition_to_rest_state()
@@ -144,10 +144,10 @@ class ShiftingSequentialState extends State:
     var pseudo_gear: int = 0
 
     func on_enter(_last, state_machine):
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
-        var is_shift_up = seq_shifter.dequeue_gear_change()
+        var is_shift_up := seq_shifter.dequeue_gear_change()
 
         if is_shift_up:
             pseudo_gear = 3
@@ -159,11 +159,11 @@ class ShiftingSequentialState extends State:
     func process(delta, state_machine):
         elapsed += delta
 
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
-        var shifter_knob = state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
-        var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var shifter_container := state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
+        var shifter_knob := state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
+        var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
         right_hand.global_position = shifter_knob.global_position
 
@@ -200,9 +200,9 @@ class ShiftingState extends State:
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var shifter_container := state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
 
         self.latest_gear = input_manager.numerical_gear()
         self.is_in_neutral = shifter_container.shifter_animation.numerical_gear() == 0
@@ -214,11 +214,11 @@ class ShiftingState extends State:
     func process(delta, state_machine):
         self.elapsed += delta
 
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var shifter_container = state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
-        var shifter_knob = state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
-        var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var shifter_container := state_machine.parameters[RHM_SHIFTER_CONTAINER] as ShifterContainer
+        var shifter_knob := state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
+        var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
         right_hand.global_position = shifter_knob.global_position
 
@@ -269,8 +269,8 @@ class MovingToShifterState extends State:
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var global_container = state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var global_container := state_machine.parameters[RHM_GLOBAL_CONTAINER] as Node2D
 
         last_position = right_hand.global_position
         last_rotation = right_hand.global_rotation
@@ -288,11 +288,11 @@ class MovingToShifterState extends State:
     func process(delta, state_machine):
         self.elapsed += delta
 
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var shifter_knob = state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
-        var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var shifter_knob := state_machine.parameters[RHM_SHIFTER_KNOB] as Node2D
+        var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
-        var eased = ease(elapsed / TRANSITION_SPEED, -2)
+        var eased := ease(elapsed / TRANSITION_SPEED, -2)
 
         right_hand.global_position = last_position.lerp(shifter_knob.global_position, eased)
         right_hand.global_rotation = lerpf(last_rotation, 0.0, eased)
@@ -315,8 +315,8 @@ class MovingToSteeringWheelState extends State:
     var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
 
         self.latest_gear = input_manager.numerical_gear()
 
@@ -328,10 +328,10 @@ class MovingToSteeringWheelState extends State:
     func process(delta, state_machine):
         self.elapsed += delta
 
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var steering_pin = state_machine.parameters[RHM_STEERING_PIN] as Node2D
-        var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var steering_pin := state_machine.parameters[RHM_STEERING_PIN] as Node2D
+        var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
         var eased = ease(elapsed / TRANSITION_SPEED, -2)
 
@@ -354,9 +354,9 @@ class OnSteeringWheelState extends State:
     var latest_gear: int = 0
 
     func on_enter(_last, state_machine):
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand = state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var steering_pin = state_machine.parameters[RHM_STEERING_PIN] as Node2D
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
+        var steering_pin := state_machine.parameters[RHM_STEERING_PIN] as Node2D
 
         self.latest_gear = input_manager.numerical_gear()
 
@@ -371,8 +371,8 @@ class OnSteeringWheelState extends State:
         right_hand.position = Vector2.ZERO
 
     func process(_delta, state_machine):
-        var input_manager = state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var seq_shifter = state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
+        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
+        var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
 
         if input_manager.numerical_gear() != self.latest_gear or seq_shifter.has_gear_changes():
             state_machine.transition(

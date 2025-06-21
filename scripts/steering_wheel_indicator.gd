@@ -20,16 +20,16 @@ func _draw() -> void:
 
     # Fill background
     for step in steps:
-        var angle = lerpf(start_angle, end_angle, float(step) / float(steps))
-        var next_point = Vector2.from_angle(angle) * radius
+        var angle := lerpf(start_angle, end_angle, float(step) / float(steps))
+        var next_point := Vector2.from_angle(angle) * radius
         points_back.push_back(next_point)
 
     # Fill foreground
-    var fill_start_angle = deg_to_rad(-90)
-    var fill_end_angle = deg_to_rad(-90) + deg_to_rad(-90) * normalized_value
+    var fill_start_angle := deg_to_rad(-90)
+    var fill_end_angle := deg_to_rad(-90) + deg_to_rad(-90) * normalized_value
     for step in steps:
-        var angle = lerpf(fill_start_angle, fill_end_angle, float(step) / float(steps))
-        var next_point = Vector2.from_angle(angle) * radius
+        var angle := lerpf(fill_start_angle, fill_end_angle, float(step) / float(steps))
+        var next_point := Vector2.from_angle(angle) * radius
         points_front.push_back(next_point)
 
     draw_polyline(points_back, Color.BLACK.lerp(Color.TRANSPARENT, 0.5), width, true)

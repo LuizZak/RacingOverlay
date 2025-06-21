@@ -11,8 +11,8 @@ func _init(base_path: String):
 ## Returns `true` if the directory `base_path` exists, and contains a valid animation
 ## with a valid `animation.json` configuration file.
 func is_valid_animation() -> bool:
-    var json_path = self.base_path.path_join("animation.json")
-    var json = JSONInformation.from_file(json_path)
+    var json_path := self.base_path.path_join("animation.json")
+    var json := JSONInformation.from_file(json_path)
     if not json:
         return false
 
@@ -27,12 +27,12 @@ func refresh() -> Error:
     if not is_valid_animation():
         return Error.FAILED
 
-    var json_path = self.base_path.path_join("animation.json")
-    var json = JSONInformation.from_file(json_path)
+    var json_path := self.base_path.path_join("animation.json")
+    var json := JSONInformation.from_file(json_path)
 
     _frame_duration = json.frame_duration
 
-    var index = 0
+    var index := 0
     while FileAccess.file_exists(_path_for_frame(index)):
         index += 1
 
@@ -55,16 +55,16 @@ func make_sprite_frames() -> SpriteFrames:
     if refresh():
         return null
 
-    var sprite_frames = SpriteFrames.new()
+    var sprite_frames := SpriteFrames.new()
     sprite_frames.set_animation_loop(&"default", true)
     sprite_frames.set_animation_speed(&"default", 1.0 / frame_duration())
 
-    var index = 0
+    var index := 0
     while FileAccess.file_exists(_path_for_frame(index)):
-        var image = Image.load_from_file(_path_for_frame(index))
+        var image := Image.load_from_file(_path_for_frame(index))
         if image == null:
             return null
-        var texture = ImageTexture.create_from_image(image)
+        var texture := ImageTexture.create_from_image(image)
         sprite_frames.add_frame(&"default", texture)
         index += 1
 
@@ -74,9 +74,9 @@ func _path_for_frame(index: int) -> String:
     return self.base_path.path_join("%s_%d.png" % [_get_dir_name(), index])
 
 func _get_dir_name() -> String:
-    var effective_path = base_path.trim_suffix("/")
-    var slices = effective_path.get_slice_count("/")
-    var dir_name = effective_path.get_slice("/", slices - 1)
+    var effective_path := base_path.trim_suffix("/")
+    var slices := effective_path.get_slice_count("/")
+    var dir_name := effective_path.get_slice("/", slices - 1)
 
     return dir_name
 
@@ -92,7 +92,7 @@ class JSONInformation:
         if not FileAccess.file_exists(json_path):
             return null
 
-        var file = FileAccess.open(json_path, FileAccess.READ)
+        var file := FileAccess.open(json_path, FileAccess.READ)
         if file == null:
             return null
 

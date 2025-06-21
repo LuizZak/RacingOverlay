@@ -130,8 +130,8 @@ func fetch_packet() -> GamePacketBase:
                     disconnect_from_game()
                     return null
 
-                var data = _peer.get_packet()
-                var packet = GamePacketBase.from_generic_data(_game, data)
+                var data := _peer.get_packet()
+                var packet := GamePacketBase.from_generic_data(_game, data)
 
                 # Skip invalid/unknown packets
                 if !packet.is_valid_game_packet():

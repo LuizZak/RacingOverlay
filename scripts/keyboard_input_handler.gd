@@ -34,7 +34,7 @@ func process(delta: float) -> void:
         simulated_input_manager.handbrake = move_toward(simulated_input_manager.handbrake, 0.0, handbrake_change_per_second * delta)
 
     # Steering
-    var steering = Input.get_axis("Simulated_left", "Simulated_right")
+    var steering := Input.get_axis("Simulated_left", "Simulated_right")
     simulated_input_manager.steering = move_toward(simulated_input_manager.steering, steering, steering_change_per_second * delta)
 
     # Shifter

@@ -92,7 +92,7 @@ func _to_string() -> String:
 
 ## Gets the computed roll angle of the packet's information.
 func computed_roll_angle() -> float:
-    var roll_angle = Vector3.UP.angle_to(roll)
+    var roll_angle := Vector3.UP.angle_to(roll)
     return -roll_angle + PI / 2
 
 ## Gets the computed vertical velocity of the packet's information.
@@ -167,7 +167,7 @@ func to_data() -> PackedByteArray:
 
 ## Creates a new game packet from a given set of data.
 static func from_data(data: PackedByteArray) -> GamePacketBase:
-    var packet = Dirt2GamePacket.new()
+    var packet := Dirt2GamePacket.new()
 
     packet.run_time = data.decode_float(0)
     packet.lap_time = data.decode_float(4)

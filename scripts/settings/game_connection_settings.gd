@@ -24,7 +24,7 @@ func to_dictionary() -> Dictionary:
     }
 
 static func from_dictionary(dictionary: Dictionary):
-    var settings = GameConnectionSettings.new()
+    var settings := GameConnectionSettings.new()
     settings.port = dictionary.get_or_add("port", settings.port)
     settings.roll_with_vehicle = dictionary.get_or_add("roll_with_vehicle", settings.roll_with_vehicle)
     settings.scale_with_speed = dictionary.get_or_add("scale_with_speed", settings.scale_with_speed)

@@ -45,7 +45,7 @@ func update_with_packet(packet: GamePacketBase) -> void:
 
 func _draw() -> void:
     # Draw background
-    var bounds = _bounds_for_drawing().grow(10)
+    var bounds := _bounds_for_drawing().grow(10)
 
     draw_rect(bounds, back_color, true)
 
@@ -53,13 +53,13 @@ func _draw() -> void:
     const POWERTRAIN_COLOR := Color.BLACK
     const POWERTRAIN_WIDTH := 2.0
 
-    var rl = wheel_entries[Wheel.REAR_LEFT].get_center()
-    var rr = wheel_entries[Wheel.REAR_RIGHT].get_center()
-    var fl = wheel_entries[Wheel.FRONT_LEFT].get_center()
-    var fr = wheel_entries[Wheel.FRONT_RIGHT].get_center()
+    var rl := wheel_entries[Wheel.REAR_LEFT].get_center()
+    var rr := wheel_entries[Wheel.REAR_RIGHT].get_center()
+    var fl := wheel_entries[Wheel.FRONT_LEFT].get_center()
+    var fr := wheel_entries[Wheel.FRONT_RIGHT].get_center()
 
-    var rear = (rl + rr) / 2.0
-    var front = (fl + fr) / 2.0
+    var rear := (rl + rr) / 2.0
+    var front := (fl + fr) / 2.0
 
     draw_line(fl, fr, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
     draw_line(front, rear, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
@@ -70,7 +70,7 @@ func _draw() -> void:
         wheel.draw(self)
 
 func _bounds_for_drawing() -> Rect2:
-    var bounds = Rect2()
+    var bounds := Rect2()
 
     for wheel in wheel_entries.values():
         bounds = bounds.merge(wheel.bounds())
@@ -121,7 +121,7 @@ class WheelEntry:
             draw_padlock(canvas_item)
 
     func draw_padlock(canvas_item: CanvasItem) -> void:
-        var width := 0.7
+        var line_width := 0.7
 
         # Draw padlock body
         var padlock_body_bounds := local_bounds()
@@ -129,13 +129,13 @@ class WheelEntry:
         padlock_body_bounds.size.y = padlock_body_bounds.size.x
         padlock_body_bounds.position.y = self.get_center_left().y - padlock_body_bounds.size.y * 0.3
 
-        canvas_item.draw_rect(padlock_body_bounds, Color.BLACK, false, width, true)
+        canvas_item.draw_rect(padlock_body_bounds, Color.BLACK, false, line_width, true)
 
         # Draw padlock keyhole
         var keyhole_start := padlock_body_bounds.get_center()
         var keyhole_end := keyhole_start + padlock_body_bounds.size * Vector2(0, 0.2)
         canvas_item.draw_line(
-            keyhole_start, keyhole_end, Color.BLACK, width, true
+            keyhole_start, keyhole_end, Color.BLACK, line_width, true
         )
 
         # Draw padlock shackle
@@ -153,13 +153,13 @@ class WheelEntry:
             shackle_arc_center.y
         )
         canvas_item.draw_arc(
-            shackle_arc_center, shackle_arc_radius, -PI, 0, 10, Color.BLACK, width, true
+            shackle_arc_center, shackle_arc_radius, -PI, 0, 10, Color.BLACK, line_width, true
         )
         canvas_item.draw_line(
-            shackle_left, Vector2(shackle_left.x, padlock_body_bounds.position.y), Color.BLACK, width, true
+            shackle_left, Vector2(shackle_left.x, padlock_body_bounds.position.y), Color.BLACK, line_width, true
         )
         canvas_item.draw_line(
-            shackle_right, Vector2(shackle_right.x, padlock_body_bounds.position.y), Color.BLACK, width, true
+            shackle_right, Vector2(shackle_right.x, padlock_body_bounds.position.y), Color.BLACK, line_width, true
         )
 
     func bounds() -> Rect2:

@@ -87,7 +87,7 @@ func to_data() -> PackedByteArray:
 
 ## Creates a new game packet from a given set of data.
 static func from_data(data: PackedByteArray) -> GamePacketBase:
-    var packet = BeamNGGamePacket.new()
+    var packet := BeamNGGamePacket.new()
 
     packet.magic = data.slice(0, 4)
     packet.pos.x = data.decode_float(4)

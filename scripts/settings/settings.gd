@@ -43,7 +43,7 @@ func _populate_settings():
     pedal_sink_checkbox.button_pressed = Settings.instance.pedal_sink
 
 func _populate_pedal_mode():
-    var pedal_mode = Settings.instance.pedal_mode
+    var pedal_mode := Settings.instance.pedal_mode
 
     match pedal_mode:
         Settings.PedalMode.DUAL_AXIS:
@@ -52,7 +52,7 @@ func _populate_pedal_mode():
             pedal_mode_option_button.selected = 1
 
 func _populate_rest_hand_position():
-    var rest_hand_position = Settings.instance.rest_hand_position
+    var rest_hand_position := Settings.instance.rest_hand_position
 
     match rest_hand_position:
         Settings.RestHandPosition.STEERING_WHEEL:

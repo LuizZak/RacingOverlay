@@ -20,7 +20,7 @@ func refresh_display():
     if sprite == null or animated_sprite == null or key == &"":
         return
 
-    var visual_resource = resource_loader().load_as_resource(key)
+    var visual_resource := resource_loader().load_as_resource(key)
 
     if visual_resource.sprite_frames != null:
         sprite.visible = false

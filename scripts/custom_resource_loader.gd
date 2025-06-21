@@ -27,7 +27,7 @@ func refresh():
     pass
 
 func load_as_resource(key: StringName) -> VisualResource:
-    var resource = VisualResource.new()
+    var resource := VisualResource.new()
 
     resource.key = key
     resource.texture = load_texture(key)
@@ -43,24 +43,24 @@ func load_texture(key: StringName) -> Texture2D:
     return load_default_texture(key)
 
 func _load_file_texture(key: StringName) -> Texture2D:
-    var base_path = OS.get_executable_path().get_base_dir()
-    var resolved_png_path = base_path.path_join("%s.png" % [key])
+    var base_path := OS.get_executable_path().get_base_dir()
+    var resolved_png_path := base_path.path_join("%s.png" % [key])
 
     if not FileAccess.file_exists(resolved_png_path):
         return null
 
-    var image = Image.load_from_file(resolved_png_path)
+    var image := Image.load_from_file(resolved_png_path)
     if image == null:
         return null
 
     return ImageTexture.create_from_image(image)
 
 func _load_file_sprite_frames(key: StringName) -> SpriteFrames:
-    var base_path = OS.get_executable_path().get_base_dir()
-    var resolved_dir_path = base_path.path_join(key)
+    var base_path := OS.get_executable_path().get_base_dir()
+    var resolved_dir_path := base_path.path_join(key)
 
-    var anim_loader = CustomAnimationLoader.new(resolved_dir_path)
-    var sprite_frames = anim_loader.make_sprite_frames()
+    var anim_loader := CustomAnimationLoader.new(resolved_dir_path)
+    var sprite_frames := anim_loader.make_sprite_frames()
 
     return sprite_frames
 

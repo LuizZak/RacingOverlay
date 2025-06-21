@@ -111,7 +111,7 @@ func _make_settings_dictionary() -> Dictionary:
     }
 
     for key in game_connections.keys():
-        var settings = game_connections[key]
+        var settings := game_connections[key]
         dict["game_connections"][key] = settings.to_dictionary()
 
     return dict
@@ -159,7 +159,7 @@ func active_game_settings() -> GameConnectionSettings:
 
 ## Restores the settings from disk. Automatically done on instantiation.
 func load_from_disk():
-    var file = FileAccess.open(SETTINGS_PATH, FileAccess.READ)
+    var file := FileAccess.open(SETTINGS_PATH, FileAccess.READ)
     if file == null:
         return
 
@@ -169,10 +169,10 @@ func load_from_disk():
 
 ## Saves the settings to disk.
 func save_to_disk():
-    var file = FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
+    var file := FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
     if file == null:
         return
 
-    var dict = _make_settings_dictionary()
+    var dict := _make_settings_dictionary()
     file.store_var(dict)
     file.close()
