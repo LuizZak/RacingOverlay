@@ -96,7 +96,7 @@ class WheelEntry:
             return
 
         var tolerance := maxf(0.1, abs(vehicle_speed) / 2.0)
-        var diff := absf(vehicle_speed - wheel_speed)
+        var diff := absf(vehicle_speed - absf(wheel_speed))
         var ratio := minf(1.0, diff / tolerance)
 
         if wheel_speed > vehicle_speed:
