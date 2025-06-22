@@ -132,7 +132,7 @@ class WheelEntry:
         var padlock_body_bounds := local_bounds()
         padlock_body_bounds = padlock_body_bounds.grow(-3)
         padlock_body_bounds.size.y = padlock_body_bounds.size.x
-        padlock_body_bounds.position.y = self.get_center_left().y - padlock_body_bounds.size.y * 0.3
+        padlock_body_bounds.position.y = self.local_bounds().get_center().y - padlock_body_bounds.size.y * 0.3
 
         canvas_item.draw_rect(padlock_body_bounds, Color.BLACK, false, line_width, true)
 
