@@ -10,7 +10,7 @@ enum Wheel {
 }
 
 const WHEEL_OFFSET := Vector2(20, 30)
-const WHEEL_SIZE := Vector2(15, 30)
+const WHEEL_SIZE := Vector2(17, 30)
 
 @export
 var back_color: Color = Color.WHITE:
@@ -84,6 +84,8 @@ class WheelEntry:
     var rotation: float = 0.0
     var fill_color: Color = Color.TRANSPARENT
     var is_locked: bool = false
+    var relative_rev: float = 0.0
+    var show_chevrons: bool = false
 
     func _init(position: Vector2, size: Vector2 = WHEEL_SIZE) -> void:
         self.position = position
@@ -99,22 +101,28 @@ class WheelEntry:
         var diff := absf(vehicle_speed - absf(wheel_speed))
         var ratio := minf(1.0, diff / tolerance)
 
-        if wheel_speed > vehicle_speed:
-            fill_color = Color.GREEN.lerp(Color.YELLOW, ratio)
+        if wheel_speed >= vehicle_speed:
+            fill_color = LCH.lerp_color(Color.GREEN, Color.YELLOW, ratio)
+            relative_rev = ratio
         else:
-            fill_color = Color.GREEN.lerp(Color.RED, ratio)
+            fill_color = LCH.lerp_color(Color.GREEN, Color.RED, ratio)
+            relative_rev = -ratio
 
-        var lock_tolerance := 0.1
+        const LOCK_TOLERANCE := 0.1
 
-        if absf(vehicle_speed) > lock_tolerance and absf(wheel_speed) < lock_tolerance:
+        if absf(vehicle_speed) > LOCK_TOLERANCE and absf(wheel_speed) < LOCK_TOLERANCE:
             is_locked = true
         else:
             is_locked = false
 
+        const CHEVRON_TOLERANCE := 0.1
+
+        show_chevrons = absf(vehicle_speed) > CHEVRON_TOLERANCE
+
     func draw(canvas_item: CanvasItem) -> void:
         canvas_item.draw_set_transform(position, rotation)
 
-        var style_box = StyleBoxFlat.new()
+        var style_box := StyleBoxFlat.new()
         style_box.border_color = Color.BLACK
         style_box.bg_color = fill_color
         style_box.set_border_width_all(2.0)
@@ -124,13 +132,17 @@ class WheelEntry:
 
         if is_locked:
             draw_padlock(canvas_item)
+        elif show_chevrons and relative_rev > 0.8:
+            draw_over_spin(canvas_item)
+        elif show_chevrons and relative_rev < -0.8:
+            draw_under_spin(canvas_item)
 
     func draw_padlock(canvas_item: CanvasItem) -> void:
         var line_width := 0.7
 
         # Draw padlock body
         var padlock_body_bounds := local_bounds()
-        padlock_body_bounds = padlock_body_bounds.grow(-3)
+        padlock_body_bounds = padlock_body_bounds.grow(-4)
         padlock_body_bounds.size.y = padlock_body_bounds.size.x
         padlock_body_bounds.position.y = self.local_bounds().get_center().y - padlock_body_bounds.size.y * 0.3
 
@@ -166,6 +178,36 @@ class WheelEntry:
         canvas_item.draw_line(
             shackle_right, Vector2(shackle_right.x, padlock_body_bounds.position.y), Color.BLACK, line_width, true
         )
+
+    func draw_over_spin(canvas_item: CanvasItem) -> void:
+        var bounds := local_bounds().grow(-3)
+
+        var chevron: PackedVector2Array = []
+
+        chevron.append(Vector2(-bounds.size.x / 2, 2))
+        chevron.append(Vector2(0.0, -2))
+        chevron.append(Vector2(bounds.size.x / 2, 2))
+
+        var xtrans_up := Transform2D.IDENTITY.translated(Vector2(0, -6))
+        var xtrans_down := Transform2D.IDENTITY.translated(Vector2(0, 4))
+
+        canvas_item.draw_polyline(xtrans_up * chevron, Color.BLACK, 0.5, true)
+        canvas_item.draw_polyline(xtrans_down * chevron, Color.BLACK, 0.5, true)
+
+    func draw_under_spin(canvas_item: CanvasItem) -> void:
+        var bounds := local_bounds().grow(-3)
+
+        var chevron: PackedVector2Array = []
+
+        chevron.append(Vector2(-bounds.size.x / 2, -2))
+        chevron.append(Vector2(0.0, 2))
+        chevron.append(Vector2(bounds.size.x / 2, -2))
+
+        var xtrans_up := Transform2D.IDENTITY.translated(Vector2(0, -4))
+        var xtrans_down := Transform2D.IDENTITY.translated(Vector2(0, 6))
+
+        canvas_item.draw_polyline(xtrans_up * chevron, Color.BLACK, 0.5, true)
+        canvas_item.draw_polyline(xtrans_down * chevron, Color.BLACK, 0.5, true)
 
     func bounds() -> Rect2:
         return Rect2(position - size / 2, size)
