@@ -25,9 +25,13 @@ const RHM_REST_HAND_POSITION = "rest_hand_position"
 const TRANSITION_SPEED := 800.0
 
 ## Transition time, in seconds, to move between shifter and steering wheel.
-const TRANSITION_TIME = 0.15
+const TRANSITION_TIME := 0.15
 ## Transition time, in seconds, to shift between gears in the shifter.
-const SHIFT_TIME = 0.2
+const SHIFT_TIME := 0.2
+
+## Distance tolerance, in pixels, before point-to-point transitions are considered
+## complete at the end.
+const DISTANCE_TOLERANCE := 5
 
 ## Transitions from the current state towards the rest state of the hand, according
 ## to `RHM_REST_HAND_POSITION`.
@@ -96,7 +100,7 @@ class MovingToHandbrakeState extends State:
             state_machine.transition_to_rest_state()
             return
 
-        if right_hand.global_position == handbrake_pin.global_position:
+        if right_hand.global_position.distance_to(handbrake_pin.global_position) < DISTANCE_TOLERANCE:
             state_machine.transition(
                 HandbrakingState.new()
             )
@@ -336,12 +340,10 @@ class MovingToShifterState extends State:
 
         var eased := ease(elapsed / TRANSITION_TIME, -2)
 
-        #right_hand.global_position = start_position.lerp(shifter_knob.global_position, eased)
+        right_hand.global_position = right_hand.global_position.move_toward(shifter_knob.global_position, TRANSITION_SPEED * delta)
         right_hand.global_rotation = lerpf(start_rotation, 0.0, eased)
 
-        right_hand.global_position = right_hand.global_position.move_toward(shifter_knob.global_position, TRANSITION_SPEED * delta)
-
-        if right_hand.global_position == shifter_knob.global_position:
+        if right_hand.global_position.distance_to(shifter_knob.global_position) < DISTANCE_TOLERANCE:
             if seq_shifter.has_gear_changes():
                 state_machine.transition(
                     ShiftingSequentialState.new()
@@ -395,7 +397,7 @@ class MovingToSteeringWheelState extends State:
             )
             return
 
-        if right_hand.global_position == steering_pin.global_position:
+        if right_hand.global_position.distance_to(steering_pin.global_position) < DISTANCE_TOLERANCE:
             state_machine.transition(
                 OnSteeringWheelState.new()
             )
