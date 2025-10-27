@@ -125,7 +125,7 @@ class WheelEntry:
         var style_box := StyleBoxFlat.new()
         style_box.border_color = Color.BLACK
         style_box.bg_color = fill_color
-        style_box.set_border_width_all(2.0)
+        style_box.set_border_width_all(2)
         style_box.set_corner_radius_all(4)
 
         canvas_item.draw_style_box(style_box, local_bounds())

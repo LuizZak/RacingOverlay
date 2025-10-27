@@ -7,7 +7,6 @@ const EBRAKE := &"ebrake"
 const EBRAKE_BASE := &"ebrake_base"
 const EBRAKE_EFFECT := &"ebrake_effect"
 const HAND_LEFT := &"hand_left"
-const HAND_RIGHT := &"hand_right"
 const HAND_RIGHT_EBRAKE := &"hand_right_ebrake"
 const HAND_RIGHT_FLOATING := &"hand_right_floating"
 const HAND_RIGHT_SHIFTER := &"hand_right_shifter"
@@ -30,7 +29,6 @@ var all_assets: Array[StringName] = [
     EBRAKE_BASE,
     EBRAKE_EFFECT,
     HAND_LEFT,
-    HAND_RIGHT,
     HAND_RIGHT_EBRAKE,
     HAND_RIGHT_FLOATING,
     HAND_RIGHT_SHIFTER,
