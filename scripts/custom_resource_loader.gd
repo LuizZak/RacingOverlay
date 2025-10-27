@@ -23,10 +23,46 @@ const STEERING_WHEEL := &"steering_wheel"
 
 static var instance = CustomResourceLoader.new()
 
-func refresh():
-    pass
+var all_assets: Array[StringName] = [
+    FOOT_LEFT,
+    FOOT_RIGHT,
+    EBRAKE,
+    EBRAKE_BASE,
+    EBRAKE_EFFECT,
+    HAND_LEFT,
+    HAND_RIGHT,
+    HAND_RIGHT_EBRAKE,
+    HAND_RIGHT_FLOATING,
+    HAND_RIGHT_SHIFTER,
+    HAND_RIGHT_STEERING,
+    PEDAL_BASE,
+    PEDAL_CLUTCH,
+    PEDAL_BRAKE,
+    PEDAL_THROTTLE,
+    PEDAL_FIXTURE,
+    SHIFTER_BASE,
+    SHIFTER_KNOB,
+    STEERING_WHEEL,
+]
+var asset_lookup: Dictionary[StringName, VisualResource] = {}
 
+func _init() -> void:
+    reload()
+
+## Reloads assets from disk or built-in assets, depending on local file availability.
+func reload() -> void:
+    for asset_name in all_assets:
+        asset_lookup[asset_name] = _load_uncached(asset_name)
+
+## Loads the given asset as a `VisualResource` object, containing a non-animated
+## texture, and an animated sprite frame resource, if one was found on disk.
 func load_as_resource(key: StringName) -> VisualResource:
+    if asset_lookup.has(key):
+        return asset_lookup[key]
+
+    return _load_uncached(key)
+
+func _load_uncached(key: StringName) -> VisualResource:
     var resource := VisualResource.new()
 
     resource.key = key

@@ -226,6 +226,8 @@ func update_handbrake_position(amount: float):
     ebrake_effect.modulate.a = amount
 
 func _reload_assets():
+    CustomResourceLoader.instance.reload()
+
     left_foot.refresh_display()
     right_foot.refresh_display()
     ebrake.refresh_display()
