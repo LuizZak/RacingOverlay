@@ -120,7 +120,6 @@
 
 [sub_resource type="Resource" id="Resource_arwwp"]
 script = ExtResource("1_8u7sa")
-enumIndex = 0
 name = "Key"
 texture = ExtResource("2_dwtnn")
 
@@ -863,7 +862,6 @@ texture = ExtResource("109_ou7tb")
 
 [sub_resource type="Resource" id="Resource_anwl3"]
 script = ExtResource("1_8u7sa")
-enumIndex = 0
 name = "Mouse"
 
 [sub_resource type="Resource" id="Resource_5mtfd"]
