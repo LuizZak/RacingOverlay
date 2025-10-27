@@ -231,7 +231,11 @@ text = "Throttle"
 [node name="MetricsContainer" type="Node2D" parent="Base"]
 position = Vector2(-148, 132)
 
-[node name="TractionLabel" type="Label" parent="Base/MetricsContainer"]
+[node name="WheelMetrics" parent="Base/MetricsContainer" instance=ExtResource("7_kek77")]
+unique_name_in_owner = true
+back_color = Color(1, 1, 1, 0.435294)
+
+[node name="TractionLabel" type="Label" parent="Base/MetricsContainer/WheelMetrics"]
 offset_left = -28.0
 offset_top = -77.0
 offset_right = 28.0
@@ -240,10 +244,6 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 14
 text = "Traction"
-
-[node name="WheelMetrics" parent="Base/MetricsContainer" instance=ExtResource("7_kek77")]
-unique_name_in_owner = true
-back_color = Color(1, 1, 1, 0.435294)
 
 [node name="UIContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
