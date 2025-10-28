@@ -39,7 +39,8 @@ mouse_filter = 2
 
 [node name="Container" type="Node2D" parent="ColorRect/CenterContainer/Control"]
 unique_name_in_owner = true
-position = Vector2(0, 11)
+texture_filter = 2
+position = Vector2(3, 15)
 
 [node name="SteeringWheelIndicator" parent="ColorRect/CenterContainer/Control/Container" instance=ExtResource("2_hcde6")]
 unique_name_in_owner = true
@@ -121,7 +122,7 @@ scale = Vector2(0.7562592, 0.7562592)
 key = &"hand_right_steering"
 
 [node name="PedalsContainer" type="Node2D" parent="ColorRect/CenterContainer/Control/Container"]
-position = Vector2(-1, 12)
+position = Vector2(-1, 7)
 scale = Vector2(0.7036432, 0.7036432)
 script = ExtResource("6_wywsm")
 

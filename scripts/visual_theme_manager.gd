@@ -17,8 +17,7 @@ func scan_from_disk() -> void:
     self.themes.append(VisualTheme.built_in_theme())
 
     # Populate disk themes
-    var base_path := OS.get_executable_path().get_base_dir()
-    var search_path := base_path.path_join(THEME_PATH)
+    var search_path := theme_lookup_folder()
 
     if DirAccess.dir_exists_absolute(search_path):
         var potential_themes := DirAccess.get_directories_at(search_path)
@@ -33,3 +32,9 @@ func scan_from_disk() -> void:
                 continue
 
             self.themes.append(theme)
+
+static func theme_lookup_folder() -> String:
+    var base_path := OS.get_executable_path().get_base_dir()
+    var search_path := base_path.path_join(THEME_PATH)
+
+    return search_path
