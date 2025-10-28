@@ -50,7 +50,25 @@ const CONTAINER_MOVE_SPEED: float = 10
 
 @onready var wheel_metrics: WheelMetrics = %WheelMetrics
 
+@onready var visual_nodes: Array[VisualNode] = [
+    shifter_knob,
+    steering_wheel_sprite,
+    ebrake_base,
+    ebrake_effect,
+    shifter_base,
+    pedal_throttle,
+    throttle_pedal_fixture,
+    pedal_brake,
+    brake_pedal_fixture,
+    pedal_clutch,
+    clutch_pedal_fixture,
+    pedal_base,
+    left_hand,
+    right_hand,
+]
+
 var ui_container_tween: Tween = null
+var _visual_theme_list: VisualThemeList = null
 
 var input_manager: InputManagerBase
 var keyboard_handler: KeyboardInputHandler
@@ -65,9 +83,13 @@ var target_container_position: Vector2 = Vector2.ONE
 
 var packet_manager: PacketManagerBase
 
+var active_theme: VisualTheme
+
 func _ready() -> void:
     if not container.get_viewport_rect().has_point(container.get_global_mouse_position()):
         hide_ui()
+
+    _change_theme(VisualTheme.default_theme())
 
     packet_manager = PacketManagerBase.new(Networking.instance)
 
@@ -225,25 +247,17 @@ func update_handbrake_position(amount: float):
     ebrake.rotation = amount * deg_to_rad(10)
     ebrake_effect.modulate.a = amount
 
-func _reload_assets():
-    CustomResourceLoader.instance.reload()
+func _change_theme(new_theme: VisualTheme):
+    active_theme = new_theme
 
-    left_foot.refresh_display()
-    right_foot.refresh_display()
-    ebrake.refresh_display()
-    ebrake_base.refresh_display()
-    ebrake_effect.refresh_display()
-    left_hand.refresh_display()
-    right_hand.refresh_display()
-    pedal_base.refresh_display()
-    pedal_clutch.refresh_display()
-    clutch_pedal_fixture.refresh_display()
-    pedal_brake.refresh_display()
-    brake_pedal_fixture.refresh_display()
-    throttle_pedal_fixture.refresh_display()
-    shifter_base.refresh_display()
-    shifter_knob.refresh_display()
-    steering_wheel_sprite.refresh_display()
+    for visual_node in visual_nodes:
+        visual_node.visual_theme = new_theme
+
+func _reload_assets():
+    active_theme.load_from_disk()
+
+    for visual_node in visual_nodes:
+        visual_node.refresh_display()
 
 func _on_settings_changed():
     right_hand_manager.parameters[RightHandManager.RHM_REST_HAND_POSITION] = Settings.instance.rest_hand_position
@@ -283,6 +297,22 @@ func _on_settings_changed():
 
     wheel_metrics.visible = show_wheel_metrics
 
+func _show_theme_list() -> void:
+    VisualThemeManager.instance.scan_from_disk()
+    var themes := VisualThemeManager.instance.themes
+
+    var theme_list_node: VisualThemeList = preload("res://nodes/theme_selector/visual_theme_list.tscn").instantiate()
+    _visual_theme_list = theme_list_node
+
+    ui_container.add_child(theme_list_node)
+    theme_list_node.load_theme_list(themes)
+
+    theme_list_node.on_theme_clicked.connect(_on_theme_list_node_theme_clicked)
+
+func _hide_theme_list() -> void:
+    if _visual_theme_list != null:
+        _visual_theme_list.get_parent().remove_child(_visual_theme_list)
+
 func _on_bindings_button_pressed() -> void:
     controls_rebind.show()
 
@@ -300,3 +330,10 @@ func _on_settings_panel_on_close_pressed() -> void:
 
 func _on_reset_transforms_button_pressed() -> void:
     _reset_game_state()
+
+func _on_themes_button_pressed() -> void:
+    _show_theme_list()
+
+func _on_theme_list_node_theme_clicked(visual_theme: VisualTheme) -> void:
+    _change_theme(visual_theme)
+    _hide_theme_list()

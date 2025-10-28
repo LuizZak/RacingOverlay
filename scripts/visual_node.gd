@@ -8,6 +8,11 @@ var key: StringName:
         key = value
         refresh_display()
 
+var visual_theme: VisualTheme:
+    set(value):
+        visual_theme = value
+        refresh_display()
+
 @onready
 var sprite: Sprite2D = $Sprite
 @onready
@@ -20,7 +25,19 @@ func refresh_display():
     if sprite == null or animated_sprite == null or key == &"":
         return
 
-    var visual_resource := resource_loader().load_as_resource(key)
+    if Engine.is_editor_hint():
+        sprite.visible = true
+        animated_sprite.visible = false
+
+        sprite.texture = VisualResourceLibrary.load_default_texture(key)
+        return
+
+    var visual_resource: VisualResource
+
+    if visual_theme != null:
+        visual_resource = visual_theme.load_resource(key)
+    else:
+        visual_resource = VisualTheme.default_theme().load_resource(key)
 
     if visual_resource.sprite_frames != null:
         sprite.visible = false
@@ -33,9 +50,3 @@ func refresh_display():
         animated_sprite.visible = false
 
         sprite.texture = visual_resource.texture
-
-func resource_loader() -> CustomResourceLoader:
-    if CustomResourceLoader.instance != null:
-        return CustomResourceLoader.instance
-
-    return CustomResourceLoader.new()

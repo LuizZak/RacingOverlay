@@ -81,7 +81,7 @@ class MovingToHandbrakeState extends State:
         right_hand.global_position = start_position
         right_hand.global_rotation = start_rotation
 
-        right_hand.key = CustomResourceLoader.HAND_RIGHT_FLOATING
+        right_hand.key = VisualResourceLibrary.HAND_RIGHT_FLOATING
 
     func process(delta, state_machine):
         self.elapsed += delta
@@ -123,7 +123,7 @@ class HandbrakingState extends State:
         # Track gear changes
         latest_gear = input_manager.numerical_gear()
 
-        right_hand.key = CustomResourceLoader.HAND_RIGHT_EBRAKE
+        right_hand.key = VisualResourceLibrary.HAND_RIGHT_EBRAKE
 
         right_hand.rotation = 0.0
         right_hand.position = Vector2.ZERO
@@ -180,7 +180,7 @@ class ShiftingSequentialState extends State:
         else:
             pseudo_gear = 4
 
-        right_hand.key = CustomResourceLoader.HAND_RIGHT_SHIFTER
+        right_hand.key = VisualResourceLibrary.HAND_RIGHT_SHIFTER
 
     func process(delta, state_machine):
         elapsed += delta
@@ -239,7 +239,7 @@ class ShiftingState extends State:
         self.is_towards_neutral = self.latest_gear == 0
         self.is_same_gear = shifter_container.shifter_animation.numerical_gear() == input_manager.numerical_gear()
 
-        right_hand.key = CustomResourceLoader.HAND_RIGHT_SHIFTER
+        right_hand.key = VisualResourceLibrary.HAND_RIGHT_SHIFTER
 
     func process(delta, state_machine):
         self.elapsed += delta
@@ -329,7 +329,7 @@ class MovingToShifterState extends State:
         right_hand.global_position = start_position
         right_hand.global_rotation = start_rotation
 
-        right_hand.key = CustomResourceLoader.HAND_RIGHT_FLOATING
+        right_hand.key = VisualResourceLibrary.HAND_RIGHT_FLOATING
 
     func process(delta, state_machine):
         self.elapsed += delta
@@ -370,7 +370,7 @@ class MovingToSteeringWheelState extends State:
         start_position = right_hand.global_position
         start_rotation = right_hand.global_rotation
 
-        right_hand.key = CustomResourceLoader.HAND_RIGHT_FLOATING
+        right_hand.key = VisualResourceLibrary.HAND_RIGHT_FLOATING
 
     func process(delta, state_machine):
         self.elapsed += delta
@@ -420,7 +420,7 @@ class OnSteeringWheelState extends State:
 
         steering_pin.add_child(right_hand)
 
-        right_hand.key = CustomResourceLoader.HAND_RIGHT_STEERING
+        right_hand.key = VisualResourceLibrary.HAND_RIGHT_STEERING
 
         right_hand.rotation = 0.0
         right_hand.position = Vector2.ZERO

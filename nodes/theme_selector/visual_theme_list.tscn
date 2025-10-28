@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgb5vfdwtmnsm"]
+
+[ext_resource type="PackedScene" uid="uid://bhpt4licl84vv" path="res://nodes/theme_selector/visual_theme_node.tscn" id="1_knwq3"]
+[ext_resource type="Script" uid="uid://h2saqwmxmpn5" path="res://scripts/theme_selector/visual_theme_list.gd" id="1_ohlod"]
+
+[node name="VisualThemeList" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ohlod")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VisualThemeNode" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_knwq3")]
+custom_minimum_size = Vector2(310, 120)
+layout_mode = 2

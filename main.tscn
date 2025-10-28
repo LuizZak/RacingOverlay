@@ -278,6 +278,12 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Reload Assets"
 
+[node name="ThemesButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Themes"
+
 [node name="SettingsButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -303,6 +309,7 @@ layout_mode = 2
 
 [connection signal="pressed" from="UIContainer/MarginContainer/VBox/BindingsButton" to="." method="_on_bindings_button_pressed"]
 [connection signal="pressed" from="UIContainer/MarginContainer/VBox/ReloadAssetsButton" to="." method="_on_reload_assets_button_pressed"]
+[connection signal="pressed" from="UIContainer/MarginContainer/VBox/ThemesButton" to="." method="_on_themes_button_pressed"]
 [connection signal="pressed" from="UIContainer/MarginContainer/VBox/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="UIContainer/MarginContainer/VBox/ResetTransformsButton" to="." method="_on_reset_transforms_button_pressed"]
 [connection signal="on_close_pressed" from="UIContainer/ControlsRebind" to="." method="_on_controls_rebind_on_close_pressed"]
