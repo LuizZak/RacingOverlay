@@ -53,6 +53,7 @@ const CONTAINER_MOVE_SPEED: float = 10
 @onready var visual_nodes: Array[VisualNode] = [
     shifter_knob,
     steering_wheel_sprite,
+    ebrake,
     ebrake_base,
     ebrake_effect,
     shifter_base,
@@ -89,7 +90,7 @@ func _ready() -> void:
     if not container.get_viewport_rect().has_point(container.get_global_mouse_position()):
         hide_ui()
 
-    _change_theme(VisualTheme.default_theme())
+    _change_theme(VisualTheme.built_in_theme())
 
     packet_manager = PacketManagerBase.new(Networking.instance)
 
