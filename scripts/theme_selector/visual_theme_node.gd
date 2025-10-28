@@ -20,9 +20,16 @@ extends MarginContainer
 
 @onready var theme_name_label: Label = %ThemeNameLabel
 
+@onready var selection_status_panel: Panel = %SelectionStatusPanel
+
 signal on_click()
 
 var visual_theme: VisualTheme = null
+
+var is_selected: bool = false:
+    set(value):
+        is_selected = true
+        selection_status_panel.visible = is_selected
 
 func load_visual_theme(theme: VisualTheme):
     self.visual_theme = theme

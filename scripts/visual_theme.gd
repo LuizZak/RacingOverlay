@@ -1,10 +1,15 @@
 class_name VisualTheme
 extends Object
 
-static var _default_theme: VisualTheme
 static var _built_in_theme: VisualTheme
 
+## A path to disk that represents this theme.
 var path: String = ""
+
+## An identifier for this theme. Must be unique across themes in the same collection.
+var identifier: String = ""
+
+## A display name for this theme, to be shown in user interfaces.
 var display_name: String = ""
 
 var resources: Dictionary[StringName, VisualResource] = {}
@@ -17,6 +22,7 @@ var resources: Dictionary[StringName, VisualResource] = {}
 ## files only, instead.
 func _init(path: String) -> void:
     self.path = path
+    self.identifier = path.get_file()
     self.display_name = path.get_file()
 
 ## Returns whether the current theme is empty, i.e. all resources are the default
@@ -83,17 +89,6 @@ func _load_file_sprite_frames(key: StringName, base_path: String) -> SpriteFrame
 
     return sprite_frames
 
-## Returns the default theme, loaded from the directory the executable currently
-## resides in.
-static func default_theme() -> VisualTheme:
-    if _default_theme != null:
-        return _default_theme
-
-    _default_theme = VisualTheme.new(OS.get_executable_path().get_base_dir())
-    _default_theme.display_name = "Default"
-    _default_theme.load_from_disk()
-    return _default_theme
-
 ## Returns the built-in theme, loaded from the bundled program assets.
 static func built_in_theme() -> VisualTheme:
     if _built_in_theme != null:
@@ -101,5 +96,6 @@ static func built_in_theme() -> VisualTheme:
 
     _built_in_theme = VisualTheme.new("")
     _built_in_theme.display_name = "Built-in"
+    _built_in_theme.identifier = "?built in?"
     _built_in_theme.load_from_disk()
     return _built_in_theme

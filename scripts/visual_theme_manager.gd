@@ -33,6 +33,16 @@ func scan_from_disk() -> void:
 
             self.themes.append(theme)
 
+## Finds and returns a theme with a given identifier.
+##
+## If no loaded themes match the given identifier, `null` is returned, instead.
+func find_theme(identifier: String) -> VisualTheme:
+    for theme in themes:
+        if theme.identifier == identifier:
+            return theme
+
+    return null
+
 static func theme_lookup_folder() -> String:
     var base_path := OS.get_executable_path().get_base_dir()
     var search_path := base_path.path_join(THEME_PATH)

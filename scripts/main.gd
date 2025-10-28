@@ -90,6 +90,9 @@ func _ready() -> void:
     if not container.get_viewport_rect().has_point(container.get_global_mouse_position()):
         hide_ui()
 
+    # Pre-load available themes
+    VisualThemeManager.instance.scan_from_disk()
+
     _change_theme(VisualTheme.built_in_theme())
 
     packet_manager = PacketManagerBase.new(Networking.instance)
@@ -135,6 +138,16 @@ func _ready() -> void:
     _reload_assets()
 
     Settings.instance.on_settings_changed.connect(_on_settings_changed)
+
+    # Apply last saved theme
+    var previous_theme := VisualThemeManager.instance.find_theme(Settings.instance.active_theme_identifier)
+    if previous_theme != null:
+        _change_theme(previous_theme)
+    else:
+        # Reset to built-in theme
+        var built_in_theme := VisualTheme.built_in_theme()
+        Settings.instance.active_theme_identifier = built_in_theme.identifier
+        _change_theme(built_in_theme)
 
     # Force-apply current settings
     _on_settings_changed()
@@ -337,4 +350,6 @@ func _on_themes_button_pressed() -> void:
 
 func _on_theme_list_node_theme_clicked(visual_theme: VisualTheme) -> void:
     _change_theme(visual_theme)
+    Settings.instance.active_theme_identifier = visual_theme.identifier
+    Settings.instance.save_to_disk()
     _hide_theme_list()

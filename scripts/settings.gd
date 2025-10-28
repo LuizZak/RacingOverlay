@@ -16,6 +16,11 @@ static var instance: Settings = Settings.new()
 
 #region Settings
 
+var active_theme_identifier: String = "?built in?":
+    set(value):
+        active_theme_identifier = value
+        emit_settings_changed()
+
 var pedal_mode: PedalMode = PedalMode.DUAL_AXIS:
     set(value):
         pedal_mode = value
@@ -94,6 +99,7 @@ func _init():
 
 func _make_settings_dictionary() -> Dictionary:
     var dict = {
+        "active_theme_identifier": active_theme_identifier,
         "pedal_mode": pedal_mode,
         "rest_hand_position": rest_hand_position,
         "steering_range": steering_range,
@@ -117,6 +123,8 @@ func _make_settings_dictionary() -> Dictionary:
     return dict
 
 func _from_settings_directory(dictionary: Dictionary):
+    if dictionary.has("active_theme_identifier"):
+        self.active_theme_identifier = dictionary["active_theme_identifier"]
     if dictionary.has("pedal_mode"):
         self.pedal_mode = dictionary["pedal_mode"]
     if dictionary.has("rest_hand_position"):

@@ -24,6 +24,9 @@ func _populate_list(themes: Array[VisualTheme]):
             _on_theme_node_clicked.bind(theme_node)
         )
 
+        if theme.identifier == Settings.instance.active_theme_identifier:
+            theme_node.is_selected = true
+
 func _on_theme_node_clicked(node: VisualThemeNode):
     on_theme_clicked.emit(node.visual_theme)
 

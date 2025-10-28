@@ -37,7 +37,7 @@ func refresh_display():
     if visual_theme != null:
         visual_resource = visual_theme.load_resource(key)
     else:
-        visual_resource = VisualTheme.default_theme().load_resource(key)
+        visual_resource = VisualTheme.built_in_theme().load_resource(key)
 
     if visual_resource.sprite_frames != null:
         sprite.visible = false

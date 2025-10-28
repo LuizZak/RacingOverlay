@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhpt4licl84vv"]
+[gd_scene load_steps=8 format=3 uid="uid://bhpt4licl84vv"]
 
 [ext_resource type="Script" uid="uid://c6aimspmlge7b" path="res://scripts/theme_selector/visual_theme_node.gd" id="1_bfmmk"]
 [ext_resource type="PackedScene" uid="uid://clyp31sfrkmhu" path="res://nodes/steering_wheel_indicator.tscn" id="2_hcde6"]
@@ -6,6 +6,18 @@
 [ext_resource type="Script" uid="uid://beflgpdwajjr3" path="res://scripts/shifter_container.gd" id="4_88ewg"]
 [ext_resource type="Theme" uid="uid://dx3lsu6ufvl3v" path="res://theme.tres" id="5_oik1i"]
 [ext_resource type="Script" uid="uid://df1h86p5ogkk5" path="res://scripts/pedals_container.gd" id="6_wywsm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfmmk"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.27058825, 0.8, 0.34509805, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="VisualThemeNode" type="MarginContainer"]
 custom_minimum_size = Vector2(310, 100)
@@ -263,6 +275,13 @@ offset_bottom = 40.0
 theme = ExtResource("5_oik1i")
 text = "Throttle"
 metadata/_edit_use_anchors_ = true
+
+[node name="SelectionStatusPanel" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bfmmk")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
