@@ -19,7 +19,7 @@ func _init(
 
 func _s01_ff(x: float) -> int:
     var x2 := int(x * 0xFF + 0.5)
-    return maxf(0, minf(0xFF, x2))
+    return max(0, min(0xFF, x2))
 
 func lerp(to: LCH, weight: float) -> LCH:
     var l1 := LCH.new(luma, chroma, hue)
