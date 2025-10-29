@@ -1,6 +1,9 @@
 class_name VisualThemeNode
 extends MarginContainer
 
+@onready var right_foot: VisualNode = %RightFoot
+@onready var left_foot: VisualNode = %LeftFoot
+
 @onready var shifter_knob: VisualNode = %ShifterKnob
 
 @onready var steering_wheel_sprite: VisualNode = %SteeringWheelSprite
@@ -34,6 +37,12 @@ var is_selected: bool = false:
 func load_visual_theme(theme: VisualTheme):
     self.visual_theme = theme
     self.theme_name_label.text = theme.display_name
+
+    right_foot.visual_theme = theme
+    right_foot.refresh_display()
+
+    left_foot.visual_theme = theme
+    left_foot.refresh_display()
 
     shifter_knob.visual_theme = theme
     shifter_knob.refresh_display()
