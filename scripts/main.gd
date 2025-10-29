@@ -66,6 +66,8 @@ const CONTAINER_MOVE_SPEED: float = 10
     pedal_base,
     left_hand,
     right_hand,
+    right_foot,
+    left_foot,
 ]
 
 var ui_container_tween: Tween = null
