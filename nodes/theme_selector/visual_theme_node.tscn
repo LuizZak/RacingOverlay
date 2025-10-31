@@ -317,6 +317,7 @@ text = "Theme Name"
 [node name="EditColorsButton" type="Button" parent="VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "Edit the accompanying colors for this theme."
 text = "Edit Colors"
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/Button" to="." method="_on_button_pressed"]

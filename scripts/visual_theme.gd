@@ -52,6 +52,18 @@ func load_from_disk() -> void:
     for resource in VisualResourceLibrary.all_resources:
         self.resources[resource] = _load_uncached(resource, self.path)
 
+func save_settings_to_disk() -> void:
+    ## Ensure we are not attempting to save a built-in theme
+    if self.path == "":
+        return
+
+    var full_path := self.path.path_join("settings.json")
+
+    var json := theme_settings.to_json()
+
+    var file := FileAccess.open(full_path, FileAccess.WRITE)
+    file.store_string(json)
+
 func load_resource(key: StringName) -> VisualResource:
     if self.resources.has(key):
         return self.resources[key]

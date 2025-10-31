@@ -38,7 +38,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="VisualThemeNode" parent="MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_knwq3")]
-custom_minimum_size = Vector2(310, 140)
 layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OpenThemeFolderButton" to="." method="_on_open_theme_folder_button_pressed"]

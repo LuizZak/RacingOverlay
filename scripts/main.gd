@@ -205,15 +205,24 @@ func _notification(what: int) -> void:
     elif what == NOTIFICATION_WM_MOUSE_EXIT:
         hide_ui()
 
-func _reset_game_state():
+func _reset_game_state() -> void:
     target_container_rotation = 0.0
     target_container_scale = Vector2.ONE
     target_container_position = Vector2.ZERO
 
-func _update_progress_bar_styles():
-    _set_pedal_fill_color(Settings.instance.pedal_bar_fill_color)
+func _reapply_theme_colors() -> void:
+    if active_theme == null or active_theme.theme_settings.is_empty:
+        shifter_container.shifter_shaft_color = Settings.instance.shifter_shaft_fill_color
+        shifter_container.shifter_shaft_outline_color = Settings.instance.shifter_shaft_outline_color
 
-func _set_pedal_fill_color(color: Color):
+        _set_pedal_fill_color(Settings.instance.pedal_bar_fill_color)
+    else:
+        shifter_container.shifter_shaft_color = active_theme.theme_settings.shifter_fill_color
+        shifter_container.shifter_shaft_outline_color = active_theme.theme_settings.shifter_outline_color
+
+        _set_pedal_fill_color(active_theme.theme_settings.pedal_bar_fill_color)
+
+func _set_pedal_fill_color(color: Color) -> void:
     var style := StyleBoxFlat.new()
     style.set_corner_radius_all(8)
     style.bg_color = color
@@ -222,7 +231,7 @@ func _set_pedal_fill_color(color: Color):
     brake_progress.add_theme_stylebox_override("fill", style)
     throttle_progress.add_theme_stylebox_override("fill", style)
 
-func _update_game_state():
+func _update_game_state() -> void:
     if packet_manager.is_end_packet():
         _reset_game_state()
         return
@@ -242,7 +251,7 @@ func _update_game_state():
     else:
         target_container_rotation = 0.0
 
-func show_ui():
+func show_ui() -> void:
     if not is_inside_tree():
         return
 
@@ -252,7 +261,7 @@ func show_ui():
     ui_container_tween = get_tree().create_tween()
     ui_container_tween.tween_property(ui_container, "modulate:a", 1.0, 0.3)
 
-func hide_ui():
+func hide_ui() -> void:
     if not is_inside_tree():
         return
 
@@ -262,27 +271,25 @@ func hide_ui():
     ui_container_tween = get_tree().create_tween()
     ui_container_tween.tween_property(ui_container, "modulate:a", 0.0, 0.3)
 
-func update_handbrake_position(amount: float):
+func update_handbrake_position(amount: float) -> void:
     ebrake.rotation = amount * deg_to_rad(10)
     ebrake_effect.modulate.a = amount
 
-func _change_theme(new_theme: VisualTheme):
+func _change_theme(new_theme: VisualTheme) -> void:
     active_theme = new_theme
-
-    shifter_container.shifter_shaft_color = new_theme.theme_settings.shifter_fill_color
-    shifter_container.shifter_shaft_outline_color = new_theme.theme_settings.shifter_outline_color
-    _set_pedal_fill_color(new_theme.theme_settings.pedal_bar_fill_color)
 
     for visual_node in visual_nodes:
         visual_node.visual_theme = new_theme
 
-func _reload_assets():
+    _reapply_theme_colors()
+
+func _reload_assets() -> void:
     active_theme.load_from_disk()
 
     for visual_node in visual_nodes:
         visual_node.refresh_display()
 
-func _on_settings_changed():
+func _on_settings_changed() -> void:
     right_hand_manager.parameters[RightHandManager.RHM_REST_HAND_POSITION] = Settings.instance.rest_hand_position
 
     var filter := Node2D.TEXTURE_FILTER_NEAREST
@@ -293,10 +300,7 @@ func _on_settings_changed():
 
     steering_wheel_indicator.visible = Settings.instance.steering_wheel_progress
 
-    shifter_container.shifter_shaft_color = Settings.instance.shifter_shaft_fill_color
-    shifter_container.shifter_shaft_outline_color = Settings.instance.shifter_shaft_outline_color
-
-    _update_progress_bar_styles()
+    _reapply_theme_colors()
 
     Networking.instance.set_port(
         Settings.instance.active_game_settings().port

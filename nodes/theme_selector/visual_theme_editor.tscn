@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtaed0rdlou7m"]
+[gd_scene load_steps=4 format=3 uid="uid://dtaed0rdlou7m"]
 
 [ext_resource type="Script" uid="uid://bruu0wjm13gge" path="res://scripts/theme_selector/visual_theme_editor.gd" id="1_1l4km"]
 [ext_resource type="PackedScene" uid="uid://bhpt4licl84vv" path="res://nodes/theme_selector/visual_theme_node.tscn" id="1_ttp0q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1l4km"]
+bg_color = Color(0, 0, 0, 0.87058824)
 
 [node name="VisualThemeEditor" type="PanelContainer"]
 anchors_preset = 15
@@ -9,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1l4km")
 script = ExtResource("1_1l4km")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

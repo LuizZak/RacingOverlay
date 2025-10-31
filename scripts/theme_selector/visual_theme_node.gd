@@ -109,13 +109,22 @@ func _set_pedal_fill_color(color: Color) -> void:
     brake_progress.add_theme_stylebox_override("fill", style)
     throttle_progress.add_theme_stylebox_override("fill", style)
 
-func load_visual_theme(theme: VisualTheme):
+func load_visual_theme(theme: VisualTheme) -> void:
     self.visual_theme = theme
     self.theme_name_label.text = theme.display_name
 
-    shifter_shaft_color = theme.theme_settings.shifter_fill_color
-    shifter_shaft_outline_color = theme.theme_settings.shifter_outline_color
-    pedal_fill_color = theme.theme_settings.pedal_bar_fill_color
+    if theme.theme_settings.is_empty:
+        shifter_shaft_color = Settings.instance.shifter_shaft_fill_color
+        shifter_shaft_outline_color = Settings.instance.shifter_shaft_outline_color
+        pedal_fill_color = Settings.instance.pedal_bar_fill_color
+
+        _disable_edit_color_button()
+    else:
+        shifter_shaft_color = theme.theme_settings.shifter_fill_color
+        shifter_shaft_outline_color = theme.theme_settings.shifter_outline_color
+        pedal_fill_color = theme.theme_settings.pedal_bar_fill_color
+
+        _enable_edit_color_button()
 
     right_foot.visual_theme = theme
     right_foot.refresh_display()
@@ -164,6 +173,13 @@ func load_visual_theme(theme: VisualTheme):
 
     right_hand.visual_theme = theme
     right_hand.refresh_display()
+
+func _disable_edit_color_button() -> void:
+    edit_colors_button.tooltip_text = "The provided theme lacks a settings.json file\nto edit the colors of."
+    edit_colors_button.disabled = true
+
+func _enable_edit_color_button() -> void:
+    edit_colors_button.tooltip_text = "Edit the accompanying colors for this theme."
 
 func _on_button_pressed() -> void:
     on_click.emit()

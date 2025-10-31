@@ -10,6 +10,13 @@ extends PanelContainer
 signal on_save_pressed(shifter_fill_color: Color, shifter_outline_color: Color, pedal_bar_fill_color: Color)
 signal on_cancel_pressed()
 
+func load_theme(visual_theme: VisualTheme) -> void:
+    shifter_fill_color_button.color = visual_theme.theme_settings.shifter_fill_color
+    shifter_outline_color_button.color = visual_theme.theme_settings.shifter_outline_color
+    pedal_bar_fill_color_button.color = visual_theme.theme_settings.pedal_bar_fill_color
+
+    visual_theme_node.load_visual_theme(visual_theme)
+
 func _on_reset_shifter_fill_color_button_pressed() -> void:
     var color := VisualTheme.DEFAULT_SHIFTER_FILL_COLOR
 
