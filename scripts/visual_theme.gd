@@ -3,6 +3,10 @@ extends Object
 
 static var _built_in_theme: VisualTheme
 
+const DEFAULT_SHIFTER_FILL_COLOR := Color.BLACK
+const DEFAULT_SHIFTER_OUTLINE_COLOR := Color.WHITE
+const DEFAULT_PEDAL_FILL_COLOR := Color(0.082, 0.219, 0.225)
+
 ## A path to disk that represents this theme.
 var path: String = ""
 
@@ -11,6 +15,9 @@ var identifier: String = ""
 
 ## A display name for this theme, to be shown in user interfaces.
 var display_name: String = ""
+
+## Accompanying theme settings.
+var theme_settings: ThemeSettings = ThemeSettings.make_default()
 
 var resources: Dictionary[StringName, VisualResource] = {}
 
@@ -34,9 +41,14 @@ func is_empty() -> bool:
         if not resource.is_built_in:
             return false
 
+    if not theme_settings.is_empty:
+        return false
+
     return true
 
 func load_from_disk() -> void:
+    theme_settings = _load_theme_settings(self.path)
+
     for resource in VisualResourceLibrary.all_resources:
         self.resources[resource] = _load_uncached(resource, self.path)
 
@@ -45,6 +57,20 @@ func load_resource(key: StringName) -> VisualResource:
         return self.resources[key]
 
     return null
+
+func _load_theme_settings(base_path: String) -> ThemeSettings:
+    if base_path == "":
+        return ThemeSettings.make_default()
+
+    var full_path := base_path.path_join("settings.json")
+
+    if not FileAccess.file_exists(full_path):
+        return ThemeSettings.make_default()
+
+    var file := FileAccess.open(full_path, FileAccess.READ)
+    var json_text := file.get_as_text()
+
+    return ThemeSettings.from_json(json_text)
 
 func _load_uncached(key: StringName, base_path: String) -> VisualResource:
     var resource := VisualResource.new()
@@ -62,7 +88,6 @@ func _load_uncached(key: StringName, base_path: String) -> VisualResource:
             resource.is_built_in = false
 
         var sprite_frames := _load_file_sprite_frames(key, base_path)
-
         if sprite_frames != null:
             resource.sprite_frames = sprite_frames
             resource.is_built_in = false
@@ -99,3 +124,77 @@ static func built_in_theme() -> VisualTheme:
     _built_in_theme.identifier = "?built in?"
     _built_in_theme.load_from_disk()
     return _built_in_theme
+
+## Extra theme settings.
+class ThemeSettings:
+    var shifter_fill_color: Color
+    var shifter_outline_color: Color
+    var pedal_bar_fill_color: Color
+    var is_empty: bool
+
+    func _init(
+        shifter_fill_color: Color,
+        shifter_outline_color: Color,
+        pedal_bar_fill_color: Color,
+        is_empty: bool,
+    ) -> void:
+        self.shifter_fill_color = shifter_fill_color
+        self.shifter_outline_color = shifter_outline_color
+        self.pedal_bar_fill_color = pedal_bar_fill_color
+        self.is_empty = is_empty
+
+    func to_json() -> String:
+        var dictionary: Dictionary = {
+            "shifter_fill_color": _color_to_string(shifter_fill_color),
+            "shifter_outline_color": _color_to_string(shifter_outline_color),
+            "pedal_bar_fill_color": _color_to_string(pedal_bar_fill_color)
+        }
+
+        return JSON.stringify(dictionary, "    ")
+
+    ## Makes a default theme settings object.
+    ##
+    ## By default, `is_empty` is set to true on the returned object.
+    static func make_default() -> ThemeSettings:
+        return ThemeSettings.new(
+            VisualTheme.DEFAULT_SHIFTER_FILL_COLOR,
+            VisualTheme.DEFAULT_SHIFTER_OUTLINE_COLOR,
+            VisualTheme.DEFAULT_PEDAL_FILL_COLOR,
+            true,
+        )
+
+    static func from_json(json: String) -> ThemeSettings:
+        var dictionary: Dictionary = JSON.parse_string(json)
+
+        if dictionary == null:
+            return ThemeSettings.new(
+                VisualTheme.DEFAULT_SHIFTER_FILL_COLOR,
+                VisualTheme.DEFAULT_SHIFTER_OUTLINE_COLOR,
+                VisualTheme.DEFAULT_PEDAL_FILL_COLOR,
+                true,
+            )
+
+        var shifter_fill_color: Color = VisualTheme.DEFAULT_SHIFTER_FILL_COLOR
+        if dictionary.has("shifter_fill_color"):
+            shifter_fill_color = _color_from_string(dictionary["shifter_fill_color"], VisualTheme.DEFAULT_SHIFTER_FILL_COLOR)
+
+        var shifter_outline_color: Color = VisualTheme.DEFAULT_SHIFTER_OUTLINE_COLOR
+        if dictionary.has("shifter_outline_color"):
+            shifter_outline_color = _color_from_string(dictionary["shifter_outline_color"], VisualTheme.DEFAULT_SHIFTER_OUTLINE_COLOR)
+
+        var pedal_bar_fill_color: Color = VisualTheme.DEFAULT_PEDAL_FILL_COLOR
+        if dictionary.has("pedal_bar_fill_color"):
+            pedal_bar_fill_color = _color_from_string(dictionary["pedal_bar_fill_color"], VisualTheme.DEFAULT_PEDAL_FILL_COLOR)
+
+        return ThemeSettings.new(
+            shifter_fill_color,
+            shifter_outline_color,
+            pedal_bar_fill_color,
+            false,
+        )
+
+    static func _color_to_string(color: Color) -> String:
+        return color.to_html()
+
+    static func _color_from_string(string: String, default: Color) -> Color:
+        return Color.from_string(string, default)

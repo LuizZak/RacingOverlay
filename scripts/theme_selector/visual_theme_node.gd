@@ -1,6 +1,10 @@
 class_name VisualThemeNode
 extends MarginContainer
 
+@onready var button: Button = $VBoxContainer/MarginContainer/Button
+
+@onready var shifter_container: ShifterContainer = %ShifterContainer
+
 @onready var right_foot: VisualNode = %RightFoot
 @onready var left_foot: VisualNode = %LeftFoot
 
@@ -21,11 +25,60 @@ extends MarginContainer
 @onready var left_hand: VisualNode = %LeftHand
 @onready var right_hand: VisualNode = %RightHand
 
+@onready var theme_name_panel_container: PanelContainer = %ThemeNamePanelContainer
 @onready var theme_name_label: Label = %ThemeNameLabel
 
 @onready var selection_status_panel: Panel = %SelectionStatusPanel
 
+@onready var clutch_progress: ProgressBar = %ClutchProgress
+@onready var brake_progress: ProgressBar = %BrakeProgress
+@onready var throttle_progress: ProgressBar = %ThrottleProgress
+
+@onready var edit_colors_button: Button = %EditColorsButton
+
+@export
+var is_theme_name_visible: bool = true:
+    set(value):
+        is_theme_name_visible = value
+        if theme_name_panel_container != null:
+            theme_name_panel_container.visible = value
+
+@export
+var is_button_visible: bool = true:
+    set(value):
+        is_button_visible = value
+        if button != null:
+            button.visible = is_button_visible
+
+@export
+var is_edit_colors_button_visible: bool = true:
+    set(value):
+        is_edit_colors_button_visible = value
+        if edit_colors_button != null:
+            edit_colors_button.visible = is_edit_colors_button_visible
+
+@export
+var shifter_shaft_color: Color = Color.BLACK:
+    set(value):
+        shifter_shaft_color = value
+        if shifter_container != null:
+            shifter_container.shifter_shaft_color = value
+
+@export
+var shifter_shaft_outline_color: Color = Color.WHITE:
+    set(value):
+        shifter_shaft_outline_color = value
+        if shifter_container != null:
+            shifter_container.shifter_shaft_outline_color = value
+
+@export
+var pedal_fill_color: Color = Color(0.082, 0.219, 0.225):
+    set(value):
+        pedal_fill_color = value
+        _set_pedal_fill_color(value)
+
 signal on_click()
+signal on_edit_colors_pressed()
 
 var visual_theme: VisualTheme = null
 
@@ -34,9 +87,35 @@ var is_selected: bool = false:
         is_selected = true
         selection_status_panel.visible = is_selected
 
+func _ready() -> void:
+    theme_name_panel_container.visible = is_theme_name_visible
+    button.visible = is_button_visible
+    edit_colors_button.visible = is_edit_colors_button_visible
+
+    shifter_container.shifter_shaft_color = shifter_shaft_color
+    shifter_container.shifter_shaft_outline_color = shifter_shaft_outline_color
+
+    _set_pedal_fill_color(pedal_fill_color)
+
+func _set_pedal_fill_color(color: Color) -> void:
+    if clutch_progress == null:
+        return
+
+    var style := StyleBoxFlat.new()
+    style.set_corner_radius_all(8)
+    style.bg_color = color
+
+    clutch_progress.add_theme_stylebox_override("fill", style)
+    brake_progress.add_theme_stylebox_override("fill", style)
+    throttle_progress.add_theme_stylebox_override("fill", style)
+
 func load_visual_theme(theme: VisualTheme):
     self.visual_theme = theme
     self.theme_name_label.text = theme.display_name
+
+    shifter_shaft_color = theme.theme_settings.shifter_fill_color
+    shifter_shaft_outline_color = theme.theme_settings.shifter_outline_color
+    pedal_fill_color = theme.theme_settings.pedal_bar_fill_color
 
     right_foot.visual_theme = theme
     right_foot.refresh_display()
@@ -86,6 +165,8 @@ func load_visual_theme(theme: VisualTheme):
     right_hand.visual_theme = theme
     right_hand.refresh_display()
 
-
 func _on_button_pressed() -> void:
     on_click.emit()
+
+func _on_edit_colors_button_pressed() -> void:
+    on_edit_colors_pressed.emit()

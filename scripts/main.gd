@@ -211,9 +211,12 @@ func _reset_game_state():
     target_container_position = Vector2.ZERO
 
 func _update_progress_bar_styles():
+    _set_pedal_fill_color(Settings.instance.pedal_bar_fill_color)
+
+func _set_pedal_fill_color(color: Color):
     var style := StyleBoxFlat.new()
     style.set_corner_radius_all(8)
-    style.bg_color = Settings.instance.pedal_bar_fill_color
+    style.bg_color = color
 
     clutch_progress.add_theme_stylebox_override("fill", style)
     brake_progress.add_theme_stylebox_override("fill", style)
@@ -265,6 +268,10 @@ func update_handbrake_position(amount: float):
 
 func _change_theme(new_theme: VisualTheme):
     active_theme = new_theme
+
+    shifter_container.shifter_shaft_color = new_theme.theme_settings.shifter_fill_color
+    shifter_container.shifter_shaft_outline_color = new_theme.theme_settings.shifter_outline_color
+    _set_pedal_fill_color(new_theme.theme_settings.pedal_bar_fill_color)
 
     for visual_node in visual_nodes:
         visual_node.visual_theme = new_theme
