@@ -72,7 +72,7 @@ signal on_close_pressed()
 
 var _current_rebind_action: String = ""
 
-func _ready():
+func _ready() -> void:
     var workingMap := InputtyMap.new()
     workingMap.loadFromFile()
     workingMap.applyToMain()
@@ -87,7 +87,7 @@ func _ready():
 
     load_defaults_button.pressed.connect(_on_load_defaults_button_pressed)
 
-func _on_load_defaults_button_pressed():
+func _on_load_defaults_button_pressed() -> void:
     InputMap.load_from_project_settings()
 
     var workingMap := InputtyMap.new()
@@ -96,11 +96,11 @@ func _on_load_defaults_button_pressed():
 
     _refresh_rebind_entries()
 
-func _refresh_rebind_entries():
+func _refresh_rebind_entries() -> void:
     for rebind_entry in all_action_rebinds:
         rebind_entry.refresh()
 
-func _rebind_container_on_input_accepted(event: InputEvent):
+func _rebind_container_on_input_accepted(event: InputEvent) -> void:
     if not _current_rebind_action.is_empty():
         InputMap.action_erase_events(_current_rebind_action)
         InputMap.action_add_event(_current_rebind_action, event)
@@ -113,10 +113,10 @@ func _rebind_container_on_input_accepted(event: InputEvent):
 
     _end_rebind()
 
-func _rebind_container_on_cancelled():
+func _rebind_container_on_cancelled() -> void:
     _end_rebind()
 
-func _end_rebind():
+func _end_rebind() -> void:
     _current_rebind_action = ""
     pedal_rebind_container.stop_listening()
     pedal_rebind_container.hide()

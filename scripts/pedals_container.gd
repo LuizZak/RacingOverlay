@@ -30,7 +30,7 @@ func update_pedals(
     normalized_clutch: float,
     normalized_brake: float,
     normalized_throttle: float
-):
+) -> void:
     _latest_throttle_position = normalized_throttle
 
     update_pedal_position(clutch_pedal, normalized_clutch)
@@ -42,10 +42,10 @@ func update_pedals(
         normalized_throttle,
     )
 
-func update_pedal_position(pedal: Node2D, amount: float):
+func update_pedal_position(pedal: Node2D, amount: float) -> void:
     pedal.position.y = amount * 25
 
-func update_pedals_rotation(clutch: float, brake: float, throttle: float):
+func update_pedals_rotation(clutch: float, brake: float, throttle: float) -> void:
     if Settings.instance.pedal_sink:
         var total := clutch - throttle
         pedals.rotation_degrees = total

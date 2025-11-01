@@ -19,7 +19,7 @@ func _ready() -> void:
 func _on_button_pressed() -> void:
     did_click_rebind.emit(action_name)
 
-func refresh():
+func refresh() -> void:
     label.text = StringUtils.prepare_action_name(action_name)
     button.text = _prepare_action_input()
 

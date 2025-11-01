@@ -126,7 +126,7 @@ func _on_show_extra_game_info_checkbox_toggled(toggled_on: bool) -> void:
     Settings.instance.emit_settings_changed()
     Settings.instance.save_to_disk()
 
-func _on_networking_status_changed(status: NetworkingBase.Status):
+func _on_networking_status_changed(status: NetworkingBase.Status) -> void:
     match status:
         NetworkingBase.Status.DISCONNECTED:
             status_label.text = "Disconnected"

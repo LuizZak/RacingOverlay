@@ -12,18 +12,18 @@ var _status: Status = Status.AWAITING
 
 signal on_status_changed(status: Status)
 
-func _init():
+func _init() -> void:
     if _mode == Mode.CONNECT:
         server.listen(_port)
 
-func _set_status(status: Status):
+func _set_status(status: Status) -> void:
     if status == _status:
         return
 
     _status = status
     on_status_changed.emit(status)
 
-func set_game(game: GamePacketBase.Game):
+func set_game(game: GamePacketBase.Game) -> void:
     if _game == game:
         return
 
@@ -37,7 +37,7 @@ func set_game(game: GamePacketBase.Game):
             server.listen(_port)
             _set_status(Status.AWAITING)
 
-func set_port(port: int):
+func set_port(port: int) -> void:
     if port == _port:
         return
 
@@ -46,7 +46,7 @@ func set_port(port: int):
     server.stop()
     server.listen(_port)
 
-func set_mode(mode: Mode):
+func set_mode(mode: Mode) -> void:
     if _mode == mode:
         return
 

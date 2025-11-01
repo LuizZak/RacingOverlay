@@ -12,10 +12,10 @@ enum Mode {
     CONNECT,
 }
 
-func set_port(port: int):
+func set_port(port: int) -> void:
     pass
 
-func set_mode(mode: Mode):
+func set_mode(mode: Mode) -> void:
     pass
 
 func poll_connections() -> Error:

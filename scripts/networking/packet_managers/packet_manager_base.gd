@@ -13,12 +13,12 @@ func _init(networking: NetworkingBase):
     _networking = networking
 
 ## Called at the start of a frame to digest packets from the Networking layer.
-func process(delta: float):
+func process(delta: float) -> void:
     while _networking.has_packets():
         _latest_packet = _networking.fetch_packet()
         _update(_latest_packet)
 
-func _update(packet: GamePacketBase):
+func _update(packet: GamePacketBase) -> void:
     _roll_angle = packet.computed_roll_angle()
     _forward_velocity = packet.computed_forward_velocity()
     _vertical_velocity = packet.computed_vertical_velocity()

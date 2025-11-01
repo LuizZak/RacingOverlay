@@ -21,7 +21,7 @@ var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 func _ready() -> void:
     refresh_display()
 
-func refresh_display():
+func refresh_display() -> void:
     if sprite == null or animated_sprite == null or key == &"":
         return
 

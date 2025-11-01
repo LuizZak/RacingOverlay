@@ -13,16 +13,16 @@ var cancel_button: Button = %CancelButton
 var _latest_input: InputEvent = null
 var _is_listening: bool = false
 
-func start_listening(action_name: String):
+func start_listening(action_name: String) -> void:
     rebind_panel_label.text = "Rebind %s" % [StringUtils.prepare_action_name(action_name)]
     rebind_panel_input_label.text = "Awaiting input..."
 
     _is_listening = true
 
-func stop_listening():
+func stop_listening() -> void:
     _is_listening = false
 
-func _submit_event(event: InputEvent):
+func _submit_event(event: InputEvent) -> void:
     if _is_listening:
         get_viewport().set_input_as_handled()
         _latest_input = event

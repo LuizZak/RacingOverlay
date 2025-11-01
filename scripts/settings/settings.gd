@@ -26,10 +26,10 @@ var pedal_sink_checkbox: CheckBox = %PedalSinkCheckbox
 
 signal on_close_pressed()
 
-func _ready():
+func _ready() -> void:
     _populate_settings()
 
-func _populate_settings():
+func _populate_settings() -> void:
     _populate_pedal_mode()
     _populate_rest_hand_position()
     pedal_vibration_checkbox.button_pressed = Settings.instance.pedal_vibration
@@ -42,7 +42,7 @@ func _populate_settings():
     pedal_vibration_slider.value = Settings.instance.pedal_vibration_strength
     pedal_sink_checkbox.button_pressed = Settings.instance.pedal_sink
 
-func _populate_pedal_mode():
+func _populate_pedal_mode() -> void:
     var pedal_mode := Settings.instance.pedal_mode
 
     match pedal_mode:
@@ -51,7 +51,7 @@ func _populate_pedal_mode():
         Settings.PedalMode.SINGLE_AXIS:
             pedal_mode_option_button.selected = 1
 
-func _populate_rest_hand_position():
+func _populate_rest_hand_position() -> void:
     var rest_hand_position := Settings.instance.rest_hand_position
 
     match rest_hand_position:

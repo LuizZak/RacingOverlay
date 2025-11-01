@@ -23,7 +23,7 @@ func to_dictionary() -> Dictionary:
         "show_extra_game_information": show_extra_game_information
     }
 
-static func from_dictionary(dictionary: Dictionary):
+static func from_dictionary(dictionary: Dictionary) -> GameConnectionSettings:
     var settings := GameConnectionSettings.new()
     settings.port = dictionary.get_or_add("port", settings.port)
     settings.roll_with_vehicle = dictionary.get_or_add("roll_with_vehicle", settings.roll_with_vehicle)

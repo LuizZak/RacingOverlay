@@ -30,7 +30,7 @@ var _capture_tolerance: float = 0.5
 
 var state: State
 
-func start_listening(action_name: String):
+func start_listening(action_name: String) -> void:
     _captured_input = null
     self._action_name = _action_name
 
@@ -41,12 +41,12 @@ func start_listening(action_name: String):
 
     _is_listening = true
 
-func stop_listening():
+func stop_listening() -> void:
     _change_state(State.AWAITING)
 
     _is_listening = false
 
-func _change_state(state: State):
+func _change_state(state: State) -> void:
     self.state = state
 
     match state:
@@ -62,7 +62,7 @@ func _change_state(state: State):
         State.COMPLETE:
             instruction_panel_label.text = "Accept or Cancel to finish"
 
-func _submit_event(event: InputEvent):
+func _submit_event(event: InputEvent) -> void:
     if _is_listening:
         get_viewport().set_input_as_handled()
         _latest_input = event
@@ -70,7 +70,7 @@ func _submit_event(event: InputEvent):
         rebind_panel_input_label.text = event.as_text()
         stop_listening()
 
-func _process_event(event: InputEvent):
+func _process_event(event: InputEvent) -> void:
     if not _is_listening:
         return
 
