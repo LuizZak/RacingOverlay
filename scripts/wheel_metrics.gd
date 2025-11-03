@@ -40,14 +40,21 @@ func update_with_packet(packet: GamePacketBase) -> void:
     if packet is Dirt2GamePacket:
         wheel_entries[Wheel.REAR_LEFT].update(packet.speed_ms, packet.wsp_rl)
         wheel_entries[Wheel.REAR_RIGHT].update(packet.speed_ms, packet.wsp_rr)
-        wheel_entries[Wheel.FRONT_LEFT].update(packet.speed_ms, packet.wsp_fl)
-        wheel_entries[Wheel.FRONT_RIGHT].update(packet.speed_ms, packet.wsp_fr)
+        wheel_entries[Wheel.FRONT_LEFT].update(packet.speed_ms, packet.wsp_fl, packet.steering * deg_to_rad(25))
+        wheel_entries[Wheel.FRONT_RIGHT].update(packet.speed_ms, packet.wsp_fr, packet.steering * deg_to_rad(25))
 
 func _draw() -> void:
     # Draw background
     var bounds := _bounds_for_drawing().grow(10)
 
-    draw_rect(bounds, back_color, true)
+    var style_box := StyleBoxFlat.new()
+    style_box.border_color = Color.BLACK
+    style_box.bg_color = back_color
+    style_box.border_blend = true
+    style_box.set_border_width_all(2)
+    style_box.set_corner_radius_all(8)
+
+    draw_style_box(style_box, bounds)
 
     # Draw power train
     const POWERTRAIN_COLOR := Color.BLACK
@@ -91,7 +98,9 @@ class WheelEntry:
         self.position = position
         self.size = size
 
-    func update(vehicle_speed: float, wheel_speed: float) -> void:
+    func update(vehicle_speed: float, wheel_speed: float, wheel_rotation_radians: float = 0.0) -> void:
+        rotation = wheel_rotation_radians
+
         if vehicle_speed == wheel_speed:
             fill_color = Color.GREEN
             is_locked = false
