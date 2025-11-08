@@ -234,6 +234,7 @@ position = Vector2(-148, 132)
 [node name="WheelMetrics" parent="Base/MetricsContainer" instance=ExtResource("7_kek77")]
 unique_name_in_owner = true
 back_color = Color(1, 1, 1, 0.435294)
+show_engine = false
 
 [node name="TractionLabel" type="Label" parent="Base/MetricsContainer/WheelMetrics"]
 offset_left = -28.0

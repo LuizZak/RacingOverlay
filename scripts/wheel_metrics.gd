@@ -12,12 +12,21 @@ enum Wheel {
 const WHEEL_OFFSET := Vector2(20, 30)
 const WHEEL_SIZE := Vector2(17, 30)
 
+const ENGINE_SIZE := Vector2(20, 30)
+
 @export
 var back_color: Color = Color.WHITE:
     set(value):
         back_color = value
         queue_redraw()
 
+@export
+var show_engine: bool = true:
+    set(value):
+        show_engine = value
+        queue_redraw()
+
+var engine_display: EngineDisplay = EngineDisplay.new(Vector2.ZERO)
 var wheel_entries: Dictionary[Wheel, WheelEntry] = {
     Wheel.REAR_LEFT: WheelEntry.make_rear_left(),
     Wheel.REAR_RIGHT: WheelEntry.make_rear_right(),
@@ -29,6 +38,8 @@ func _ready() -> void:
     reset()
 
 func reset() -> void:
+    engine_display.update(1000, 7000, 1000)
+
     wheel_entries[Wheel.REAR_LEFT].update(0.0, 0.0)
     wheel_entries[Wheel.REAR_RIGHT].update(0.0, 0.0)
     wheel_entries[Wheel.FRONT_LEFT].update(0.0, 0.0)
@@ -38,6 +49,8 @@ func update_with_packet(packet: GamePacketBase) -> void:
     queue_redraw()
 
     if packet is Dirt2GamePacket:
+        engine_display.update(packet.idle_rpm, packet.max_rpm, packet.rpm)
+
         wheel_entries[Wheel.REAR_LEFT].update(packet.speed_ms, packet.wsp_rl)
         wheel_entries[Wheel.REAR_RIGHT].update(packet.speed_ms, packet.wsp_rr)
         wheel_entries[Wheel.FRONT_LEFT].update(packet.speed_ms, packet.wsp_fl, packet.steering * deg_to_rad(25))
@@ -72,6 +85,10 @@ func _draw() -> void:
     draw_line(front, rear, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
     draw_line(rl, rr, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
 
+    # Draw engine
+    if show_engine:
+        engine_display.draw(self)
+
     # Draw wheels
     for wheel in wheel_entries.values():
         wheel.draw(self)
@@ -79,10 +96,94 @@ func _draw() -> void:
 func _bounds_for_drawing() -> Rect2:
     var bounds := Rect2()
 
+    bounds.merge(engine_display.bounds())
+
     for wheel in wheel_entries.values():
         bounds = bounds.merge(wheel.bounds())
 
     return bounds
+
+## Manages the display of the engine on the power train.
+class EngineDisplay:
+    var position: Vector2
+    var size: Vector2
+    var idle_rpm: float = 0.0
+    var max_rpm: float = 0.0
+    var current_rpm: float = 0.0
+
+    func _init(position: Vector2, size: Vector2 = ENGINE_SIZE) -> void:
+        self.position = position
+        self.size = size
+
+    func update(idle_rpm: float, max_rpm: float, current_rpm: float) -> void:
+        self.idle_rpm = idle_rpm
+        self.max_rpm = max_rpm
+        self.current_rpm = current_rpm
+
+    func draw(canvas_item: CanvasItem) -> void:
+        canvas_item.draw_set_transform(position)
+
+        # Draw background
+        var bg_style_box := StyleBoxFlat.new()
+        bg_style_box.set_border_width_all(2)
+        bg_style_box.set_corner_radius_all(4)
+        bg_style_box.bg_color = Color.WHITE
+        bg_style_box.border_color = Color.TRANSPARENT
+
+        canvas_item.draw_style_box(bg_style_box, local_bounds())
+
+        # Draw fill
+        var segments := minf(11, maxf(4, int(max_rpm / 1000.0)))
+        var seg_height := size.y / segments
+        for i in range(segments):
+            var start_y := seg_height * i
+            var relative := 1 - float(i) / segments
+
+            if max_rpm != 0.0 and current_rpm / max_rpm >= relative:
+                canvas_item.draw_rect(
+                    Rect2(-size.x / 2, -size.y / 2 + start_y, size.x, seg_height),
+                    Color.RED.lerp(Color.GREEN, float(i) / segments),
+                    true,
+                )
+
+        for i in range(segments - 1):
+            var start_y := seg_height * (i + 1)
+            canvas_item.draw_line(
+                Vector2(-size.x / 2, -size.y / 2 + start_y),
+                Vector2(size.x / 2, -size.y / 2 + start_y),
+                Color.WHITE
+            )
+
+        # Draw outline
+        var outline_style_box := StyleBoxFlat.new()
+        outline_style_box.set_border_width_all(2)
+        outline_style_box.bg_color = Color.TRANSPARENT
+        outline_style_box.expand_margin_top = 0.0
+        outline_style_box.border_color = Color.BLACK
+
+        canvas_item.draw_style_box(outline_style_box, local_bounds())
+
+    func _fill_color() -> Color:
+        if current_rpm >= max_rpm:
+            return Color.RED
+        if current_rpm <= idle_rpm:
+            return Color.BLUE
+
+        var lower_range := idle_rpm
+        var upper_range := max_rpm
+
+        var normalized := (current_rpm - lower_range) / (upper_range - lower_range)
+
+        if normalized <= 0.5:
+            return Color.RED # Color.BLUE.lerp(Color.ORANGE, normalized * 2.0) #LCH.lerp_color(Color.BLUE, Color.YELLOW, normalized * 2.0)
+        else:
+            return Color.RED # Color.ORANGE.lerp(Color.RED, (normalized - 0.5) * 2.0) # LCH.lerp_color(Color.YELLOW, Color.RED, (normalized - 0.5) * 2.0)
+
+    func bounds() -> Rect2:
+        return Rect2(position - size / 2, size)
+
+    func local_bounds() -> Rect2:
+        return Rect2(Vector2.ZERO - size / 2, size)
 
 ## A wheel entry, with information about positioning and color in local node space.
 class WheelEntry:
