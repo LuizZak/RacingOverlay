@@ -23,6 +23,8 @@ var pedal_vibration_checkbox: CheckBox = %PedalVibrationCheckbox
 var pedal_vibration_slider: HSlider = %PedalVibrationSlider
 @onready
 var pedal_sink_checkbox: CheckBox = %PedalSinkCheckbox
+@onready
+var dynamic_steering_hand_animation_checkbox: CheckBox = %DynamicSteeringHandAnimationCheckbox
 
 signal on_close_pressed()
 
@@ -41,6 +43,7 @@ func _populate_settings() -> void:
     pedal_bar_fill_color_button.color = Settings.instance.pedal_bar_fill_color
     pedal_vibration_slider.value = Settings.instance.pedal_vibration_strength
     pedal_sink_checkbox.button_pressed = Settings.instance.pedal_sink
+    dynamic_steering_hand_animation_checkbox.button_pressed = Settings.instance.dynamic_steering_hand_animation
 
 func _populate_pedal_mode() -> void:
     var pedal_mode := Settings.instance.pedal_mode
@@ -127,6 +130,10 @@ func _on_pedal_vibration_slider_value_changed(value: float) -> void:
 
 func _on_pedal_sink_checkbox_toggled(toggled_on: bool) -> void:
     Settings.instance.pedal_sink = toggled_on
+    Settings.instance.save_to_disk()
+
+func _on_dynamic_steering_hand_animation_checkbox_toggled(toggled_on: bool) -> void:
+    Settings.instance.dynamic_steering_hand_animation = toggled_on
     Settings.instance.save_to_disk()
 
 func _on_close_button_pressed() -> void:

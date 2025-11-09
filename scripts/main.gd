@@ -315,6 +315,8 @@ func _reload_assets() -> void:
 func _on_settings_changed() -> void:
     right_hand_manager.parameters[RightHandManager.RHM_REST_HAND_POSITION] = Settings.instance.rest_hand_position
 
+    steering_hand_manager.set_dynamic_animation_enabled(Settings.instance.dynamic_steering_hand_animation)
+
     var filter := Node2D.TEXTURE_FILTER_NEAREST
     if Settings.instance.smooth_textures:
         filter = Node2D.TEXTURE_FILTER_LINEAR

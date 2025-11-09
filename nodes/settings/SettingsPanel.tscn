@@ -249,6 +249,18 @@ rotate pedal base when pedals
 are depressed."
 text = "Pedal Sink"
 
+[node name="HBoxContainer11" type="HBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="DynamicSteeringHandAnimationCheckbox" type="CheckBox" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer11"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Whether to apply a dynamic
+steering animation to the
+hands attached to the steering
+wheel."
+text = "Dynamic Steering Hand Animations"
+
 [node name="Game Connection" type="PanelContainer" parent="VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
@@ -280,4 +292,5 @@ text = "Close"
 [connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationCheckbox" to="." method="_on_pedal_vibration_checkbox_toggled"]
 [connection signal="value_changed" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer2/PedalVibrationSlider" to="." method="_on_pedal_vibration_slider_value_changed"]
 [connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer3/PedalSinkCheckbox" to="." method="_on_pedal_sink_checkbox_toggled"]
+[connection signal="toggled" from="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer2/VBoxContainer/HBoxContainer11/DynamicSteeringHandAnimationCheckbox" to="." method="_on_dynamic_steering_hand_animation_checkbox_toggled"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]

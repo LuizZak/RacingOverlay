@@ -76,6 +76,11 @@ var pedal_sink: bool = true:
         pedal_sink = value
         emit_settings_changed()
 
+var dynamic_steering_hand_animation: bool = true:
+    set(value):
+        dynamic_steering_hand_animation = value
+        emit_settings_changed()
+
 var connect_to_game: bool = true:
     set(value):
         connect_to_game = value
@@ -111,6 +116,7 @@ func _make_settings_dictionary() -> Dictionary:
         "pedal_vibration": pedal_vibration,
         "pedal_vibration_strength": pedal_vibration_strength,
         "pedal_sink": pedal_sink,
+        "dynamic_steering_hand_animation": dynamic_steering_hand_animation,
         "connect_to_game": connect_to_game,
         "active_game": active_game,
         "game_connections": { },
@@ -147,6 +153,8 @@ func _from_settings_directory(dictionary: Dictionary):
         self.pedal_vibration_strength = dictionary["pedal_vibration_strength"]
     if dictionary.has("pedal_sink"):
         self.pedal_sink = dictionary["pedal_sink"]
+    if dictionary.has("dynamic_steering_hand_animation"):
+        self.dynamic_steering_hand_animation = dictionary["dynamic_steering_hand_animation"]
     if dictionary.has("connect_to_game"):
         self.connect_to_game = dictionary["connect_to_game"]
     if dictionary.has("active_game"):
