@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://botn7rroyomwk"]
+
+[ext_resource type="Script" uid="uid://bhsc244y2i435" path="res://scripts/steering_wheel/steering_wheel_pin_container.gd" id="1_g1od4"]
+[ext_resource type="Script" uid="uid://cnvxunm7p8tvm" path="res://scripts/steering_wheel_demo.gd" id="1_ppplr"]
+[ext_resource type="PackedScene" uid="uid://dj2e4qiowlmf4" path="res://nodes/visual_node.tscn" id="1_r28mn"]
+
+[node name="SteeringWheelDemo" type="Node2D"]
+script = ExtResource("1_ppplr")
+
+[node name="SteeringWheel" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(197, 183)
+
+[node name="SteeringWheelSprite" parent="SteeringWheel" instance=ExtResource("1_r28mn")]
+key = &"steering_wheel"
+
+[node name="RightHandPinContainer" type="Node2D" parent="SteeringWheel"]
+unique_name_in_owner = true
+script = ExtResource("1_g1od4")
+pin_offset_angle = -0.8107403441364059
+pin_count = 3
+pin_radius = 55.0
+metadata/_custom_type_script = "uid://bhsc244y2i435"
+
+[node name="LeftHandPinContainer" type="Node2D" parent="SteeringWheel"]
+unique_name_in_owner = true
+script = ExtResource("1_g1od4")
+pin_offset_angle = -0.3242996283130667
+pin_count = 3
+pin_radius = 55.0
+metadata/_custom_type_script = "uid://bhsc244y2i435"
+
+[node name="RightHand" parent="." instance=ExtResource("1_r28mn")]
+unique_name_in_owner = true
+position = Vector2(146, 169)
+key = &"hand_right_steering"
+
+[node name="LeftHand" parent="." instance=ExtResource("1_r28mn")]
+unique_name_in_owner = true
+position = Vector2(251, 168)
+key = &"hand_left"

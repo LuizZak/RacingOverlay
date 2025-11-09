@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8qh0jqb3l0jl"]
+[gd_scene load_steps=11 format=3 uid="uid://c8qh0jqb3l0jl"]
 
 [ext_resource type="Script" uid="uid://dd2jlovf26ngf" path="res://scripts/main.gd" id="1_37kl0"]
 [ext_resource type="PackedScene" uid="uid://bb7eldms6h3lh" path="res://scenes/controls_rebind.tscn" id="2_cegan"]
 [ext_resource type="PackedScene" uid="uid://clyp31sfrkmhu" path="res://nodes/steering_wheel_indicator.tscn" id="2_getpj"]
 [ext_resource type="Script" uid="uid://beflgpdwajjr3" path="res://scripts/shifter_container.gd" id="3_0m0f1"]
 [ext_resource type="PackedScene" uid="uid://dj2e4qiowlmf4" path="res://nodes/visual_node.tscn" id="3_kek77"]
+[ext_resource type="Script" uid="uid://bhsc244y2i435" path="res://scripts/steering_wheel/steering_wheel_pin_container.gd" id="4_4c57u"]
 [ext_resource type="PackedScene" uid="uid://d4dysephj2r1g" path="res://nodes/wheel_metrics.tscn" id="7_kek77"]
 [ext_resource type="Theme" uid="uid://dx3lsu6ufvl3v" path="res://theme.tres" id="10_00tp4"]
 [ext_resource type="Script" uid="uid://df1h86p5ogkk5" path="res://scripts/pedals_container.gd" id="12_45l4g"]
@@ -40,6 +41,13 @@ position = Vector2(53, -9)
 [node name="LeftHand" parent="Base/Container/SteeringWheel/LeftHandPin" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 key = &"hand_left"
+
+[node name="PinContainer" type="Node2D" parent="Base/Container/SteeringWheel"]
+script = ExtResource("4_4c57u")
+pin_offset_angle = -0.3242996283130667
+pin_count = 5
+pin_radius = 55.0
+metadata/_custom_type_script = "uid://bhsc244y2i435"
 
 [node name="EbrakeContainer" type="Node2D" parent="Base/Container"]
 position = Vector2(-154, -167)
@@ -92,6 +100,7 @@ horizontal_alignment = 1
 
 [node name="RightHand" parent="Base/Container" instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
+visible = false
 position = Vector2(-6, -88)
 key = &"hand_right_steering"
 
