@@ -78,6 +78,9 @@ func _closest_pin_from_angle(container: SteeringWheelPinContainer, target_angle:
     var steering_wheel := _steering_wheel()
     var reference_rotation := _rotation_reference_node().global_rotation
 
+    if not _is_dynamic_animation_enabled:
+        target_angle = target_angle + steering_wheel.rotation
+
     for pin in pins:
         var rel_position := pin.global_position - steering_wheel.global_position
         var angle := rel_position.angle() - reference_rotation
