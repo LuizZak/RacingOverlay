@@ -16,6 +16,8 @@ const CONTAINER_MOVE_SPEED: float = 10
 @onready var steering_wheel_indicator: SteeringWheelIndicator = %SteeringWheelIndicator
 @onready var steering_wheel: Node2D = %SteeringWheel
 @onready var right_hand_pin: Marker2D = %SteeringWheel/RightHandPin
+@onready var right_hand_pin_container: SteeringWheelPinContainer = %RightHandPinContainer
+@onready var left_hand_pin_container: SteeringWheelPinContainer = %LeftHandPinContainer
 
 @onready var ebrake: VisualNode = %Ebrake
 @onready var ebrake_marker: Marker2D = %EbrakeMarker
@@ -79,6 +81,7 @@ var keyboard_handler: KeyboardInputHandler
 var right_hand_manager: RightHandManager
 var feet_manager: FeetManager
 var sequential_shifter_manager: SequentialShifterManager
+var steering_hand_manager: SteeringHandManager
 
 var target_container_rotation: float = 0.0
 var target_container_scale: Vector2 = Vector2.ONE
@@ -99,8 +102,8 @@ func _ready() -> void:
 
     packet_manager = PacketManagerBase.new(Networking.instance)
 
-    input_manager = InputManagerBase.new()
-    #keyboard_handler = KeyboardInputHandler.new(input_manager)
+    input_manager = SimulatedInputManager.new() # InputManagerBase.new()
+    keyboard_handler = KeyboardInputHandler.new(input_manager)
     sequential_shifter_manager = SequentialShifterManager.new()
 
     shifter_container.input_manager = input_manager
@@ -135,6 +138,25 @@ func _ready() -> void:
 
     right_hand_manager.transition(
         RightHandManager.OnSteeringWheelState.new()
+    )
+
+    steering_hand_manager = SteeringHandManager.new()
+
+    steering_hand_manager.parameters[SteeringHandManager.ROTATION_REFERENCE_NODE] = container
+    steering_hand_manager.parameters[SteeringHandManager.LEFT_HAND] = left_hand
+    steering_hand_manager.parameters[SteeringHandManager.RIGHT_HAND] = right_hand
+    steering_hand_manager.parameters[SteeringHandManager.STEERING_WHEEL_CONTAINER] = steering_wheel
+    steering_hand_manager.parameters[SteeringHandManager.RIGHT_HAND_PIN_CONTAINER] = right_hand_pin_container
+    steering_hand_manager.parameters[SteeringHandManager.LEFT_HAND_PIN_CONTAINER] = left_hand_pin_container
+
+    steering_hand_manager.make_right_hand_available()
+
+    right_hand_manager.right_hand_availability_changed.connect(
+        func(is_available):
+            if is_available:
+                steering_hand_manager.make_right_hand_available()
+            else:
+                steering_hand_manager.make_right_hand_unavailable()
     )
 
     _reload_assets()
@@ -195,6 +217,7 @@ func _process(delta: float) -> void:
 
     right_hand_manager.process(delta)
     feet_manager.process(delta)
+    steering_hand_manager.process(delta)
 
     if keyboard_handler != null:
         keyboard_handler.process(delta)

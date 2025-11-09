@@ -5,6 +5,9 @@ var parameters: Dictionary = {}
 
 var current_state: State = null
 
+## Signal fired when a state change has fully completed.
+signal state_changed(new_state: State, old_state: State)
+
 func process(delta: float) -> void:
     if current_state != null:
         current_state.process(delta, self)
@@ -18,6 +21,8 @@ func transition(new_state: State) -> void:
 
     if new_state != null:
         new_state.on_enter(last_state, self)
+
+    state_changed.emit(new_state, last_state)
 
 #
 

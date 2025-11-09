@@ -33,6 +33,19 @@ const SHIFT_TIME := 0.2
 ## complete at the end.
 const DISTANCE_TOLERANCE := 5
 
+## Signal fired when the availability of the right hand for animations managed by
+## external code has changed from available to not available.
+signal right_hand_availability_changed(is_available: bool)
+
+func _init() -> void:
+    state_changed.connect(
+        func(new_state, old_state):
+            if new_state is MovingToSteeringWheelState or new_state is OnSteeringWheelState:
+                right_hand_availability_changed.emit(true)
+            if old_state is OnSteeringWheelState:
+                right_hand_availability_changed.emit(false)
+    )
+
 ## Transitions from the current state towards the rest state of the hand, according
 ## to `RHM_REST_HAND_POSITION`.
 ##
@@ -370,20 +383,13 @@ class MovingToSteeringWheelState extends State:
         start_position = right_hand.global_position
         start_rotation = right_hand.global_rotation
 
-        right_hand.key = VisualResourceLibrary.HAND_RIGHT_FLOATING
+        right_hand.key = VisualResourceLibrary.HAND_RIGHT_STEERING
 
     func process(delta, state_machine):
         self.elapsed += delta
 
         var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var steering_pin := state_machine.parameters[RHM_STEERING_PIN] as Node2D
         var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
-
-        var eased = ease(elapsed / TRANSITION_TIME, -2)
-
-        right_hand.global_position = right_hand.global_position.move_toward(steering_pin.global_position, TRANSITION_SPEED * delta)
-        right_hand.global_rotation = lerpf(start_rotation, steering_pin.global_rotation, eased)
 
         if input_manager.numerical_gear() != self.latest_gear or seq_shifter.has_gear_changes():
             state_machine.transition(
@@ -397,11 +403,9 @@ class MovingToSteeringWheelState extends State:
             )
             return
 
-        if right_hand.global_position.distance_to(steering_pin.global_position) < DISTANCE_TOLERANCE:
-            state_machine.transition(
-                OnSteeringWheelState.new()
-            )
-            return
+        state_machine.transition(
+            OnSteeringWheelState.new()
+        )
 
 ## Hand on steering wheel, idling.
 class OnSteeringWheelState extends State:
@@ -409,21 +413,8 @@ class OnSteeringWheelState extends State:
 
     func on_enter(_last, state_machine):
         var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var right_hand := state_machine.parameters[RHM_RIGHT_HAND] as VisualNode
-        var steering_pin := state_machine.parameters[RHM_STEERING_PIN] as Node2D
 
         self.latest_gear = input_manager.numerical_gear()
-
-        # Ensure hand is pinned to the steering wheel by adding it as a child
-        if right_hand.get_parent():
-            right_hand.get_parent().remove_child(right_hand)
-
-        steering_pin.add_child(right_hand)
-
-        right_hand.key = VisualResourceLibrary.HAND_RIGHT_STEERING
-
-        right_hand.rotation = 0.0
-        right_hand.position = Vector2.ZERO
 
     func process(_delta, state_machine):
         var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
