@@ -42,10 +42,17 @@ position = Vector2(53, -9)
 unique_name_in_owner = true
 key = &"hand_left"
 
-[node name="PinContainer" type="Node2D" parent="Base/Container/SteeringWheel"]
+[node name="RightHandPinContainer" type="Node2D" parent="Base/Container/SteeringWheel"]
+script = ExtResource("4_4c57u")
+pin_offset_angle = -0.8107403441364059
+pin_count = 3
+pin_radius = 55.0
+metadata/_custom_type_script = "uid://bhsc244y2i435"
+
+[node name="LeftHandPinContainer" type="Node2D" parent="Base/Container/SteeringWheel"]
 script = ExtResource("4_4c57u")
 pin_offset_angle = -0.3242996283130667
-pin_count = 5
+pin_count = 3
 pin_radius = 55.0
 metadata/_custom_type_script = "uid://bhsc244y2i435"
 

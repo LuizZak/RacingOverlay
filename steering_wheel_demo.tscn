@@ -9,7 +9,7 @@ script = ExtResource("1_ppplr")
 
 [node name="SteeringWheel" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(197, 183)
+position = Vector2(200, 200)
 
 [node name="SteeringWheelSprite" parent="SteeringWheel" instance=ExtResource("1_r28mn")]
 key = &"steering_wheel"
@@ -32,10 +32,18 @@ metadata/_custom_type_script = "uid://bhsc244y2i435"
 
 [node name="RightHand" parent="." instance=ExtResource("1_r28mn")]
 unique_name_in_owner = true
-position = Vector2(146, 169)
+position = Vector2(149, 186)
 key = &"hand_right_steering"
 
 [node name="LeftHand" parent="." instance=ExtResource("1_r28mn")]
 unique_name_in_owner = true
-position = Vector2(251, 168)
+position = Vector2(254, 185)
 key = &"hand_left"
+
+[node name="EnableCheckButton" type="CheckButton" parent="."]
+offset_right = 44.0
+offset_bottom = 24.0
+button_pressed = true
+text = "Enable Dynamic Animation"
+
+[connection signal="toggled" from="EnableCheckButton" to="." method="_on_enable_check_button_toggled"]

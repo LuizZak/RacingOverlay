@@ -3,7 +3,7 @@ extends Object
 
 @export var pedal_change_per_second: float = 20.0
 @export var handbrake_change_per_second: float = 20.0
-@export var steering_change_per_second: float = 1.0
+@export var steering_change_per_second: float = 1
 
 var simulated_input_manager: SimulatedInputManager
 
