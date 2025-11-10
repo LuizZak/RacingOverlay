@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dx3lsu6ufvl3v"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dx3lsu6ufvl3v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wvktn"]
 bg_color = Color(0.0815515, 0.219158, 0.225412, 1)
@@ -7,7 +7,36 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_wvktn"]
+color = Color(0.90359825, 0.90359825, 0.9035982, 1)
+grow_begin = -10.0
+grow_end = -10.0
+thickness = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vj6dk"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.44291073, 0.4429108, 0.4429106, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e1x85"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.32544088, 0.3254409, 0.32544076, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfk0"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.068798296, 0.06879826, 0.06879828, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
 [resource]
-Label/constants/outline_size = 6
-Label/font_sizes/font_size = 12
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_wvktn")
+TabContainer/styles/tab_focus = SubResource("StyleBoxLine_wvktn")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_vj6dk")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_e1x85")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_cjfk0")

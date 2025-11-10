@@ -112,7 +112,6 @@ func _ready() -> void:
 
     feet_manager.parameters[FeetManager.FM_LEFT_FOOT] = left_foot
     feet_manager.parameters[FeetManager.FM_RIGHT_FOOT] = right_foot
-
     feet_manager.parameters[FeetManager.FM_CLUTCH_PEDAL] = clutch_pedal
     feet_manager.parameters[FeetManager.FM_BRAKE_PEDAL] = brake_pedal
     feet_manager.parameters[FeetManager.FM_THROTTLE_PEDAL] = throttle_pedal
@@ -120,20 +119,13 @@ func _ready() -> void:
     right_hand_manager = RightHandManager.new()
 
     right_hand_manager.parameters[RightHandManager.RHM_INPUT_MANAGER] = input_manager
-
     right_hand_manager.parameters[RightHandManager.RHM_RIGHT_HAND] = right_hand
-
     right_hand_manager.parameters[RightHandManager.RHM_SHIFTER_KNOB] = shifter_knob
     right_hand_manager.parameters[RightHandManager.RHM_SHIFTER_CONTAINER] = shifter_container
-
     right_hand_manager.parameters[RightHandManager.RHM_STEERING_PIN] = right_hand_pin
-
     right_hand_manager.parameters[RightHandManager.RHM_HANDBRAKE_PIN] = ebrake_marker
-
     right_hand_manager.parameters[RightHandManager.RHM_GLOBAL_CONTAINER] = container
-
     right_hand_manager.parameters[RightHandManager.RHM_SEQUENTIAL_SHIFTER_MANAGER] = sequential_shifter_manager
-
     right_hand_manager.parameters[RightHandManager.RHM_REST_HAND_POSITION] = Settings.instance.rest_hand_position
 
     right_hand_manager.transition(

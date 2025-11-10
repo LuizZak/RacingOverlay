@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://clyp31sfrkmhu" path="res://nodes/steering_wheel_indicator.tscn" id="2_hcde6"]
 [ext_resource type="PackedScene" uid="uid://dj2e4qiowlmf4" path="res://nodes/visual_node.tscn" id="3_0w6do"]
 [ext_resource type="Script" uid="uid://beflgpdwajjr3" path="res://scripts/shifter_container.gd" id="4_88ewg"]
-[ext_resource type="Theme" uid="uid://dx3lsu6ufvl3v" path="res://theme.tres" id="5_oik1i"]
 [ext_resource type="Script" uid="uid://df1h86p5ogkk5" path="res://scripts/pedals_container.gd" id="6_wywsm"]
+[ext_resource type="Theme" uid="uid://do03jbfv1n0a4" path="res://pedal_label_theme.tres" id="7_hcde6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bfmmk"]
 draw_center = false
@@ -132,7 +132,7 @@ mouse_filter = 2
 [node name="ShifterLabel" type="Label" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/ShifterContainer/PanelContainer"]
 texture_filter = 2
 layout_mode = 2
-theme = ExtResource("5_oik1i")
+theme = ExtResource("7_hcde6")
 text = "1"
 horizontal_alignment = 1
 
@@ -221,7 +221,7 @@ offset_top = -6.0
 offset_right = 62.0
 offset_bottom = 19.0
 mouse_filter = 2
-theme = ExtResource("5_oik1i")
+theme = ExtResource("7_hcde6")
 min_value = -100.0
 fill_mode = 3
 show_percentage = false
@@ -235,7 +235,7 @@ offset_top = -6.0
 offset_right = 16.0
 offset_bottom = 20.0
 mouse_filter = 2
-theme = ExtResource("5_oik1i")
+theme = ExtResource("7_hcde6")
 min_value = -100.0
 fill_mode = 3
 show_percentage = false
@@ -249,7 +249,7 @@ offset_top = -6.0
 offset_right = -31.0
 offset_bottom = 19.0
 mouse_filter = 2
-theme = ExtResource("5_oik1i")
+theme = ExtResource("7_hcde6")
 min_value = -100.0
 fill_mode = 3
 show_percentage = false
@@ -261,7 +261,7 @@ offset_left = 26.0
 offset_top = 23.0
 offset_right = 63.0
 offset_bottom = 40.0
-theme = ExtResource("5_oik1i")
+theme = ExtResource("7_hcde6")
 text = "Clutch"
 metadata/_edit_use_anchors_ = true
 
@@ -271,7 +271,7 @@ offset_left = -18.0
 offset_top = 23.0
 offset_right = 16.0
 offset_bottom = 40.0
-theme = ExtResource("5_oik1i")
+theme = ExtResource("7_hcde6")
 text = "Brake"
 metadata/_edit_use_anchors_ = true
 
@@ -281,7 +281,7 @@ offset_left = -72.0
 offset_top = 23.0
 offset_right = -25.0
 offset_bottom = 40.0
-theme = ExtResource("5_oik1i")
+theme = ExtResource("7_hcde6")
 text = "Throttle"
 metadata/_edit_use_anchors_ = true
 

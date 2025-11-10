@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbjowoa4gcx16"]
+[gd_scene load_steps=5 format=3 uid="uid://bbjowoa4gcx16"]
 
 [ext_resource type="Script" uid="uid://cwr3d4lnc0r23" path="res://scripts/settings/settings.gd" id="1_2lbdr"]
+[ext_resource type="Theme" uid="uid://dx3lsu6ufvl3v" path="res://theme.tres" id="2_fn6qm"]
 [ext_resource type="PackedScene" uid="uid://dx3ax8uxgctpt" path="res://nodes/settings/GameConnectionPanel.tscn" id="2_pww3c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lbdr"]
@@ -20,6 +21,7 @@ layout_mode = 2
 [node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("2_fn6qm")
 current_tab = 0
 
 [node name="General" type="PanelContainer" parent="VBoxContainer/TabContainer"]
@@ -40,6 +42,7 @@ layout_mode = 2
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/TabContainer/General/MarginContainer/VBoxContainer/ScrollContainer"]
 custom_minimum_size = Vector2(284, 0)
