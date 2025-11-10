@@ -163,6 +163,7 @@ func _ready() -> void:
         # Reset to built-in theme
         var built_in_theme := VisualTheme.built_in_theme()
         Settings.instance.active_theme_identifier = built_in_theme.identifier
+        Settings.instance.save_to_disk()
         _change_theme(built_in_theme)
 
     # Force-apply current settings
@@ -174,8 +175,8 @@ func _process(delta: float) -> void:
 
     if Networking.instance.is_connected_to_game():
         packet_manager.process(delta)
-        if packet_manager._latest_packet != null:
-            wheel_metrics.update_with_packet(packet_manager._latest_packet)
+        if packet_manager.latest_packet() != null:
+            wheel_metrics.update_with_packet(packet_manager.latest_packet())
         _update_game_state()
     else:
         _reset_game_state()
