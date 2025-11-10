@@ -103,7 +103,8 @@ func _ready() -> void:
     packet_manager = PacketManagerBase.new(Networking.instance)
 
     input_manager = InputManagerBase.new()
-    #keyboard_handler = KeyboardInputHandler.new(input_manager)
+    if input_manager is SimulatedInputManager:
+        keyboard_handler = KeyboardInputHandler.new(input_manager)
     sequential_shifter_manager = SequentialShifterManager.new()
 
     shifter_container.input_manager = input_manager
@@ -178,9 +179,11 @@ func _process(delta: float) -> void:
         if packet_manager.latest_packet() != null:
             wheel_metrics.update_with_packet(packet_manager.latest_packet())
         _update_game_state()
+        wheel_metrics.show_spinner = false
     else:
         _reset_game_state()
         wheel_metrics.reset()
+        wheel_metrics.show_spinner = true
 
     container.rotation = target_container_rotation
     container.scale = container.scale.move_toward(target_container_scale, CONTAINER_SCALE_SPEED * delta)
@@ -250,6 +253,7 @@ func _set_pedal_fill_color(color: Color) -> void:
 func _update_game_state() -> void:
     if packet_manager.is_end_packet():
         _reset_game_state()
+        wheel_metrics.show_spinner = true
         return
 
     if Settings.instance.active_game_settings().move_vertically:

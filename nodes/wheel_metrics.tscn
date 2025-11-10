@@ -1,9 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://d4dysephj2r1g"]
+[gd_scene load_steps=4 format=3 uid="uid://d4dysephj2r1g"]
 
 [ext_resource type="Script" uid="uid://b6qt48phe4i6j" path="res://scripts/wheel_metrics.gd" id="1_ce2ar"]
+[ext_resource type="PackedScene" uid="uid://c78ywggycdwbp" path="res://nodes/spinner_loader.tscn" id="2_3wvj4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3wvj4"]
+bg_color = Color(0.078431375, 0.078431375, 0.078431375, 0.73333335)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="WheelMetrics" type="Node2D"]
 script = ExtResource("1_ce2ar")
+show_spinner = null
 
 [node name="LeftLabel" type="Label" parent="."]
 offset_left = -24.0
@@ -24,3 +33,15 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "R"
+
+[node name="SpinnerContainer" type="PanelContainer" parent="."]
+offset_left = -39.0
+offset_top = -55.0
+offset_right = 38.0
+offset_bottom = 55.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_3wvj4")
+
+[node name="SpinnerLoader" parent="SpinnerContainer" instance=ExtResource("2_3wvj4")]
+layout_mode = 2
+spin_rate = 4.71238898038469
+spinner_end_color = Color(1, 1, 1, 1)

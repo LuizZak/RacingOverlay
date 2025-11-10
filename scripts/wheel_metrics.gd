@@ -14,6 +14,8 @@ const WHEEL_SIZE := Vector2(17, 30)
 
 const ENGINE_SIZE := Vector2(20, 30)
 
+@onready var spinner_container: PanelContainer = $SpinnerContainer
+
 @export
 var back_color: Color = Color.WHITE:
     set(value):
@@ -26,6 +28,13 @@ var show_engine: bool = true:
         show_engine = value
         queue_redraw()
 
+@export
+var show_spinner: bool = true:
+    set(value):
+        show_spinner = value
+        if spinner_container != null:
+            _update_spinner()
+
 var engine_display: EngineDisplay = EngineDisplay.new(Vector2.ZERO)
 var wheel_entries: Dictionary[Wheel, WheelEntry] = {
     Wheel.REAR_LEFT: WheelEntry.make_rear_left(),
@@ -36,6 +45,7 @@ var wheel_entries: Dictionary[Wheel, WheelEntry] = {
 
 func _ready() -> void:
     reset()
+    _update_spinner()
 
 func reset() -> void:
     engine_display.update(1000, 7000, 1000)
@@ -102,6 +112,9 @@ func _bounds_for_drawing() -> Rect2:
         bounds = bounds.merge(wheel.bounds())
 
     return bounds
+
+func _update_spinner() -> void:
+    spinner_container.visible = show_spinner
 
 ## Manages the display of the engine on the power train.
 class EngineDisplay:
