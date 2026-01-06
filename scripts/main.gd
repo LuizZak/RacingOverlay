@@ -130,7 +130,7 @@ func _ready() -> void:
     right_hand_manager.parameters[RightHandManager.RHM_REST_HAND_POSITION] = Settings.instance.rest_hand_position
 
     right_hand_manager.transition(
-        RightHandManager.OnSteeringWheelState.new()
+        RightHandManager.FreeHandState.new()
     )
 
     steering_hand_manager = SteeringHandManager.new()

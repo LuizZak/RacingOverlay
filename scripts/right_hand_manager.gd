@@ -33,16 +33,16 @@ const SHIFT_TIME := 0.2
 ## complete at the end.
 const DISTANCE_TOLERANCE := 5
 
-## Signal fired when the availability of the right hand for animations managed by
-## external code has changed from available to not available.
+## Signal emitted when the availability of the right hand for animations managed
+## by external code has changed.
 signal right_hand_availability_changed(is_available: bool)
 
 func _init() -> void:
     state_changed.connect(
         func(new_state, old_state):
-            if new_state is MovingToSteeringWheelState or new_state is OnSteeringWheelState:
+            if new_state is FreeHandState:
                 right_hand_availability_changed.emit(true)
-            if old_state is OnSteeringWheelState:
+            if old_state is FreeHandState:
                 right_hand_availability_changed.emit(false)
     )
 
@@ -54,11 +54,11 @@ func _init() -> void:
 func transition_to_rest_state():
     match parameters[RHM_REST_HAND_POSITION]:
         Settings.RestHandPosition.STEERING_WHEEL:
-            if current_state is OnSteeringWheelState:
+            if current_state is FreeHandState:
                 return
 
             transition(
-                MovingToSteeringWheelState.new()
+                FreeHandState.new()
             )
 
         Settings.RestHandPosition.SHIFTER:
@@ -366,13 +366,9 @@ class MovingToShifterState extends State:
                     ShiftingState.new()
                 )
 
-## Moving hand towards steering wheel from its current position.
-class MovingToSteeringWheelState extends State:
+## Hand is free from internal movements; waive exclusive hand usage.
+class FreeHandState extends State:
     var latest_gear: int = 0
-
-    var start_position: Vector2 = Vector2.ZERO
-    var start_rotation: float = 0.0
-    var elapsed: float = 0.0
 
     func on_enter(_last, state_machine):
         var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
@@ -380,41 +376,7 @@ class MovingToSteeringWheelState extends State:
 
         self.latest_gear = input_manager.numerical_gear()
 
-        start_position = right_hand.global_position
-        start_rotation = right_hand.global_rotation
-
         right_hand.key = VisualResourceLibrary.HAND_RIGHT_STEERING
-
-    func process(delta, state_machine):
-        self.elapsed += delta
-
-        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-        var seq_shifter := state_machine.parameters[RHM_SEQUENTIAL_SHIFTER_MANAGER] as SequentialShifterManager
-
-        if input_manager.numerical_gear() != self.latest_gear or seq_shifter.has_gear_changes():
-            state_machine.transition(
-                MovingToShifterState.new()
-            )
-            return
-
-        if input_manager.handbrake_amount() != 0.0:
-            state_machine.transition(
-                MovingToHandbrakeState.new()
-            )
-            return
-
-        state_machine.transition(
-            OnSteeringWheelState.new()
-        )
-
-## Hand on steering wheel, idling.
-class OnSteeringWheelState extends State:
-    var latest_gear: int = 0
-
-    func on_enter(_last, state_machine):
-        var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
-
-        self.latest_gear = input_manager.numerical_gear()
 
     func process(_delta, state_machine):
         var input_manager := state_machine.parameters[RHM_INPUT_MANAGER] as InputManagerBase
