@@ -134,13 +134,12 @@ func _ready() -> void:
     )
 
     steering_hand_manager = SteeringHandManager.new()
-
-    steering_hand_manager.parameters[SteeringHandManager.ROTATION_REFERENCE_NODE] = container
-    steering_hand_manager.parameters[SteeringHandManager.LEFT_HAND] = left_hand
-    steering_hand_manager.parameters[SteeringHandManager.RIGHT_HAND] = right_hand
-    steering_hand_manager.parameters[SteeringHandManager.STEERING_WHEEL_CONTAINER] = steering_wheel
-    steering_hand_manager.parameters[SteeringHandManager.RIGHT_HAND_PIN_CONTAINER] = right_hand_pin_container
-    steering_hand_manager.parameters[SteeringHandManager.LEFT_HAND_PIN_CONTAINER] = left_hand_pin_container
+    steering_hand_manager.rotation_reference_node = container
+    steering_hand_manager.left_hand = left_hand
+    steering_hand_manager.right_hand = right_hand
+    steering_hand_manager.steering_wheel_container = steering_wheel
+    steering_hand_manager.right_hand_pin_container = right_hand_pin_container
+    steering_hand_manager.left_hand_pin_container = left_hand_pin_container
 
     steering_hand_manager.make_right_hand_available()
 
