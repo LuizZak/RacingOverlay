@@ -1,5 +1,4 @@
 class_name VisualTheme
-extends Object
 
 static var _built_in_theme: VisualTheme
 

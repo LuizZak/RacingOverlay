@@ -1,5 +1,4 @@
 class_name VisualResourceLibrary
-extends Object
 
 const FOOT_LEFT := &"foot_left"
 const FOOT_RIGHT := &"foot_right"

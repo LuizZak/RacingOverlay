@@ -1,5 +1,4 @@
 class_name SequentialShifterManager
-extends Object
 
 enum _GearEntry {
     GEAR_UP,

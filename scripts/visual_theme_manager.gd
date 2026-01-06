@@ -1,5 +1,4 @@
 class_name VisualThemeManager
-extends Object
 
 const THEME_PATH := "themes"
 

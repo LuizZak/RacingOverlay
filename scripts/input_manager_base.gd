@@ -1,5 +1,4 @@
 class_name InputManagerBase
-extends Object
 
 ## Returns a value between -1 and 1, representing the amount of clutch pedal that
 ## is depressed.

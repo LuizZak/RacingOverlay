@@ -1,5 +1,4 @@
 class_name CustomAnimationLoader
-extends Object
 
 var base_path: String
 var _animation_length: int

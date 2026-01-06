@@ -1,5 +1,4 @@
 class_name StateMachine
-extends Object
 
 var parameters: Dictionary = {}
 
@@ -27,13 +26,16 @@ func transition(new_state: State) -> void:
 #
 
 class State:
-    func on_enter(_last: State, _state_machine: StateMachine) -> void:
+    @warning_ignore("unused_parameter")
+    func on_enter(last: State, state_machine: StateMachine) -> void:
         pass
 
-    func on_exit(_next: State, _state_machine: StateMachine) -> void:
+    @warning_ignore("unused_parameter")
+    func on_exit(next: State, state_machine: StateMachine) -> void:
         pass
 
-    func process(_delta: float, _state_machine: StateMachine) -> void:
+    @warning_ignore("unused_parameter")
+    func process(delta: float, state_machine: StateMachine) -> void:
         pass
 
     func description() -> String:

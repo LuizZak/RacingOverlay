@@ -1,5 +1,4 @@
 class_name Settings
-extends Object
 
 enum PedalMode {
     DUAL_AXIS,

@@ -1,5 +1,4 @@
 class_name SteeringHandManager
-extends Object
 
 const HAND_MOVE_SPEED := 500.0
 

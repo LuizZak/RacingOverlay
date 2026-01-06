@@ -1,5 +1,4 @@
 class_name NetworkingBase
-extends Object
 
 enum Status {
     DISCONNECTED,

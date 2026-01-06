@@ -1,5 +1,4 @@
 class_name PacketManagerBase
-extends Object
 
 var _roll_angle: float
 var _forward_velocity: float
@@ -13,6 +12,7 @@ func _init(networking: NetworkingBase):
     _networking = networking
 
 ## Called at the start of a frame to digest packets from the Networking layer.
+@warning_ignore("unused_parameter")
 func process(delta: float) -> void:
     while _networking.has_packets():
         _latest_packet = _networking.fetch_packet()

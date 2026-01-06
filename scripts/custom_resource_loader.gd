@@ -1,5 +1,4 @@
 class_name CustomResourceLoader
-extends Object
 
 static var instance = CustomResourceLoader.new()
 

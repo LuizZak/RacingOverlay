@@ -1,5 +1,4 @@
 class_name GamePacketBase
-extends Object
 
 ## An enumeration of recognized game packets.
 enum Game {
@@ -43,6 +42,7 @@ func to_data() -> PackedByteArray:
     return []
 
 ## Creates a new game packet from a given set of data.
+@warning_ignore("unused_parameter")
 static func from_data(data: PackedByteArray) -> GamePacketBase:
     return null
 
