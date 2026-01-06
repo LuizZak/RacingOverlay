@@ -22,6 +22,12 @@ var spinner_end_color: Color = Color.GRAY:
         spinner_end_color = value
         queue_redraw()
 
+@export
+var spinner_width: float = 2.0:
+    set(value):
+        spinner_width = value
+        queue_redraw()
+
 var spin_rotation: float = 0.0
 
 func _process(delta: float) -> void:
@@ -41,12 +47,12 @@ func _draw() -> void:
         var ratio := float(i) / point_count
         var angle := ratio * PI * 2 + spin_rotation
         var color := spinner_start_color.lerp(spinner_end_color, ratio)
-        var point := center + Vector2.from_angle(angle) * spinner_radius
+        var point := center + Vector2.from_angle(angle) * (spinner_radius - spinner_width / 2)
 
         points.append(point)
         colors.append(color)
 
-    draw_polyline_colors(points, colors, 2.0, true)
+    draw_polyline_colors(points, colors, spinner_width, true)
 
 func _get_minimum_size() -> Vector2:
     return Vector2(spinner_radius * 2, spinner_radius * 2)
