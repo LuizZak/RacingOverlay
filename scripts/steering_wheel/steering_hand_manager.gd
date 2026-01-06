@@ -72,7 +72,7 @@ func _closest_pin_from_angle(container: SteeringWheelPinContainer, target_angle:
     var pins := container.get_pins()
 
     var closest_pin: Marker2D = null
-    var closest_pin_angle: float = 0.0
+    var closest_pin_diff: float = 0.0
 
     var steering_wheel := _steering_wheel()
     var reference_rotation := _rotation_reference_node().global_rotation
@@ -86,15 +86,14 @@ func _closest_pin_from_angle(container: SteeringWheelPinContainer, target_angle:
 
         if closest_pin == null:
             closest_pin = pin
-            closest_pin_angle = angle
+            closest_pin_diff = absf(angle_difference(target_angle, angle))
             continue
 
-        var diff_angle := angle_difference(target_angle, angle)
-        var diff_closest_angle := angle_difference(target_angle, closest_pin_angle)
+        var diff_angle := absf(angle_difference(target_angle, angle))
 
-        if absf(diff_angle) < absf(diff_closest_angle):
+        if diff_angle < closest_pin_diff:
             closest_pin = pin
-            closest_pin_angle = angle
+            closest_pin_diff = diff_angle
 
     return closest_pin
 
