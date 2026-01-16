@@ -7,6 +7,7 @@ var ac_version: String
 var rpm: int
 var max_rpm: int
 var speed_kph: float
+var steering: float
 var wheel_speed_fl: float
 var wheel_speed_fr: float
 var wheel_speed_rl: float
@@ -49,17 +50,18 @@ func to_data() -> PackedByteArray:
     data.fill(0)
 
     PbaHelpers.encode_fixed_length_ascii(data, ac_version, 0, 15)
-    data.encode_s32(15, rpm)
+    data.encode_s32(16, rpm)
     data.encode_s32(19, max_rpm)
-    data.encode_float(23, speed_kph)
-    data.encode_float(27, wheel_speed_fl)
-    data.encode_float(31, wheel_speed_fr)
-    data.encode_float(35, wheel_speed_rl)
-    data.encode_float(39, wheel_speed_rr)
-    data.encode_float(43, heading)
-    data.encode_float(47, pitch)
-    data.encode_float(51, roll)
-    PbaHelpers.encode_fixed_length_ascii(data, car_model, 55, 33)
+    data.encode_float(24, speed_kph)
+    data.encode_float(28, steering)
+    data.encode_float(32, wheel_speed_fl)
+    data.encode_float(36, wheel_speed_fr)
+    data.encode_float(40, wheel_speed_rl)
+    data.encode_float(44, wheel_speed_rr)
+    data.encode_float(48, heading)
+    data.encode_float(52, pitch)
+    data.encode_float(56, roll)
+    PbaHelpers.encode_fixed_length_ascii(data, car_model, 60, 33)
 
     return data
 
@@ -67,17 +69,18 @@ func to_data() -> PackedByteArray:
 static func from_data(data: PackedByteArray) -> GamePacketBase:
     var packet := ACRallyGamePacket.new()
 
-    packet.ac_version = data.slice(0, 15).get_string_from_ascii()
-    packet.rpm = data.decode_s32(15)
-    packet.max_rpm = data.decode_s32(19)
-    packet.speed_kph = data.decode_float(23)
-    packet.wheel_speed_fl = data.decode_float(27)
-    packet.wheel_speed_fr = data.decode_float(31)
-    packet.wheel_speed_rl = data.decode_float(35)
-    packet.wheel_speed_rr = data.decode_float(39)
-    packet.heading = data.decode_float(43)
-    packet.pitch = data.decode_float(47)
-    packet.roll = data.decode_float(51)
-    packet.car_model = data.slice(55, 55 + 33).get_string_from_ascii()
+    packet.ac_version = data.slice(0, 16).get_string_from_ascii()
+    packet.rpm = data.decode_s32(16)
+    packet.max_rpm = data.decode_s32(20)
+    packet.speed_kph = data.decode_float(24)
+    packet.steering = data.decode_float(28)
+    packet.wheel_speed_fl = data.decode_float(32)
+    packet.wheel_speed_fr = data.decode_float(36)
+    packet.wheel_speed_rl = data.decode_float(40)
+    packet.wheel_speed_rr = data.decode_float(44)
+    packet.heading = data.decode_float(48)
+    packet.pitch = data.decode_float(52)
+    packet.roll = data.decode_float(56)
+    packet.car_model = data.slice(60, 60 + 34).get_string_from_ascii()
 
     return packet
