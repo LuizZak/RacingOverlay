@@ -39,7 +39,8 @@ func computed_roll_angle() -> float:
 func computed_vertical_velocity() -> float:
     return vel.z
 
-## Gets the computed forward velocity of the packet's information.
+## Gets the computed forward velocity of the packet's information, in meters per
+## second.
 func computed_forward_velocity() -> float:
     return vel.length()
 

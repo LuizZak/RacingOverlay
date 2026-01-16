@@ -30,9 +30,10 @@ func computed_roll_angle() -> float:
 func computed_vertical_velocity() -> float:
     return 0.0
 
-## Gets the computed forward velocity of the packet's information.
+## Gets the computed forward velocity of the packet's information, in meters per
+## second.
 func computed_forward_velocity() -> float:
-    return speed_kph
+    return UnitUtils.kph_to_ms(speed_kph)
 
 ## Returns `true` if this packet has been detected as a valid game packet.
 func is_valid_game_packet() -> bool:
