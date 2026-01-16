@@ -12,7 +12,7 @@ enum Wheel {
 const WHEEL_OFFSET := Vector2(20, 30)
 const WHEEL_SIZE := Vector2(17, 30)
 
-const ENGINE_SIZE := Vector2(20, 30)
+const ENGINE_SIZE := Vector2(15, 20)
 
 @onready var spinner_container: PanelContainer = $SpinnerContainer
 
@@ -34,6 +34,8 @@ var show_spinner: bool = true:
         show_spinner = value
         if spinner_container != null:
             _update_spinner()
+
+var current_powertrain := PowertrainLayout.F4
 
 var engine_display: EngineDisplay = EngineDisplay.new(Vector2.ZERO)
 var wheel_entries: Dictionary[Wheel, WheelEntry] = {
@@ -58,6 +60,12 @@ func reset() -> void:
 func update_with_packet(packet: GamePacketBase) -> void:
     queue_redraw()
 
+    var powertrain := PowertrainDetector.detect(packet)
+    if powertrain == null:
+        update_powertrain(PowertrainLayout.F4)
+    else:
+        update_powertrain(powertrain)
+
     if packet is Dirt2GamePacket:
         engine_display.update(packet.idle_rpm, packet.max_rpm, packet.rpm)
 
@@ -72,6 +80,22 @@ func update_with_packet(packet: GamePacketBase) -> void:
         wheel_entries[Wheel.REAR_RIGHT].update(packet.speed_kph, packet.wheel_speed_rr)
         wheel_entries[Wheel.FRONT_LEFT].update(packet.speed_kph, packet.wheel_speed_fl, packet.steering * deg_to_rad(25))
         wheel_entries[Wheel.FRONT_RIGHT].update(packet.speed_kph, packet.wheel_speed_fr, packet.steering * deg_to_rad(25))
+
+func update_powertrain(powertrain: PowertrainLayout) -> void:
+    queue_redraw()
+
+    current_powertrain = powertrain
+
+    match powertrain.engine_layout:
+        PowertrainLayout.EngineLayout.Front:
+            var mid_wheel := (wheel_entries[Wheel.FRONT_LEFT].position + wheel_entries[Wheel.FRONT_RIGHT].position) / 2
+            engine_display.position = mid_wheel
+        PowertrainLayout.EngineLayout.Mid:
+            var mid_wheel := (wheel_entries[Wheel.REAR_LEFT].position + wheel_entries[Wheel.REAR_RIGHT].position) / 2
+            engine_display.position = mid_wheel - Vector2(0.0, ENGINE_SIZE.y / 2.0)
+        PowertrainLayout.EngineLayout.Rear:
+            var mid_wheel := (wheel_entries[Wheel.REAR_LEFT].position + wheel_entries[Wheel.REAR_RIGHT].position) / 2
+            engine_display.position = mid_wheel
 
 func _draw() -> void:
     # Draw background
@@ -88,6 +112,7 @@ func _draw() -> void:
 
     # Draw power train
     const POWERTRAIN_COLOR := Color.BLACK
+    const POWERTRAIN_OFF_COLOR := Color.GRAY
     const POWERTRAIN_WIDTH := 2.0
 
     var rl := wheel_entries[Wheel.REAR_LEFT].get_center()
@@ -98,9 +123,18 @@ func _draw() -> void:
     var rear := (rl + rr) / 2.0
     var front := (fl + fr) / 2.0
 
-    draw_line(fl, fr, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
-    draw_line(front, rear, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
-    draw_line(rl, rr, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
+    if current_powertrain != null and current_powertrain.drives_front_wheels():
+        draw_line(fl, fr, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
+    else:
+        draw_line(fl, fr, POWERTRAIN_OFF_COLOR, POWERTRAIN_WIDTH, true)
+
+    if current_powertrain != null and current_powertrain.has_longitudinal_axle():
+        draw_line(front, rear, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
+
+    if current_powertrain != null and current_powertrain.drives_rear_wheels():
+        draw_line(rl, rr, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
+    else:
+        draw_line(rl, rr, POWERTRAIN_OFF_COLOR, POWERTRAIN_WIDTH, true)
 
     # Draw engine
     if show_engine:
