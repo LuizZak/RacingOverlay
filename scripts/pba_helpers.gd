@@ -13,8 +13,7 @@ static func encode_fixed_length_ascii(data: PackedByteArray, string: String, off
     var i := 0
 
     while i < ascii.size():
-        var byte := ascii[i]
-        data[offset + i] = byte
+        data[offset + i] = ascii[i]
         i += 1
 
     while i < size:
