@@ -67,8 +67,6 @@ func poll_connections() -> Error:
             return Error.OK
 
         Mode.CONNECT:
-            server.poll()
-
             if is_connection_available():
                 return connect_to_game()
 

@@ -2,9 +2,10 @@ class_name GamePacketBase
 
 ## An enumeration of recognized game packets.
 enum Game {
-    DIRT_2,
-    BEAMNG,
-    UNKNOWN,
+    DIRT_2 = 0,
+    BEAMNG = 1,
+    ACRALLY = 2,
+    UNKNOWN = 999,
 }
 
 ## Gets the game associated with this packet type.
@@ -54,6 +55,8 @@ static func from_generic_data(game: Game, data: PackedByteArray) -> GamePacketBa
             return Dirt2GamePacket.from_data(data)
         Game.BEAMNG:
             return BeamNGGamePacket.from_data(data)
+        Game.ACRALLY:
+            return ACRallyGamePacket.from_data(data)
         Game.UNKNOWN:
             return null
         _:
@@ -65,5 +68,7 @@ static func game_from_game_connection_settings(game: GameConnectionSettings.Game
             return Game.DIRT_2
         GameConnectionSettings.Game.BEAMNG:
             return Game.BEAMNG
+        GameConnectionSettings.Game.ACRALLY:
+            return Game.ACRALLY
         _:
             return Game.UNKNOWN

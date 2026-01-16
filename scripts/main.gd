@@ -340,6 +340,8 @@ func _on_settings_changed() -> void:
         if Settings.instance.active_game_settings().show_extra_game_information:
             if Settings.instance.active_game == GameConnectionSettings.Game.DIRT_2:
                 show_wheel_metrics = true
+            elif Settings.instance.active_game == GameConnectionSettings.Game.ACRALLY:
+                show_wheel_metrics = true
     else:
         Networking.instance.set_mode(NetworkingBase.Mode.DISCONNECT)
 

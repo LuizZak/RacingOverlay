@@ -6,6 +6,8 @@ enum Game {
     DIRT_2,
     ## BeamNG
     BEAMNG,
+    ## ACRally
+    ACRALLY,
 }
 
 var port: int = 20777
@@ -38,5 +40,7 @@ static func game_title(game: Game) -> String:
             return "Dirt 2.0"
         Game.BEAMNG:
             return "BeamNG"
+        Game.ACRALLY:
+            return "AC Rally"
         _:
             return "Unknown game"

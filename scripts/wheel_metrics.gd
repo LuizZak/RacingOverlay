@@ -65,6 +65,13 @@ func update_with_packet(packet: GamePacketBase) -> void:
         wheel_entries[Wheel.REAR_RIGHT].update(packet.speed_ms, packet.wsp_rr)
         wheel_entries[Wheel.FRONT_LEFT].update(packet.speed_ms, packet.wsp_fl, packet.steering * deg_to_rad(25))
         wheel_entries[Wheel.FRONT_RIGHT].update(packet.speed_ms, packet.wsp_fr, packet.steering * deg_to_rad(25))
+    elif packet is ACRallyGamePacket:
+        engine_display.update(1000, 2000, 1000)
+
+        wheel_entries[Wheel.REAR_LEFT].update(packet.speed_kph, packet.wheel_speed_rl)
+        wheel_entries[Wheel.REAR_RIGHT].update(packet.speed_kph, packet.wheel_speed_rr)
+        wheel_entries[Wheel.FRONT_LEFT].update(packet.speed_kph, packet.wheel_speed_fl)
+        wheel_entries[Wheel.FRONT_RIGHT].update(packet.speed_kph, packet.wheel_speed_fr)
 
 func _draw() -> void:
     # Draw background
@@ -116,6 +123,7 @@ func _bounds_for_drawing() -> Rect2:
 func _update_spinner() -> void:
     spinner_container.visible = show_spinner
 
+## TODO: Add support for displaying 'no engine info' by passing zeroes to update()
 ## Manages the display of the engine on the power train.
 class EngineDisplay:
     var position: Vector2
