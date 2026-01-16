@@ -1,6 +1,10 @@
 ## A luma-chroma-hue encoded color value.
 class_name LCH
 
+static var GREEN := LCH.from_color(Color.GREEN)
+static var RED := LCH.from_color(Color.RED)
+static var YELLOW := LCH.from_color(Color.YELLOW)
+
 ## Note: 0 - 1
 var luma: float
 ## Note: 0 - 1

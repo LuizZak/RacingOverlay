@@ -233,10 +233,10 @@ class WheelEntry:
         var ratio := minf(1.0, diff / tolerance)
 
         if wheel_speed >= vehicle_speed:
-            fill_color = LCH.lerp_color(Color.GREEN, Color.YELLOW, ratio)
+            fill_color = LCH.GREEN.lerp(LCH.YELLOW, ratio).to_color()
             relative_rev = ratio
         else:
-            fill_color = LCH.lerp_color(Color.GREEN, Color.RED, ratio)
+            fill_color = LCH.GREEN.lerp(LCH.RED, ratio).to_color()
             relative_rev = -ratio
 
         const LOCK_TOLERANCE := 0.1
