@@ -40,7 +40,7 @@ func is_valid_game_packet() -> bool:
 
 ## Returns `true` if this is an end-of-signal packet.
 func is_end_packet() -> bool:
-    return false
+    return rpm == 0 and max_rpm == 0 and heading == 0 and pitch == 0 and roll == 0
 
 #endregion
 
