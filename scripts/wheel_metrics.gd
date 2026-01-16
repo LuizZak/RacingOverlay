@@ -70,8 +70,8 @@ func update_with_packet(packet: GamePacketBase) -> void:
 
         wheel_entries[Wheel.REAR_LEFT].update(packet.speed_kph, packet.wheel_speed_rl)
         wheel_entries[Wheel.REAR_RIGHT].update(packet.speed_kph, packet.wheel_speed_rr)
-        wheel_entries[Wheel.FRONT_LEFT].update(packet.speed_kph, packet.wheel_speed_fl)
-        wheel_entries[Wheel.FRONT_RIGHT].update(packet.speed_kph, packet.wheel_speed_fr)
+        wheel_entries[Wheel.FRONT_LEFT].update(packet.speed_kph, packet.wheel_speed_fl, packet.steering * deg_to_rad(25))
+        wheel_entries[Wheel.FRONT_RIGHT].update(packet.speed_kph, packet.wheel_speed_fr, packet.steering * deg_to_rad(25))
 
 func _draw() -> void:
     # Draw background
