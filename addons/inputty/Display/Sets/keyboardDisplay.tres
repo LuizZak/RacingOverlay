@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InputtyKeyboardDisplaySet" load_steps=250 format=3 uid="uid://c2tf8frcrai8d"]
+[gd_resource type="Resource" script_class="InputtyKeyboardDisplaySet" format=3 uid="uid://c2tf8frcrai8d"]
 
 [ext_resource type="Script" uid="uid://d0crd8k3pn4ha" path="res://addons/inputty/Display/InputtyDisplayItem.gd" id="1_8u7sa"]
 [ext_resource type="Texture2D" uid="uid://dejj8j1mcy0aw" path="res://addons/inputty/Display/IconTextures/mouse_lmb.svg" id="2_8mby8"]

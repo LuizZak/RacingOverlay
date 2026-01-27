@@ -8,6 +8,8 @@ class_name PbaHelpers
 ##
 ## Note: Assumes `data` is at least as long as `offset + size`.
 static func encode_fixed_length_ascii(data: PackedByteArray, string: String, offset: int, size: int) -> void:
+    assert(data.size() >= offset + size)
+
     var ascii := string.to_ascii_buffer().slice(0, size)
 
     var i := 0

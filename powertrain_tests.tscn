@@ -1,34 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://tklve2l1ovoe"]
+[gd_scene format=3 uid="uid://tklve2l1ovoe"]
 
 [ext_resource type="PackedScene" uid="uid://d4dysephj2r1g" path="res://nodes/wheel_metrics.tscn" id="1_aqw4p"]
 [ext_resource type="Script" uid="uid://fr7i05c8t2ya" path="res://scripts/powertrain_tests.gd" id="1_dqdab"]
 
-[node name="PowertrainTests" type="Node2D"]
+[node name="PowertrainTests" type="Node2D" unique_id=1755498414]
 script = ExtResource("1_dqdab")
 
-[node name="Container" type="Node2D" parent="."]
+[node name="Container" type="Node2D" parent="." unique_id=355629649]
 position = Vector2(96, 64)
 
-[node name="WheelMetrics_FF" parent="Container" instance=ExtResource("1_aqw4p")]
+[node name="WheelMetrics_FF" parent="Container" unique_id=1580581156 instance=ExtResource("1_aqw4p")]
 unique_name_in_owner = true
 show_spinner = false
 
-[node name="WheelMetrics_FR" parent="Container" instance=ExtResource("1_aqw4p")]
+[node name="WheelMetrics_FR" parent="Container" unique_id=269235054 instance=ExtResource("1_aqw4p")]
 unique_name_in_owner = true
 position = Vector2(96, 0)
 show_spinner = false
 
-[node name="WheelMetrics_F4" parent="Container" instance=ExtResource("1_aqw4p")]
+[node name="WheelMetrics_F4" parent="Container" unique_id=1650671966 instance=ExtResource("1_aqw4p")]
 unique_name_in_owner = true
 position = Vector2(192, 0)
 show_spinner = false
 
-[node name="WheelMetrics_MR" parent="Container" instance=ExtResource("1_aqw4p")]
+[node name="WheelMetrics_MR" parent="Container" unique_id=289323804 instance=ExtResource("1_aqw4p")]
 unique_name_in_owner = true
 position = Vector2(96, 136)
 show_spinner = false
 
-[node name="WheelMetrics_RR" parent="Container" instance=ExtResource("1_aqw4p")]
+[node name="WheelMetrics_RR" parent="Container" unique_id=548327373 instance=ExtResource("1_aqw4p")]
 unique_name_in_owner = true
 position = Vector2(192, 272)
 show_spinner = false

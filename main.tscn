@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8qh0jqb3l0jl"]
+[gd_scene format=3 uid="uid://c8qh0jqb3l0jl"]
 
 [ext_resource type="Script" uid="uid://dd2jlovf26ngf" path="res://scripts/main.gd" id="1_37kl0"]
 [ext_resource type="PackedScene" uid="uid://bb7eldms6h3lh" path="res://scenes/controls_rebind.tscn" id="2_cegan"]
@@ -11,36 +11,36 @@
 [ext_resource type="Script" uid="uid://df1h86p5ogkk5" path="res://scripts/pedals_container.gd" id="12_45l4g"]
 [ext_resource type="PackedScene" uid="uid://bbjowoa4gcx16" path="res://nodes/settings/SettingsPanel.tscn" id="21_getpj"]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" unique_id=1958341751]
 script = ExtResource("1_37kl0")
 
-[node name="Base" type="Node2D" parent="."]
+[node name="Base" type="Node2D" parent="." unique_id=1073344667]
 position = Vector2(200, 200)
 
-[node name="Container" type="Node2D" parent="Base"]
+[node name="Container" type="Node2D" parent="Base" unique_id=1775872032]
 unique_name_in_owner = true
 
-[node name="SteeringWheelIndicator" parent="Base/Container" instance=ExtResource("2_getpj")]
-unique_name_in_owner = true
-position = Vector2(47, -79)
-
-[node name="SteeringWheel" type="Node2D" parent="Base/Container"]
+[node name="SteeringWheelIndicator" parent="Base/Container" unique_id=112110230 instance=ExtResource("2_getpj")]
 unique_name_in_owner = true
 position = Vector2(47, -79)
 
-[node name="SteeringWheelSprite" parent="Base/Container/SteeringWheel" instance=ExtResource("3_kek77")]
+[node name="SteeringWheel" type="Node2D" parent="Base/Container" unique_id=1542733551]
+unique_name_in_owner = true
+position = Vector2(47, -79)
+
+[node name="SteeringWheelSprite" parent="Base/Container/SteeringWheel" unique_id=732953569 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 key = &"steering_wheel"
 
-[node name="RightHandPin" type="Marker2D" parent="Base/Container/SteeringWheel"]
+[node name="RightHandPin" type="Marker2D" parent="Base/Container/SteeringWheel" unique_id=1831725079]
 position = Vector2(-53, -9)
 
-[node name="LeftHand" parent="Base/Container/SteeringWheel" instance=ExtResource("3_kek77")]
+[node name="LeftHand" parent="Base/Container/SteeringWheel" unique_id=1882953935 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(53, -9)
 key = &"hand_left"
 
-[node name="RightHandPinContainer" type="Node2D" parent="Base/Container/SteeringWheel"]
+[node name="RightHandPinContainer" type="Node2D" parent="Base/Container/SteeringWheel" unique_id=1596888808]
 unique_name_in_owner = true
 script = ExtResource("4_4c57u")
 pin_offset_angle = -0.8107403441364059
@@ -48,7 +48,7 @@ pin_count = 3
 pin_radius = 55.0
 metadata/_custom_type_script = "uid://bhsc244y2i435"
 
-[node name="LeftHandPinContainer" type="Node2D" parent="Base/Container/SteeringWheel"]
+[node name="LeftHandPinContainer" type="Node2D" parent="Base/Container/SteeringWheel" unique_id=1008396007]
 unique_name_in_owner = true
 script = ExtResource("4_4c57u")
 pin_offset_angle = -0.3242996283130667
@@ -56,131 +56,131 @@ pin_count = 3
 pin_radius = 55.0
 metadata/_custom_type_script = "uid://bhsc244y2i435"
 
-[node name="EbrakeContainer" type="Node2D" parent="Base/Container"]
+[node name="EbrakeContainer" type="Node2D" parent="Base/Container" unique_id=1348016663]
 position = Vector2(-154, -167)
 
-[node name="Ebrake" parent="Base/Container/EbrakeContainer" instance=ExtResource("3_kek77")]
+[node name="Ebrake" parent="Base/Container/EbrakeContainer" unique_id=1727384117 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(38, 171)
 key = &"ebrake"
 
-[node name="EbrakeMarker" type="Marker2D" parent="Base/Container/EbrakeContainer/Ebrake"]
+[node name="EbrakeMarker" type="Marker2D" parent="Base/Container/EbrakeContainer/Ebrake" unique_id=1434756994]
 unique_name_in_owner = true
 position = Vector2(0, -61)
 
-[node name="EbrakeBase" parent="Base/Container/EbrakeContainer" instance=ExtResource("3_kek77")]
+[node name="EbrakeBase" parent="Base/Container/EbrakeContainer" unique_id=1499684105 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(35, 178)
 key = &"ebrake_base"
 
-[node name="EbrakeEffect" parent="Base/Container/EbrakeContainer" instance=ExtResource("3_kek77")]
+[node name="EbrakeEffect" parent="Base/Container/EbrakeContainer" unique_id=485388188 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(35, 178)
 key = &"ebrake_effect"
 
-[node name="ShifterContainer" type="Node2D" parent="Base/Container"]
+[node name="ShifterContainer" type="Node2D" parent="Base/Container" unique_id=1091121569]
 position = Vector2(-70, 19)
 script = ExtResource("3_0m0f1")
 shifter_shaft_thickness = 5.0
 
-[node name="ShifterBase" parent="Base/Container/ShifterContainer" instance=ExtResource("3_kek77")]
+[node name="ShifterBase" parent="Base/Container/ShifterContainer" unique_id=1619949754 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 key = &"shifter_base"
 
-[node name="ShifterKnob" parent="Base/Container/ShifterContainer" instance=ExtResource("3_kek77")]
+[node name="ShifterKnob" parent="Base/Container/ShifterContainer" unique_id=1942004808 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(-1, -40)
 key = &"shifter_knob"
 
-[node name="PanelContainer" type="PanelContainer" parent="Base/Container/ShifterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Base/Container/ShifterContainer" unique_id=1763608063]
 offset_left = -20.0
 offset_top = -9.0
 offset_right = 7.0
 offset_bottom = 8.0
 
-[node name="ShifterLabel" type="Label" parent="Base/Container/ShifterContainer/PanelContainer"]
+[node name="ShifterLabel" type="Label" parent="Base/Container/ShifterContainer/PanelContainer" unique_id=184384269]
 texture_filter = 2
 layout_mode = 2
 theme = ExtResource("10_00tp4")
 text = "1"
 horizontal_alignment = 1
 
-[node name="RightHand" parent="Base/Container" instance=ExtResource("3_kek77")]
+[node name="RightHand" parent="Base/Container" unique_id=1959454310 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(-6, -88)
 key = &"hand_right_steering"
 
-[node name="PedalsContainer" type="Node2D" parent="Base/Container"]
+[node name="PedalsContainer" type="Node2D" parent="Base/Container" unique_id=972341206]
 position = Vector2(51, 106)
 script = ExtResource("12_45l4g")
 
-[node name="RightFoot" parent="Base/Container/PedalsContainer" instance=ExtResource("3_kek77")]
+[node name="RightFoot" parent="Base/Container/PedalsContainer" unique_id=941566720 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(-48, -61)
 key = &"foot_right"
 
-[node name="LeftFoot" parent="Base/Container/PedalsContainer" instance=ExtResource("3_kek77")]
+[node name="LeftFoot" parent="Base/Container/PedalsContainer" unique_id=1448930365 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(44, -61)
 key = &"foot_left"
 
-[node name="PedalsOffsetContainer" type="Node2D" parent="Base/Container/PedalsContainer"]
+[node name="PedalsOffsetContainer" type="Node2D" parent="Base/Container/PedalsContainer" unique_id=1597961814]
 
-[node name="Pedals" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer"]
+[node name="Pedals" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer" unique_id=746492037]
 
-[node name="ThrottlePedalContainer" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="ThrottlePedalContainer" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=769991157]
 position = Vector2(-47, -61)
 
-[node name="ThrottlePedal" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer"]
+[node name="ThrottlePedal" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer" unique_id=1296753488]
 unique_name_in_owner = true
 
-[node name="PedalThrottle" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer/ThrottlePedal" instance=ExtResource("3_kek77")]
+[node name="PedalThrottle" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer/ThrottlePedal" unique_id=1314699822 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 key = &"pedal_throttle"
 
-[node name="ThrottlePedalFixture" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer/ThrottlePedal" instance=ExtResource("3_kek77")]
+[node name="ThrottlePedalFixture" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer/ThrottlePedal" unique_id=1615045532 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(0, 24)
 key = &"pedal_fixture"
 
-[node name="BrakePadelContainer" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="BrakePadelContainer" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=496630541]
 position = Vector2(-1, -61)
 
-[node name="BrakePedal" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer"]
+[node name="BrakePedal" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer" unique_id=894747461]
 unique_name_in_owner = true
 
-[node name="PedalBrake" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer/BrakePedal" instance=ExtResource("3_kek77")]
+[node name="PedalBrake" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer/BrakePedal" unique_id=979718826 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(-1, 1)
 key = &"pedal_brake"
 
-[node name="BrakePedalFixture" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer/BrakePedal" instance=ExtResource("3_kek77")]
+[node name="BrakePedalFixture" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer/BrakePedal" unique_id=2037635394 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(0, 24)
 key = &"pedal_fixture"
 
-[node name="ClutchPedalContainer" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="ClutchPedalContainer" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=648333351]
 position = Vector2(45, -61)
 
-[node name="ClutchPedal" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer"]
+[node name="ClutchPedal" type="Node2D" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer" unique_id=1524424442]
 unique_name_in_owner = true
 
-[node name="PedalClutch" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer/ClutchPedal" instance=ExtResource("3_kek77")]
+[node name="PedalClutch" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer/ClutchPedal" unique_id=267988922 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(-1, 1)
 key = &"pedal_clutch"
 
-[node name="ClutchPedalFixture" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer/ClutchPedal" instance=ExtResource("3_kek77")]
+[node name="ClutchPedalFixture" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer/ClutchPedal" unique_id=688157166 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(0, 24)
 key = &"pedal_fixture"
 
-[node name="PedalBase" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals" instance=ExtResource("3_kek77")]
+[node name="PedalBase" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=1055519581 instance=ExtResource("3_kek77")]
 unique_name_in_owner = true
 position = Vector2(0, 14)
 key = &"pedal_base"
 
-[node name="ClutchProgress" type="ProgressBar" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="ClutchProgress" type="ProgressBar" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=680683823]
 unique_name_in_owner = true
 texture_filter = 2
 offset_left = 29.0
@@ -192,7 +192,7 @@ min_value = -100.0
 fill_mode = 3
 show_percentage = false
 
-[node name="BrakeProgress" type="ProgressBar" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="BrakeProgress" type="ProgressBar" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=1220755297]
 unique_name_in_owner = true
 texture_filter = 2
 offset_left = -17.0
@@ -204,7 +204,7 @@ min_value = -100.0
 fill_mode = 3
 show_percentage = false
 
-[node name="ThrottleProgress" type="ProgressBar" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="ThrottleProgress" type="ProgressBar" parent="Base/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=2113699152]
 unique_name_in_owner = true
 texture_filter = 1
 offset_left = -64.0
@@ -216,7 +216,7 @@ min_value = -100.0
 fill_mode = 3
 show_percentage = false
 
-[node name="ClutchLabel" type="Label" parent="Base/Container/PedalsContainer"]
+[node name="ClutchLabel" type="Label" parent="Base/Container/PedalsContainer" unique_id=1761108854]
 texture_filter = 2
 offset_left = 26.0
 offset_top = 23.0
@@ -225,7 +225,7 @@ offset_bottom = 40.0
 theme = ExtResource("10_00tp4")
 text = "Clutch"
 
-[node name="BrakeLabel" type="Label" parent="Base/Container/PedalsContainer"]
+[node name="BrakeLabel" type="Label" parent="Base/Container/PedalsContainer" unique_id=498466930]
 texture_filter = 2
 offset_left = -18.0
 offset_top = 23.0
@@ -234,7 +234,7 @@ offset_bottom = 40.0
 theme = ExtResource("10_00tp4")
 text = "Brake"
 
-[node name="ThrottleLabel" type="Label" parent="Base/Container/PedalsContainer"]
+[node name="ThrottleLabel" type="Label" parent="Base/Container/PedalsContainer" unique_id=930954821]
 texture_filter = 2
 offset_left = -72.0
 offset_top = 23.0
@@ -243,15 +243,15 @@ offset_bottom = 40.0
 theme = ExtResource("10_00tp4")
 text = "Throttle"
 
-[node name="MetricsContainer" type="Node2D" parent="Base"]
+[node name="MetricsContainer" type="Node2D" parent="Base" unique_id=1877054007]
 position = Vector2(-148, 132)
 
-[node name="WheelMetrics" parent="Base/MetricsContainer" instance=ExtResource("7_kek77")]
+[node name="WheelMetrics" parent="Base/MetricsContainer" unique_id=499492477 instance=ExtResource("7_kek77")]
 unique_name_in_owner = true
 back_color = Color(1, 1, 1, 0.435294)
 show_engine = false
 
-[node name="TractionLabel" type="Label" parent="Base/MetricsContainer/WheelMetrics"]
+[node name="TractionLabel" type="Label" parent="Base/MetricsContainer/WheelMetrics" unique_id=419164768]
 offset_left = -28.0
 offset_top = -77.0
 offset_right = 28.0
@@ -261,7 +261,7 @@ theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 14
 text = "Traction"
 
-[node name="UIContainer" type="MarginContainer" parent="."]
+[node name="UIContainer" type="MarginContainer" parent="." unique_id=2145636047]
 unique_name_in_owner = true
 texture_filter = 2
 anchors_preset = 15
@@ -272,40 +272,40 @@ grow_vertical = 2
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UIContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UIContainer" unique_id=827002543]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBox" type="VBoxContainer" parent="UIContainer/MarginContainer"]
+[node name="VBox" type="VBoxContainer" parent="UIContainer/MarginContainer" unique_id=487089376]
 layout_mode = 2
 
-[node name="BindingsButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
+[node name="BindingsButton" type="Button" parent="UIContainer/MarginContainer/VBox" unique_id=1935155735]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Bindings"
 
-[node name="ReloadAssetsButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
+[node name="ReloadAssetsButton" type="Button" parent="UIContainer/MarginContainer/VBox" unique_id=1519213455]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Reload Assets"
 
-[node name="ThemesButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
+[node name="ThemesButton" type="Button" parent="UIContainer/MarginContainer/VBox" unique_id=550148388]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Themes"
 
-[node name="SettingsButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
+[node name="SettingsButton" type="Button" parent="UIContainer/MarginContainer/VBox" unique_id=468149441]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Settings"
 
-[node name="ResetTransformsButton" type="Button" parent="UIContainer/MarginContainer/VBox"]
+[node name="ResetTransformsButton" type="Button" parent="UIContainer/MarginContainer/VBox" unique_id=1624483235]
 layout_mode = 2
 size_flags_horizontal = 0
 tooltip_text = "Press this if game connection is on and
@@ -313,12 +313,12 @@ the overlay gets stuck rotated/scaled/moved
 undesirably."
 text = "Reset Transforms"
 
-[node name="ControlsRebind" parent="UIContainer" instance=ExtResource("2_cegan")]
+[node name="ControlsRebind" parent="UIContainer" unique_id=2070354731 instance=ExtResource("2_cegan")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="SettingsPanel" parent="UIContainer" instance=ExtResource("21_getpj")]
+[node name="SettingsPanel" parent="UIContainer" unique_id=1073007599 instance=ExtResource("21_getpj")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
