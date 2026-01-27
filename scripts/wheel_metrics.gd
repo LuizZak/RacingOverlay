@@ -57,6 +57,8 @@ func reset() -> void:
     wheel_entries[Wheel.FRONT_LEFT].update(0.0, 0.0)
     wheel_entries[Wheel.FRONT_RIGHT].update(0.0, 0.0)
 
+    update_powertrain(PowertrainLayout.F4)
+
 func update_with_packet(packet: GamePacketBase) -> void:
     queue_redraw()
 
