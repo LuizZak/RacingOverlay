@@ -45,6 +45,8 @@ var wheel_entries: Dictionary[Wheel, WheelEntry] = {
     Wheel.FRONT_RIGHT: WheelEntry.make_front_right(),
 }
 
+var recognized_cars: Dictionary[String, bool] = {}
+
 func _ready() -> void:
     reset()
     _update_spinner()
@@ -61,6 +63,12 @@ func reset() -> void:
 
 func update_with_packet(packet: GamePacketBase) -> void:
     queue_redraw()
+
+    # Debug code used to detect Assetto Corsa: Rally car model strings
+    # if packet is ACRallyGamePacket:
+    #     if not recognized_cars.has(packet.car_model):
+    #         recognized_cars[packet.car_model] = true
+    #         print("New car model: '%s'" % [packet.car_model])
 
     var powertrain := PowertrainDetector.detect(packet)
     if powertrain == null:

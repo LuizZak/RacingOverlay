@@ -14,6 +14,8 @@ class_name PowertrainDetector
 # 'Lancia 037' - MR
 # 'Lancia Stratos HF' - MR
 # 'Citroen Xsara WRC' - F4
+# 'Lancia Fulvia Coupé HF 1.6' - FF
+# 'Skoda Fabia RS Rally2' - F4
 
 ## Attempts to detect the power train layout from a given game packet, returning
 ## `null` if none could be detected.
@@ -41,6 +43,10 @@ static func detect(packet: GamePacketBase) -> PowertrainLayout:
             "Lancia Stratos HF":
                 return PowertrainLayout.MR
             "Citroen Xsara WRC":
+                return PowertrainLayout.F4
+            "Lancia Fulvia Coupé HF 1.6":
+                return PowertrainLayout.FF
+            "Skoda Fabia RS Rally2":
                 return PowertrainLayout.F4
             _:
                 return null
