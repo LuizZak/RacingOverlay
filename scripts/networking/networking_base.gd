@@ -11,9 +11,11 @@ enum Mode {
     CONNECT,
 }
 
+@warning_ignore("unused_parameter")
 func set_port(port: int) -> void:
     pass
 
+@warning_ignore("unused_parameter")
 func set_mode(mode: Mode) -> void:
     pass
 
