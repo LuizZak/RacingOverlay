@@ -1,14 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://bb7eldms6h3lh"]
+[gd_scene format=3 uid="uid://bb7eldms6h3lh"]
 
 [ext_resource type="Script" uid="uid://3v4s4kb4n1dy" path="res://scripts/controls_rebind/controls_rebind.gd" id="1_6x7f4"]
 [ext_resource type="PackedScene" uid="uid://bsdnnkxkts7lc" path="res://nodes/controls_rebind/rebind_entry.tscn" id="1_mputf"]
 [ext_resource type="PackedScene" uid="uid://dtj786n4q0vl5" path="res://nodes/controls_rebind/pedal_rebind_container.tscn" id="3_l4l3h"]
+[ext_resource type="Texture2D" uid="uid://omuscga148tt" path="res://sprites/input_icons/steer_left_icon.aseprite" id="3_scm3f"]
+[ext_resource type="Texture2D" uid="uid://cvd7mok0k5bc" path="res://sprites/input_icons/steer_right_icon.aseprite" id="4_uegyd"]
 [ext_resource type="PackedScene" uid="uid://bi5x2lywuyprc" path="res://nodes/controls_rebind/analog_rebind_container.tscn" id="4_vuftn"]
+[ext_resource type="Texture2D" uid="uid://ba2w3my2bwcgo" path="res://sprites/input_icons/clutch_down_icon.aseprite" id="5_sh3j6"]
+[ext_resource type="Texture2D" uid="uid://bc8ssueltkps1" path="res://sprites/input_icons/clutch_up_icon.aseprite" id="6_x0nq0"]
+[ext_resource type="Texture2D" uid="uid://b6o6afms33kyo" path="res://sprites/input_icons/brake_down_icon.aseprite" id="7_2i042"]
+[ext_resource type="Texture2D" uid="uid://m7ph3a43rpqi" path="res://sprites/input_icons/brake_up_icon.aseprite" id="8_iexw6"]
+[ext_resource type="Texture2D" uid="uid://27gesi3ejg4o" path="res://sprites/input_icons/throttle_down_icon.aseprite" id="9_iexw6"]
+[ext_resource type="Texture2D" uid="uid://cdrolo5ptgn1c" path="res://sprites/input_icons/throttle_up_icon.aseprite" id="10_h4qqv"]
+[ext_resource type="Texture2D" uid="uid://ckh78gw4ou0tw" path="res://sprites/input_icons/gear_1_icon.aseprite" id="11_sh5ke"]
+[ext_resource type="Texture2D" uid="uid://7ncrvb3cpn81" path="res://sprites/input_icons/gear_2_icon.aseprite" id="12_n0ds6"]
+[ext_resource type="Texture2D" uid="uid://sjo0hi1ydjbr" path="res://sprites/input_icons/gear_3_icon.aseprite" id="13_8p162"]
+[ext_resource type="Texture2D" uid="uid://bl5g2ckux3ob5" path="res://sprites/input_icons/gear_4_icon.aseprite" id="14_c8sho"]
+[ext_resource type="Texture2D" uid="uid://bv63x028t862n" path="res://sprites/input_icons/gear_5_icon.aseprite" id="15_yw47a"]
+[ext_resource type="Texture2D" uid="uid://buwbaexdcqy40" path="res://sprites/input_icons/gear_6_icon.aseprite" id="16_y2dn8"]
+[ext_resource type="Texture2D" uid="uid://chrrt7v05hr7n" path="res://sprites/input_icons/gear_r_icon.aseprite" id="17_y0ye3"]
+[ext_resource type="Texture2D" uid="uid://o8xkk1l6r7ev" path="res://sprites/input_icons/gear_up_icon.aseprite" id="18_ern12"]
+[ext_resource type="Texture2D" uid="uid://bsipkli6boowp" path="res://sprites/input_icons/gear_down_icon.aseprite" id="19_24y70"]
+[ext_resource type="Texture2D" uid="uid://cj15on72jhesv" path="res://sprites/input_icons/handbrake_icon.aseprite" id="20_n0ds6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4l3h"]
 bg_color = Color(0, 0, 0, 0.847059)
 
-[node name="ControlsRebind" type="MarginContainer"]
+[node name="ControlsRebind" type="MarginContainer" unique_id=343242343]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -18,169 +36,187 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6x7f4")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1788138641]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_l4l3h")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=729717009]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1344783189]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=776849094]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer" unique_id=1456385481]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SteeringHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="SteeringHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1361431459]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/SteeringHeaderTitle"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/SteeringHeaderTitle" unique_id=651115120]
 layout_mode = 2
 text = "Steering"
 horizontal_alignment = 1
 
-[node name="RebindSteerLeft" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindSteerLeft" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=692378731 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("3_scm3f")
 action_name = "Steer_left"
 
-[node name="RebindSteerRight" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindSteerRight" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=933511745 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("4_uegyd")
 action_name = "Steer_right"
 
-[node name="PedalsHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="PedalsHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1103715982]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PedalsHeaderTitle"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/PedalsHeaderTitle" unique_id=412575423]
 layout_mode = 2
 text = "Pedals"
 horizontal_alignment = 1
 
-[node name="RebindClutchDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindClutchDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=453058600 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("5_sh3j6")
 action_name = "Clutch_down"
 
-[node name="RebindClutchUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindClutchUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1718489631 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("6_x0nq0")
 action_name = "Clutch_up"
 
-[node name="RebindBrakeDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindBrakeDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=392922831 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("7_2i042")
 action_name = "Brake_down"
 
-[node name="RebindBrakeUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindBrakeUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1699203381 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("8_iexw6")
 action_name = "Brake_up"
 
-[node name="RebindThrottleDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindThrottleDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1584758434 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("9_iexw6")
 action_name = "Throttle_down"
 
-[node name="RebindThrottleUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindThrottleUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1924006964 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("10_h4qqv")
 action_name = "Throttle_up"
 
-[node name="ShifterHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="ShifterHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1170688522]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ShifterHeaderTitle"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/ShifterHeaderTitle" unique_id=1878419313]
 layout_mode = 2
 text = "Shifter"
 horizontal_alignment = 1
 
-[node name="RebindShift1st" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindShift1st" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=169996508 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("11_sh5ke")
 action_name = "Shift_1st"
 
-[node name="RebindShift2nd" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindShift2nd" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1905835524 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("12_n0ds6")
 action_name = "Shift_2nd"
 
-[node name="RebindShift3rd" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindShift3rd" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=564553975 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("13_8p162")
 action_name = "Shift_3rd"
 
-[node name="RebindShift4th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindShift4th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1869834014 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("14_c8sho")
 action_name = "Shift_4th"
 
-[node name="RebindShift5th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindShift5th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1771627675 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("15_yw47a")
 action_name = "Shift_5th"
 
-[node name="RebindShift6th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindShift6th" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1077224601 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("16_y2dn8")
 action_name = "Shift_6th"
 
-[node name="RebindShiftReverse" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindShiftReverse" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1064456327 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("17_y0ye3")
 action_name = "Shift_reverse"
 
-[node name="RebindShiftUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindShiftUp" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=48783064 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("18_ern12")
 action_name = "Shift_up"
 
-[node name="RebindShiftDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindShiftDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1451397419 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("19_24y70")
 action_name = "Shift_down"
 
-[node name="HandbrakeHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="HandbrakeHeaderTitle" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=2119245902]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HandbrakeHeaderTitle"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/HandbrakeHeaderTitle" unique_id=1774312254]
 layout_mode = 2
 text = "Handbrake"
 horizontal_alignment = 1
 
-[node name="RebindHandbrake" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_mputf")]
+[node name="RebindHandbrake" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=55117898 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("20_n0ds6")
 action_name = "Handbrake"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2094278317]
 layout_mode = 2
 
-[node name="LoadDefaultsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LoadDefaultsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1825605536]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Load Defaults"
 
-[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1759051262]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Close"
 
-[node name="PedalRebindContainer" parent="." instance=ExtResource("3_l4l3h")]
+[node name="PedalRebindContainer" parent="." unique_id=368925528 instance=ExtResource("3_l4l3h")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="AnalogRebindContainer" parent="." instance=ExtResource("4_vuftn")]
+[node name="AnalogRebindContainer" parent="." unique_id=1505351639 instance=ExtResource("4_vuftn")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

@@ -1,8 +1,10 @@
 class_name RebindEntry
 extends HBoxContainer
 
+@export var icon: Texture2D
 @export var action_name: String
 
+@onready var texture_rect: TextureRect = $TextureRect
 @onready var label: Label = $Label
 @onready var button: Button = $Button
 
@@ -15,6 +17,8 @@ signal did_click_rebind(action_name: String)
 
 func _ready() -> void:
     refresh()
+
+    texture_rect.texture = icon
 
 func _on_button_pressed() -> void:
     did_click_rebind.emit(action_name)

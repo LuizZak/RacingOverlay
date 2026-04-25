@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://b6o6afms33kyo"
+path="res://.godot/imported/brake_down_icon.aseprite-402618db97464835289b277710f82148.res"
+
+[deps]
+
+source_file="res://sprites/input_icons/brake_down_icon.aseprite"
+dest_files=["res://.godot/imported/brake_down_icon.aseprite-402618db97464835289b277710f82148.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

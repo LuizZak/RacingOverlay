@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://ba2w3my2bwcgo"
+path="res://.godot/imported/clutch_down_icon.aseprite-9d54ed78e9d67ed418048d53d796cc43.res"
+
+[deps]
+
+source_file="res://sprites/input_icons/clutch_down_icon.aseprite"
+dest_files=["res://.godot/imported/clutch_down_icon.aseprite-9d54ed78e9d67ed418048d53d796cc43.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

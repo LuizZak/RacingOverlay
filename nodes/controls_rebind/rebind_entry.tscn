@@ -1,15 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsdnnkxkts7lc"]
+[gd_scene format=3 uid="uid://bsdnnkxkts7lc"]
 
 [ext_resource type="Script" uid="uid://cc1h3mu0y0446" path="res://scripts/controls_rebind/rebind_entry.gd" id="1_i3gbp"]
 
-[node name="RebindEntry" type="HBoxContainer"]
+[node name="RebindEntry" type="HBoxContainer" unique_id=1554516463]
+alignment = 1
 script = ExtResource("1_i3gbp")
 
-[node name="Label" type="Label" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=656078821]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="." unique_id=235572688]
 layout_mode = 2
 text = "Steer Left"
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=734894911]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12

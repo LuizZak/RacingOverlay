@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://27gesi3ejg4o"
+path="res://.godot/imported/throttle_down_icon.aseprite-23e399a7b30bb708ea30fd2c5df0ce2b.res"
+
+[deps]
+
+source_file="res://sprites/input_icons/throttle_down_icon.aseprite"
+dest_files=["res://.godot/imported/throttle_down_icon.aseprite-23e399a7b30bb708ea30fd2c5df0ce2b.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

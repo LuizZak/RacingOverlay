@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://cj15on72jhesv"
+path="res://.godot/imported/handbrake_icon.aseprite-8b4bf0f9354e40dacc0bea7012a8f6fc.res"
+
+[deps]
+
+source_file="res://sprites/input_icons/handbrake_icon.aseprite"
+dest_files=["res://.godot/imported/handbrake_icon.aseprite-8b4bf0f9354e40dacc0bea7012a8f6fc.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

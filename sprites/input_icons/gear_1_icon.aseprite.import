@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://ckh78gw4ou0tw"
+path="res://.godot/imported/gear_1_icon.aseprite-1db6438c91354a73f035c5b7b14ef395.res"
+
+[deps]
+
+source_file="res://sprites/input_icons/gear_1_icon.aseprite"
+dest_files=["res://.godot/imported/gear_1_icon.aseprite-1db6438c91354a73f035c5b7b14ef395.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

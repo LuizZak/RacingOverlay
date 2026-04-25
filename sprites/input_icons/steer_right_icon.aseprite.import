@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://cvd7mok0k5bc"
+path="res://.godot/imported/steer_right_icon.aseprite-992a67d346c4962ec28a59f40e497afb.res"
+
+[deps]
+
+source_file="res://sprites/input_icons/steer_right_icon.aseprite"
+dest_files=["res://.godot/imported/steer_right_icon.aseprite-992a67d346c4962ec28a59f40e497afb.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

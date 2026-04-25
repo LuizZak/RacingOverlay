@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://cdrolo5ptgn1c"
+path="res://.godot/imported/throttle_up_icon.aseprite-679aab82689c627e1e2819691d171f34.res"
+
+[deps]
+
+source_file="res://sprites/input_icons/throttle_up_icon.aseprite"
+dest_files=["res://.godot/imported/throttle_up_icon.aseprite-679aab82689c627e1e2819691d171f34.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true

@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.static-texture"
+type="PortableCompressedTexture2D"
+uid="uid://m7ph3a43rpqi"
+path="res://.godot/imported/brake_up_icon.aseprite-9e1a3495dbb89beefc710cfbf04341e5.res"
+
+[deps]
+
+source_file="res://sprites/input_icons/brake_up_icon.aseprite"
+dest_files=["res://.godot/imported/brake_up_icon.aseprite-9e1a3495dbb89beefc710cfbf04341e5.res"]
+
+[params]
+
+layer/exclude_layers_pattern=""
+layer/only_visible_layers=true
