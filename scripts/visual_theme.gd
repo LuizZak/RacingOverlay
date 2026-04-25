@@ -2,6 +2,8 @@ class_name VisualTheme
 
 static var _built_in_theme: VisualTheme
 
+const BUILT_IN_THEME_IDENTIFIER := "?built in?"
+
 const DEFAULT_SHIFTER_FILL_COLOR := Color.BLACK
 const DEFAULT_SHIFTER_OUTLINE_COLOR := Color.WHITE
 const DEFAULT_PEDAL_FILL_COLOR := Color(0.082, 0.219, 0.225)
@@ -17,6 +19,10 @@ var display_name: String = ""
 
 ## Accompanying theme settings.
 var theme_settings: ThemeSettings = ThemeSettings.make_default()
+
+## Returns `true` if this theme is a built-in theme, created via `VisualTheme.built_in_theme()`.
+var is_built_in: bool:
+    get: return identifier == BUILT_IN_THEME_IDENTIFIER
 
 var resources: Dictionary[StringName, VisualResource] = {}
 
@@ -132,7 +138,7 @@ static func built_in_theme() -> VisualTheme:
 
     _built_in_theme = VisualTheme.new("")
     _built_in_theme.display_name = "Built-in"
-    _built_in_theme.identifier = "?built in?"
+    _built_in_theme.identifier = BUILT_IN_THEME_IDENTIFIER
     _built_in_theme.load_from_disk()
     return _built_in_theme
 
