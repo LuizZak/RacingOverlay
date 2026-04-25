@@ -96,16 +96,17 @@ func update_powertrain(powertrain: PowertrainLayout) -> void:
 
     current_powertrain = powertrain
 
-    match powertrain.engine_layout:
-        PowertrainLayout.EngineLayout.Front:
-            var mid_wheel := (wheel_entries[Wheel.FRONT_LEFT].position + wheel_entries[Wheel.FRONT_RIGHT].position) / 2
-            engine_display.position = mid_wheel
-        PowertrainLayout.EngineLayout.Mid:
-            var mid_wheel := (wheel_entries[Wheel.REAR_LEFT].position + wheel_entries[Wheel.REAR_RIGHT].position) / 2
-            engine_display.position = mid_wheel - Vector2(0.0, ENGINE_SIZE.y / 2.0)
-        PowertrainLayout.EngineLayout.Rear:
-            var mid_wheel := (wheel_entries[Wheel.REAR_LEFT].position + wheel_entries[Wheel.REAR_RIGHT].position) / 2
-            engine_display.position = mid_wheel
+    if powertrain != null:
+        match powertrain.engine_layout:
+            PowertrainLayout.EngineLayout.Front:
+                var mid_wheel := (wheel_entries[Wheel.FRONT_LEFT].position + wheel_entries[Wheel.FRONT_RIGHT].position) / 2
+                engine_display.position = mid_wheel
+            PowertrainLayout.EngineLayout.Mid:
+                var mid_wheel := (wheel_entries[Wheel.REAR_LEFT].position + wheel_entries[Wheel.REAR_RIGHT].position) / 2
+                engine_display.position = mid_wheel - Vector2(0.0, ENGINE_SIZE.y / 2.0)
+            PowertrainLayout.EngineLayout.Rear:
+                var mid_wheel := (wheel_entries[Wheel.REAR_LEFT].position + wheel_entries[Wheel.REAR_RIGHT].position) / 2
+                engine_display.position = mid_wheel
 
 func _draw() -> void:
     # Draw background
