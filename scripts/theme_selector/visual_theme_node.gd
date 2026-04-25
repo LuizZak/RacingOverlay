@@ -1,6 +1,11 @@
 class_name VisualThemeNode
 extends MarginContainer
 
+enum EditColorsDisableReason {
+    IS_BUILTIN,
+    LACKS_JSON_FILE,
+}
+
 @onready var button: Button = $VBoxContainer/MarginContainer/Button
 
 @onready var shifter_container: ShifterContainer = %ShifterContainer
@@ -118,7 +123,10 @@ func load_visual_theme(theme: VisualTheme) -> void:
         shifter_shaft_outline_color = Settings.instance.shifter_shaft_outline_color
         pedal_fill_color = Settings.instance.pedal_bar_fill_color
 
-        _disable_edit_color_button()
+        if theme.is_built_in:
+            _disable_edit_color_button(EditColorsDisableReason.IS_BUILTIN)
+        else:
+            _disable_edit_color_button(EditColorsDisableReason.LACKS_JSON_FILE)
     else:
         shifter_shaft_color = theme.theme_settings.shifter_fill_color
         shifter_shaft_outline_color = theme.theme_settings.shifter_outline_color
@@ -174,8 +182,13 @@ func load_visual_theme(theme: VisualTheme) -> void:
     right_hand.visual_theme = theme
     right_hand.refresh_display()
 
-func _disable_edit_color_button() -> void:
-    edit_colors_button.tooltip_text = "The provided theme lacks a settings.json file\nto edit the colors of."
+func _disable_edit_color_button(reason: EditColorsDisableReason) -> void:
+    match reason:
+        EditColorsDisableReason.IS_BUILTIN:
+            edit_colors_button.tooltip_text = "The provided theme is a built-in\ntheme with global colors.\nEdit the colors in the Settings menu."
+        EditColorsDisableReason.LACKS_JSON_FILE:
+            edit_colors_button.tooltip_text = "The provided theme lacks a settings.json file\nto edit the colors of."
+
     edit_colors_button.disabled = true
 
 func _enable_edit_color_button() -> void:

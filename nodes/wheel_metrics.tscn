@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4dysephj2r1g"]
+[gd_scene format=3 uid="uid://d4dysephj2r1g"]
 
 [ext_resource type="Script" uid="uid://b6qt48phe4i6j" path="res://scripts/wheel_metrics.gd" id="1_ce2ar"]
 [ext_resource type="PackedScene" uid="uid://c78ywggycdwbp" path="res://nodes/spinner_loader.tscn" id="2_3wvj4"]
@@ -10,10 +10,10 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[node name="WheelMetrics" type="Node2D"]
+[node name="WheelMetrics" type="Node2D" unique_id=1144475250]
 script = ExtResource("1_ce2ar")
 
-[node name="LeftLabel" type="Label" parent="."]
+[node name="LeftLabel" type="Label" parent="." unique_id=945013515]
 offset_left = -24.0
 offset_top = -8.0
 offset_right = -15.0
@@ -23,7 +23,7 @@ theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "L"
 
-[node name="RightLabel" type="Label" parent="."]
+[node name="RightLabel" type="Label" parent="." unique_id=1754469220]
 offset_left = 16.0
 offset_top = -8.0
 offset_right = 24.0
@@ -33,14 +33,14 @@ theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 12
 text = "R"
 
-[node name="SpinnerContainer" type="PanelContainer" parent="."]
+[node name="SpinnerContainer" type="PanelContainer" parent="." unique_id=1479235183]
 offset_left = -39.0
 offset_top = -55.0
 offset_right = 38.0
 offset_bottom = 55.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_3wvj4")
 
-[node name="SpinnerLoader" parent="SpinnerContainer" instance=ExtResource("2_3wvj4")]
+[node name="SpinnerLoader" parent="SpinnerContainer" unique_id=1595168628 instance=ExtResource("2_3wvj4")]
 layout_mode = 2
 spin_rate = 4.71238898038469
 spinner_end_color = Color(1, 1, 1, 1)

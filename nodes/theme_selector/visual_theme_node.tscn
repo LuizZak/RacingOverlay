@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhpt4licl84vv"]
+[gd_scene format=3 uid="uid://bhpt4licl84vv"]
 
 [ext_resource type="Script" uid="uid://c6aimspmlge7b" path="res://scripts/theme_selector/visual_theme_node.gd" id="1_bfmmk"]
 [ext_resource type="PackedScene" uid="uid://clyp31sfrkmhu" path="res://nodes/steering_wheel_indicator.tscn" id="2_hcde6"]
@@ -19,7 +19,7 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="VisualThemeNode" type="MarginContainer"]
+[node name="VisualThemeNode" type="MarginContainer" unique_id=427557439]
 custom_minimum_size = Vector2(310, 140)
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,22 +28,22 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bfmmk")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=501194175]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=376499537]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="VBoxContainer/MarginContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer" unique_id=1556516541]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/MarginContainer"]
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/MarginContainer" unique_id=574017116]
 clip_children = 1
 layout_mode = 2
 mouse_filter = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MarginContainer/ColorRect"]
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/MarginContainer/ColorRect" unique_id=1859874950]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -52,168 +52,168 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer"]
+[node name="Control" type="Control" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer" unique_id=250753347]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Container" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control"]
+[node name="Container" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control" unique_id=1119960271]
 unique_name_in_owner = true
 texture_filter = 2
 position = Vector2(3, 15)
 
-[node name="SteeringWheelIndicator" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container" instance=ExtResource("2_hcde6")]
+[node name="SteeringWheelIndicator" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container" unique_id=1563510897 instance=ExtResource("2_hcde6")]
 unique_name_in_owner = true
 visible = false
 position = Vector2(119, -11)
 
-[node name="SteeringWheel" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container"]
+[node name="SteeringWheel" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container" unique_id=1786932985]
 unique_name_in_owner = true
 position = Vector2(119, -11)
 scale = Vector2(0.7562592, 0.7562592)
 
-[node name="SteeringWheelSprite" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/SteeringWheel" instance=ExtResource("3_0w6do")]
+[node name="SteeringWheelSprite" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/SteeringWheel" unique_id=415747397 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 key = &"steering_wheel"
 
-[node name="RightHandPin" type="Marker2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/SteeringWheel"]
+[node name="RightHandPin" type="Marker2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/SteeringWheel" unique_id=937042583]
 position = Vector2(-53, -9)
 
-[node name="LeftHandPin" type="Marker2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/SteeringWheel"]
+[node name="LeftHandPin" type="Marker2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/SteeringWheel" unique_id=300728204]
 position = Vector2(53, -9)
 
-[node name="LeftHand" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/SteeringWheel/LeftHandPin" instance=ExtResource("3_0w6do")]
+[node name="LeftHand" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/SteeringWheel/LeftHandPin" unique_id=1714523844 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 key = &"hand_left"
 
-[node name="EbrakeContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container"]
+[node name="EbrakeContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container" unique_id=656254028]
 position = Vector2(-154, -167)
 
-[node name="Ebrake" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/EbrakeContainer" instance=ExtResource("3_0w6do")]
+[node name="Ebrake" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/EbrakeContainer" unique_id=302608828 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(-2, 177)
 key = &"ebrake"
 
-[node name="EbrakeMarker" type="Marker2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/EbrakeContainer/Ebrake"]
+[node name="EbrakeMarker" type="Marker2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/EbrakeContainer/Ebrake" unique_id=117951325]
 unique_name_in_owner = true
 position = Vector2(0, -61)
 
-[node name="EbrakeBase" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/EbrakeContainer" instance=ExtResource("3_0w6do")]
+[node name="EbrakeBase" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/EbrakeContainer" unique_id=1723009751 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(-5, 184)
 key = &"ebrake_base"
 
-[node name="EbrakeEffect" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/EbrakeContainer" instance=ExtResource("3_0w6do")]
+[node name="EbrakeEffect" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/EbrakeContainer" unique_id=380438515 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(-5, 184)
 key = &"ebrake_effect"
 
-[node name="ShifterContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container"]
+[node name="ShifterContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container" unique_id=976844012]
 unique_name_in_owner = true
 position = Vector2(-94, 18)
 script = ExtResource("4_88ewg")
 shifter_shaft_thickness = 5.0
 
-[node name="ShifterBase" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/ShifterContainer" instance=ExtResource("3_0w6do")]
+[node name="ShifterBase" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/ShifterContainer" unique_id=1812026964 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 key = &"shifter_base"
 
-[node name="ShifterKnob" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/ShifterContainer" instance=ExtResource("3_0w6do")]
+[node name="ShifterKnob" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/ShifterContainer" unique_id=410738934 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(-1, -40)
 key = &"shifter_knob"
 
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/ShifterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/ShifterContainer" unique_id=408693651]
 offset_left = -20.0
 offset_top = -9.0
 offset_right = 7.0
 offset_bottom = 8.0
 mouse_filter = 2
 
-[node name="ShifterLabel" type="Label" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/ShifterContainer/PanelContainer"]
+[node name="ShifterLabel" type="Label" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/ShifterContainer/PanelContainer" unique_id=269663294]
 texture_filter = 2
 layout_mode = 2
 theme = ExtResource("7_hcde6")
 text = "1"
 horizontal_alignment = 1
 
-[node name="RightHand" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container" instance=ExtResource("3_0w6do")]
+[node name="RightHand" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container" unique_id=453911066 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(79, -18)
 scale = Vector2(0.7562592, 0.7562592)
 key = &"hand_right_steering"
 
-[node name="PedalsContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container"]
+[node name="PedalsContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container" unique_id=816009997]
 position = Vector2(-1, 7)
 scale = Vector2(0.7036432, 0.7036432)
 script = ExtResource("6_wywsm")
 
-[node name="RightFoot" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer" instance=ExtResource("3_0w6do")]
+[node name="RightFoot" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer" unique_id=50867898 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(-48, -61)
 key = &"foot_right"
 
-[node name="LeftFoot" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer" instance=ExtResource("3_0w6do")]
+[node name="LeftFoot" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer" unique_id=2097578478 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(44, -61)
 key = &"foot_left"
 
-[node name="PedalsOffsetContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer"]
+[node name="PedalsOffsetContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer" unique_id=1766400181]
 
-[node name="Pedals" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer"]
+[node name="Pedals" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer" unique_id=779514758]
 
-[node name="ThrottlePedalContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="ThrottlePedalContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=1242256184]
 position = Vector2(-47, -61)
 
-[node name="ThrottlePedal" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer"]
+[node name="ThrottlePedal" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer" unique_id=696717271]
 unique_name_in_owner = true
 
-[node name="PedalThrottle" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer/ThrottlePedal" instance=ExtResource("3_0w6do")]
+[node name="PedalThrottle" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer/ThrottlePedal" unique_id=253033881 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 key = &"pedal_throttle"
 
-[node name="ThrottlePedalFixture" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer/ThrottlePedal" instance=ExtResource("3_0w6do")]
+[node name="ThrottlePedalFixture" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ThrottlePedalContainer/ThrottlePedal" unique_id=616597565 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(0, 24)
 key = &"pedal_fixture"
 
-[node name="BrakePadelContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="BrakePadelContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=1302972213]
 position = Vector2(-1, -61)
 
-[node name="BrakePedal" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer"]
+[node name="BrakePedal" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer" unique_id=1433743575]
 unique_name_in_owner = true
 
-[node name="PedalBrake" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer/BrakePedal" instance=ExtResource("3_0w6do")]
+[node name="PedalBrake" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer/BrakePedal" unique_id=403556034 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(-1, 1)
 key = &"pedal_brake"
 
-[node name="BrakePedalFixture" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer/BrakePedal" instance=ExtResource("3_0w6do")]
+[node name="BrakePedalFixture" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/BrakePadelContainer/BrakePedal" unique_id=70932841 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(0, 24)
 key = &"pedal_fixture"
 
-[node name="ClutchPedalContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="ClutchPedalContainer" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=1779423079]
 position = Vector2(45, -61)
 
-[node name="ClutchPedal" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer"]
+[node name="ClutchPedal" type="Node2D" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer" unique_id=1804892565]
 unique_name_in_owner = true
 
-[node name="PedalClutch" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer/ClutchPedal" instance=ExtResource("3_0w6do")]
+[node name="PedalClutch" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer/ClutchPedal" unique_id=1392301914 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(-1, 1)
 key = &"pedal_clutch"
 
-[node name="ClutchPedalFixture" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer/ClutchPedal" instance=ExtResource("3_0w6do")]
+[node name="ClutchPedalFixture" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals/ClutchPedalContainer/ClutchPedal" unique_id=655280375 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(0, 24)
 key = &"pedal_fixture"
 
-[node name="PedalBase" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals" instance=ExtResource("3_0w6do")]
+[node name="PedalBase" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=273486270 instance=ExtResource("3_0w6do")]
 unique_name_in_owner = true
 position = Vector2(0, 14)
 key = &"pedal_base"
 
-[node name="ClutchProgress" type="ProgressBar" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="ClutchProgress" type="ProgressBar" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=2074353554]
 unique_name_in_owner = true
 texture_filter = 2
 offset_left = 29.0
@@ -227,7 +227,7 @@ fill_mode = 3
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
-[node name="BrakeProgress" type="ProgressBar" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="BrakeProgress" type="ProgressBar" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=336919852]
 unique_name_in_owner = true
 texture_filter = 2
 offset_left = -17.0
@@ -241,7 +241,7 @@ fill_mode = 3
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
-[node name="ThrottleProgress" type="ProgressBar" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals"]
+[node name="ThrottleProgress" type="ProgressBar" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer/PedalsOffsetContainer/Pedals" unique_id=357416788]
 unique_name_in_owner = true
 texture_filter = 1
 offset_left = -64.0
@@ -255,7 +255,7 @@ fill_mode = 3
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
-[node name="ClutchLabel" type="Label" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer"]
+[node name="ClutchLabel" type="Label" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer" unique_id=2095185164]
 texture_filter = 2
 offset_left = 26.0
 offset_top = 23.0
@@ -265,7 +265,7 @@ theme = ExtResource("7_hcde6")
 text = "Clutch"
 metadata/_edit_use_anchors_ = true
 
-[node name="BrakeLabel" type="Label" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer"]
+[node name="BrakeLabel" type="Label" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer" unique_id=1975308167]
 texture_filter = 2
 offset_left = -18.0
 offset_top = 23.0
@@ -275,7 +275,7 @@ theme = ExtResource("7_hcde6")
 text = "Brake"
 metadata/_edit_use_anchors_ = true
 
-[node name="ThrottleLabel" type="Label" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer"]
+[node name="ThrottleLabel" type="Label" parent="VBoxContainer/MarginContainer/ColorRect/CenterContainer/Control/Container/PedalsContainer" unique_id=2133969638]
 texture_filter = 2
 offset_left = -72.0
 offset_top = 23.0
@@ -285,21 +285,21 @@ theme = ExtResource("7_hcde6")
 text = "Throttle"
 metadata/_edit_use_anchors_ = true
 
-[node name="SelectionStatusPanel" type="Panel" parent="VBoxContainer/MarginContainer"]
+[node name="SelectionStatusPanel" type="Panel" parent="VBoxContainer/MarginContainer" unique_id=1197149197]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bfmmk")
 
-[node name="ThemeNamePanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer"]
+[node name="ThemeNamePanelContainer" type="PanelContainer" parent="VBoxContainer/MarginContainer" unique_id=2073336922]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/ThemeNamePanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer/ThemeNamePanelContainer" unique_id=704826845]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 4
@@ -307,14 +307,14 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="ThemeNameLabel" type="Label" parent="VBoxContainer/MarginContainer/ThemeNamePanelContainer/MarginContainer"]
+[node name="ThemeNameLabel" type="Label" parent="VBoxContainer/MarginContainer/ThemeNamePanelContainer/MarginContainer" unique_id=405932776]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Theme Name"
 
-[node name="EditColorsButton" type="Button" parent="VBoxContainer"]
+[node name="EditColorsButton" type="Button" parent="VBoxContainer" unique_id=1573793583]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Edit the accompanying colors for this theme."
