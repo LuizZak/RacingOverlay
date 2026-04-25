@@ -292,6 +292,8 @@ text = "Bindings"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
+tooltip_text = "Reloads current theme assets from disk.
+Does nothing for built-in themes."
 text = "Reload Assets"
 
 [node name="ThemesButton" type="Button" parent="UIContainer/MarginContainer/VBox" unique_id=550148388]
