@@ -65,10 +65,10 @@ func update_with_packet(packet: GamePacketBase) -> void:
     queue_redraw()
 
     # Debug code used to detect Assetto Corsa: Rally car model strings
-    # if packet is ACRallyGamePacket:
-    #     if not recognized_cars.has(packet.car_model):
-    #         recognized_cars[packet.car_model] = true
-    #         print("New car model: '%s'" % [packet.car_model])
+    #if packet is ACRallyGamePacket:
+        #if not recognized_cars.has(packet.car_model):
+            #recognized_cars[packet.car_model] = true
+            #print("New car model: '%s'" % [packet.car_model])
 
     var powertrain := PowertrainDetector.detect(packet)
     if powertrain == null:
