@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bnr54ilt7a7b8"]
+
+[ext_resource type="Script" uid="uid://bfj1cslmf0q1k" path="res://scripts/controls_rebind/rebind_enum_entry.gd" id="1_hdbjm"]
+
+[node name="RebindEnumEntry" type="HBoxContainer" unique_id=79323894]
+script = ExtResource("1_hdbjm")
+
+[node name="Label" type="Label" parent="." unique_id=1548168105]
+layout_mode = 2
+text = "Enum Entry"
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=880225003]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="item_selected" from="OptionButton" to="." method="_on_option_button_item_selected"]

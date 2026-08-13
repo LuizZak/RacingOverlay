@@ -200,6 +200,10 @@ func get_property(propertyName:StringName)->Variant:
 
     return property.value
 
+## Returns the raw [code]InputProperty[/code] specified.
+func get_raw_property(propertyName: StringName) -> InputtyProperty:
+    return inputMap.getProperty(propertyName)
+
 # keep track of frames
 var _idleTick:float = 0.0
 var _physicsTick:float = 0.0

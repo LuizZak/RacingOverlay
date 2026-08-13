@@ -17,6 +17,8 @@ func getProperty(name:StringName)->InputtyProperty:
     return null
 
 func copyFrom(other:InputtyMap)->void:
+    displayName = other.displayName
+
     actions = []
     for a in other.actions:
         var newAction:InputtyAction = InputtyAction.new()
@@ -36,6 +38,8 @@ func copyFrom(other:InputtyMap)->void:
         properties.append(newProperty)
 
 func copyFromMain()->void:
+    displayName = Inputty.inputMap.displayName
+
     actions = []
     var mainActions = InputMap.get_actions()
     for actionName in mainActions:

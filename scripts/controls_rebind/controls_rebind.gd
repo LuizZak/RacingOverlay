@@ -10,18 +10,28 @@ var analog_rebind_container: AnalogRebindContainer = %AnalogRebindContainer
 var rebind_steer_left: RebindEntry = %RebindSteerLeft
 @onready
 var rebind_steer_right: RebindEntry = %RebindSteerRight
+
+@onready
+var rebind_clutch_mode: RebindEnumEntry = %RebindClutchMode
 @onready
 var rebind_clutch_down: RebindEntry = %RebindClutchDown
 @onready
 var rebind_clutch_up: RebindEntry = %RebindClutchUp
+
+@onready
+var rebind_brake_mode: RebindEnumEntry = %RebindBrakeMode
 @onready
 var rebind_brake_down: RebindEntry = %RebindBrakeDown
 @onready
 var rebind_brake_up: RebindEntry = %RebindBrakeUp
+
+@onready
+var rebind_throttle_mode: RebindEnumEntry = %RebindThrottleMode
 @onready
 var rebind_throttle_down: RebindEntry = %RebindThrottleDown
 @onready
 var rebind_throttle_up: RebindEntry = %RebindThrottleUp
+
 @onready
 var rebind_shift_1_st: RebindEntry = %RebindShift1st
 @onready
@@ -97,6 +107,10 @@ func _on_load_defaults_button_pressed() -> void:
     _refresh_rebind_entries()
 
 func _refresh_rebind_entries() -> void:
+    rebind_brake_mode.refresh()
+    rebind_clutch_mode.refresh()
+    rebind_throttle_mode.refresh()
+
     for rebind_entry in all_action_rebinds:
         rebind_entry.refresh()
 

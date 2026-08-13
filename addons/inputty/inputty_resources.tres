@@ -20,19 +20,19 @@
 [sub_resource type="Resource" id="Resource_fbprk"]
 script = ExtResource("15_gxhj2")
 values = Array[String](["DoubleAxis", "SingleAxis"])
-name = &"ClutchAxisKind"
+name = &"ClutchAxisMode"
 metadata/_custom_type_script = "uid://tnluw5k4tk76"
 
 [sub_resource type="Resource" id="Resource_6a7qn"]
 script = ExtResource("15_gxhj2")
 values = Array[String](["DoubleAxis", "SingleAxis"])
-name = &"BrakeAxisKind"
+name = &"BrakeAxisMode"
 metadata/_custom_type_script = "uid://tnluw5k4tk76"
 
 [sub_resource type="Resource" id="Resource_08jit"]
 script = ExtResource("15_gxhj2")
 values = Array[String](["DoubleAxis", "SingleAxis"])
-name = &"ThrottleAxisKind"
+name = &"ThrottleAxisMode"
 metadata/_custom_type_script = "uid://tnluw5k4tk76"
 
 [resource]

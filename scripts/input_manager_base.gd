@@ -135,16 +135,16 @@ func shift_reverse() -> bool:
     return Input.is_action_pressed("Shift_reverse")
 
 func _get_clutch_axis_kind() -> PedalAxisMode:
-    return _get_axis_kind("Clutch")
+    return _get_axis_kind("ClutchAxisMode")
 
 func _get_brake_axis_kind() -> PedalAxisMode:
-    return _get_axis_kind("Brake")
+    return _get_axis_kind("BrakeAxisMode")
 
 func _get_throttle_axis_kind() -> PedalAxisMode:
-    return _get_axis_kind("Throttle")
+    return _get_axis_kind("ThrottleAxisMode")
 
 func _get_axis_kind(name: String) -> PedalAxisMode:
-    var property = Inputty.get_property("%sAxisKind" % [name])
+    var property = Inputty.get_property(name)
     if property == null:
         return PedalAxisMode.DUAL_AXIS
 

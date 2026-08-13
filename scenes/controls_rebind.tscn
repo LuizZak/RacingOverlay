@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://omuscga148tt" path="res://sprites/input_icons/steer_left_icon.aseprite" id="3_scm3f"]
 [ext_resource type="Texture2D" uid="uid://cvd7mok0k5bc" path="res://sprites/input_icons/steer_right_icon.aseprite" id="4_uegyd"]
 [ext_resource type="PackedScene" uid="uid://bi5x2lywuyprc" path="res://nodes/controls_rebind/analog_rebind_container.tscn" id="4_vuftn"]
+[ext_resource type="PackedScene" uid="uid://bnr54ilt7a7b8" path="res://nodes/controls_rebind/rebind_enum_entry.tscn" id="5_8p162"]
 [ext_resource type="Texture2D" uid="uid://ba2w3my2bwcgo" path="res://sprites/input_icons/clutch_down_icon.aseprite" id="5_sh3j6"]
 [ext_resource type="Texture2D" uid="uid://bc8ssueltkps1" path="res://sprites/input_icons/clutch_up_icon.aseprite" id="6_x0nq0"]
 [ext_resource type="Texture2D" uid="uid://b6o6afms33kyo" path="res://sprites/input_icons/brake_down_icon.aseprite" id="7_2i042"]
@@ -86,6 +87,18 @@ layout_mode = 2
 text = "Pedals"
 horizontal_alignment = 1
 
+[node name="RebindClutchMode" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=79323894 instance=ExtResource("5_8p162")]
+unique_name_in_owner = true
+layout_mode = 2
+enum_name = "ClutchAxisMode"
+button_tooltip = "Input mode for the Clutch pedal.
+
+Dual Axis: Most common pedal mode
+for racing wheel/pedal combos.
+
+Single Axis: Fit for triggers in
+gamepads."
+
 [node name="RebindClutchDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=453058600 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -98,6 +111,18 @@ layout_mode = 2
 icon = ExtResource("6_x0nq0")
 action_name = "Clutch_up"
 
+[node name="RebindBrakeMode" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=2143847401 instance=ExtResource("5_8p162")]
+unique_name_in_owner = true
+layout_mode = 2
+enum_name = "BrakeAxisMode"
+button_tooltip = "Input mode for the Brake pedal.
+
+Dual Axis: Most common pedal mode
+for racing wheel/pedal combos.
+
+Single Axis: Fit for triggers in
+gamepads."
+
 [node name="RebindBrakeDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=392922831 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
 layout_mode = 2
@@ -109,6 +134,18 @@ unique_name_in_owner = true
 layout_mode = 2
 icon = ExtResource("8_iexw6")
 action_name = "Brake_up"
+
+[node name="RebindThrottleMode" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=643807051 instance=ExtResource("5_8p162")]
+unique_name_in_owner = true
+layout_mode = 2
+enum_name = "ThrottleAxisMode"
+button_tooltip = "Input mode for the Throttle pedal.
+
+Dual Axis: Most common pedal mode
+for racing wheel/pedal combos.
+
+Single Axis: Fit for triggers in
+gamepads."
 
 [node name="RebindThrottleDown" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer" unique_id=1584758434 instance=ExtResource("1_mputf")]
 unique_name_in_owner = true
