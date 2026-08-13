@@ -134,14 +134,17 @@ func _draw() -> void:
     var rear := (rl + rr) / 2.0
     var front := (fl + fr) / 2.0
 
+    # Draw front axle
     if current_powertrain != null and current_powertrain.drives_front_wheels():
         draw_line(fl, fr, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
     else:
         draw_line(fl, fr, POWERTRAIN_OFF_COLOR, POWERTRAIN_WIDTH, true)
 
+    # Draw longitudinal axle
     if current_powertrain != null and current_powertrain.has_longitudinal_axle():
         draw_line(front, rear, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
 
+    # Draw rear axle
     if current_powertrain != null and current_powertrain.drives_rear_wheels():
         draw_line(rl, rr, POWERTRAIN_COLOR, POWERTRAIN_WIDTH, true)
     else:
