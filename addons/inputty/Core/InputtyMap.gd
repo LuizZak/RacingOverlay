@@ -1,6 +1,7 @@
 extends Resource
 class_name InputtyMap
 
+var displayName: String = "default"
 var actions:Array[InputtyAction]=[]
 var properties:Array[InputtyProperty] = []
 
@@ -63,9 +64,10 @@ func applyToMain()->void:
         for i in a.inputs:
             InputMap.action_add_event(a.name, a.InputCopy(i))
 
-const filePath:String = "user://inputmap.cfg"
-func saveToFile():
+func saveToFile(file_path: String):
     var config:ConfigFile = ConfigFile.new()
+
+    config.set_value("static", "display_name", displayName)
 
     for p in properties:
         if p is InputtyPropertyEnum:
@@ -76,17 +78,18 @@ func saveToFile():
     for a in actions:
         a.prepSave(config)
 
-    config.save(filePath)
+    config.save(file_path)
 
-func loadFromFile():
+func loadFromFile(file_path: String):
     var config:ConfigFile = ConfigFile.new()
-    var err = config.load(filePath)
+    var err = config.load(file_path)
     if err!=OK:
         return
 
     copyFrom(Inputty._inputMapDefault)
 
-
+    #load statics
+    displayName = config.get_value("static", "display_name", "default")
 
     for loadedSection in config.get_sections():
         #load properties

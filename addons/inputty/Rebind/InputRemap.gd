@@ -61,7 +61,7 @@ func loadDefaults():
 func applyMap():
     cancelRebind()
     workingMap.applyToMain()
-    Inputty.inputMap.saveToFile()
+    Inputty.inputMap.saveToFile(Inputty.activeFilePath)
     Inputty.input_binding_changed.emit()
 
     unsavedChanges = false

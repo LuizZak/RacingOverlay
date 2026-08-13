@@ -74,7 +74,7 @@ var _current_rebind_action: String = ""
 
 func _ready() -> void:
     var workingMap := InputtyMap.new()
-    workingMap.loadFromFile()
+    workingMap.loadFromFile(Inputty.activeFilePath)
     workingMap.applyToMain()
 
     _refresh_rebind_entries()
@@ -92,7 +92,7 @@ func _on_load_defaults_button_pressed() -> void:
 
     var workingMap := InputtyMap.new()
     workingMap.copyFromMain()
-    workingMap.saveToFile()
+    workingMap.saveToFile(Inputty.activeFilePath)
 
     _refresh_rebind_entries()
 
@@ -107,7 +107,7 @@ func _rebind_container_on_input_accepted(event: InputEvent) -> void:
 
         var workingMap := InputtyMap.new()
         workingMap.copyFromMain()
-        workingMap.saveToFile()
+        workingMap.saveToFile(Inputty.activeFilePath)
 
         _refresh_rebind_entries()
 
