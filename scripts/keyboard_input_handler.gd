@@ -3,6 +3,7 @@ class_name KeyboardInputHandler
 @export var pedal_change_per_second: float = 20.0
 @export var handbrake_change_per_second: float = 20.0
 @export var steering_change_per_second: float = 1
+@export var fast_steering_change_per_second: float = 2
 
 var simulated_input_manager: SimulatedInputManager
 
@@ -34,7 +35,11 @@ func process(delta: float) -> void:
 
     # Steering
     var steering := Input.get_axis("Simulated_left", "Simulated_right")
-    simulated_input_manager.steering = move_toward(simulated_input_manager.steering, steering, steering_change_per_second * delta)
+    simulated_input_manager.steering = move_toward(
+        simulated_input_manager.steering,
+        steering,
+        (fast_steering_change_per_second if Input.is_key_pressed(KEY_SHIFT) else steering_change_per_second) * delta
+    )
 
     # Shifter
     if Input.is_action_just_pressed("Simulated_1st"):
