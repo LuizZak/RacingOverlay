@@ -83,9 +83,11 @@ signal on_close_pressed()
 var _current_rebind_action: String = ""
 
 func _ready() -> void:
-    var workingMap := InputtyMap.new()
-    workingMap.loadFromFile(Inputty.activeFilePath)
-    workingMap.applyToMain()
+    if FileAccess.file_exists(Inputty.activeFilePath):
+        var workingMap := InputtyMap.new()
+        workingMap.loadFromFile(Inputty.activeFilePath)
+        if workingMap.version == Inputty.current_version:
+            workingMap.applyToMain()
 
     _refresh_rebind_entries()
 

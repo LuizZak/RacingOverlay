@@ -24,7 +24,8 @@ enum DeviceIndex {
     JOY0 = 0, JOY1 = 1, JOY2 = 2, JOY3 = 3, JOY4 = 4, JOY5 = 5, JOY6 = 6, JOY7 = 7, JOY8 = 8, JOY9 = 9,
 }
 
-const defaultFilePath:String = "user://inputmap.cfg"
+const defaultFilePath:String = "user://inputmaps/inputmap.cfg"
+const current_version:int = 1
 
 ## The active file path to save/load bindings from
 var activeFilePath: String = defaultFilePath
@@ -65,15 +66,19 @@ func _init():
 
 func _ready():
     _inputMapDefault = InputtyMap.new()
+    _inputMapDefault.version = current_version
     inputMap = InputtyMap.new()
+    inputMap.version = current_version
     _inputMapDefault.copyFromMain()
     inputMap.copyFrom(_inputMapDefault)
-
 
     _inputMapDefault.properties += _resources.properties
     inputMap.properties += _resources.properties
 
-    inputMap.loadFromFile(activeFilePath)
+    var tempMap := InputtyMap.new()
+    if tempMap.loadFromFile(activeFilePath) == OK:
+        if tempMap.version == current_version:
+            inputMap.loadFromFile(activeFilePath)
 
     Input.connect("joy_connection_changed", _on_joy_connection_changed)
     _pollJoys()

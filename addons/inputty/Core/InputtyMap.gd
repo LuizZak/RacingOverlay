@@ -1,7 +1,8 @@
 extends Resource
 class_name InputtyMap
 
-var displayName: String = "default"
+var displayName:String="default"
+var version:int=1
 var actions:Array[InputtyAction]=[]
 var properties:Array[InputtyProperty] = []
 
@@ -18,6 +19,7 @@ func getProperty(name:StringName)->InputtyProperty:
 
 func copyFrom(other:InputtyMap)->void:
     displayName = other.displayName
+    version = other.version
 
     actions = []
     for a in other.actions:
@@ -39,6 +41,7 @@ func copyFrom(other:InputtyMap)->void:
 
 func copyFromMain()->void:
     displayName = Inputty.inputMap.displayName
+    version = Inputty.inputMap.version
 
     actions = []
     var mainActions = InputMap.get_actions()
@@ -72,6 +75,7 @@ func saveToFile(file_path: String):
     var config:ConfigFile = ConfigFile.new()
 
     config.set_value("static", "display_name", displayName)
+    config.set_value("static", "version", version)
 
     for p in properties:
         if p is InputtyPropertyEnum:
@@ -82,18 +86,23 @@ func saveToFile(file_path: String):
     for a in actions:
         a.prepSave(config)
 
+    var base_path := file_path.get_base_dir()
+    if not DirAccess.dir_exists_absolute(base_path):
+        DirAccess.make_dir_recursive_absolute(base_path)
+
     config.save(file_path)
 
-func loadFromFile(file_path: String):
+func loadFromFile(file_path: String) -> Error:
     var config:ConfigFile = ConfigFile.new()
     var err = config.load(file_path)
     if err!=OK:
-        return
+        return err
 
     copyFrom(Inputty._inputMapDefault)
 
     #load statics
     displayName = config.get_value("static", "display_name", "default")
+    version = config.get_value("static", "version", 0)
 
     for loadedSection in config.get_sections():
         #load properties
@@ -140,3 +149,5 @@ func loadFromFile(file_path: String):
                         loadedInput = null
                         pass
                     action.inputs[i] = loadedInput
+
+    return OK
