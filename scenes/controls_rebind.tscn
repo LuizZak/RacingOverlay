@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://o8xkk1l6r7ev" path="res://sprites/input_icons/gear_up_icon.aseprite" id="18_ern12"]
 [ext_resource type="Texture2D" uid="uid://bsipkli6boowp" path="res://sprites/input_icons/gear_down_icon.aseprite" id="19_24y70"]
 [ext_resource type="Texture2D" uid="uid://cj15on72jhesv" path="res://sprites/input_icons/handbrake_icon.aseprite" id="20_n0ds6"]
+[ext_resource type="PackedScene" uid="uid://db6tw1cfhx81m" path="res://nodes/controls_rebind/rebind_save_list.tscn" id="24_c8sho"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l4l3h"]
 bg_color = Color(0, 0, 0, 0.847059)
@@ -235,13 +236,35 @@ layout_mode = 2
 icon = ExtResource("20_n0ds6")
 action_name = "Handbrake"
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=327713691]
+layout_mode = 2
+
+[node name="ActiveBindingOptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=497252609]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text_overrun_behavior = 3
+selected = 0
+fit_to_longest_item = false
+item_count = 1
+popup/item_0/text = "Bindings 1"
+popup/item_0/id = 0
+
+[node name="ManageBindingFilesButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=999788559]
+layout_mode = 2
+text = "Manage Binding Files"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=2094278317]
 layout_mode = 2
 
 [node name="LoadDefaultsButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1825605536]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Load Defaults"
+text = "Reset to Default"
+
+[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=589639175]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1759051262]
 unique_name_in_owner = true
@@ -254,6 +277,11 @@ visible = false
 layout_mode = 2
 
 [node name="AnalogRebindContainer" parent="." unique_id=1505351639 instance=ExtResource("4_vuftn")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="RebindSaveList" parent="." unique_id=1075987879 instance=ExtResource("24_c8sho")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -276,4 +304,7 @@ layout_mode = 2
 [connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShiftUp" to="." method="_on_did_click_rebind"]
 [connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindShiftDown" to="." method="_on_did_click_rebind"]
 [connection signal="did_click_rebind" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer/RebindHandbrake" to="." method="_on_did_click_rebind"]
+[connection signal="item_selected" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/ActiveBindingOptionButton" to="." method="_on_active_binding_option_button_item_selected"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2/ManageBindingFilesButton" to="." method="_on_manage_binding_files_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="on_close_pressed" from="RebindSaveList" to="." method="_on_rebind_save_list_on_close_pressed"]

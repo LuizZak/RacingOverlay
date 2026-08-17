@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://cs60uu8qp7imb"]
+
+[ext_resource type="Script" uid="uid://b8yol1q5cmaal" path="res://scripts/controls_rebind/rebind_save_list_entry.gd" id="1_cw1qp"]
+
+[node name="RebindSaveListEntry" type="MarginContainer" unique_id=1410111411]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+script = ExtResource("1_cw1qp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=476075141]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=2052480437]
+layout_mode = 2
+
+[node name="RenameLineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer" unique_id=1438871395]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveNameLabel" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1425038453]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save Name"
+
+[node name="DuplicateButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=172428985]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Duplicate"
+
+[node name="RenameButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=253013221]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rename"
+
+[node name="DeleteButton" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1222803091]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745098, 0.5529412, 0.5529412, 1)
+theme_override_colors/font_pressed_color = Color(0.8745098, 0.5529412, 0.5529412, 1)
+theme_override_colors/font_hover_color = Color(0.9490196, 0.5529412, 0.5529412, 1)
+text = "Delete"
+
+[node name="RenameErrorPanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=1519570160]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/RenameErrorPanelContainer" unique_id=529391484]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="RenameErrorReasonLabel" type="Label" parent="VBoxContainer/RenameErrorPanelContainer/MarginContainer" unique_id=2063974011]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Some Tooltip Goes Here"
+
+[connection signal="focus_exited" from="VBoxContainer/HBoxContainer/RenameLineEdit" to="." method="_on_rename_line_edit_focus_exited"]
+[connection signal="gui_input" from="VBoxContainer/HBoxContainer/RenameLineEdit" to="." method="_on_rename_line_edit_gui_input"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/RenameLineEdit" to="." method="_on_rename_line_edit_text_changed"]
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/RenameLineEdit" to="." method="_on_rename_line_edit_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/DuplicateButton" to="." method="_on_duplicate_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/RenameButton" to="." method="_on_rename_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]

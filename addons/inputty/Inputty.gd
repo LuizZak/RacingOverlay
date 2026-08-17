@@ -25,6 +25,7 @@ enum DeviceIndex {
 }
 
 const defaultFilePath:String = "user://inputmaps/inputmap.cfg"
+const defaultInputMapsFolder:String = "user://inputmaps/"
 const current_version:int = 1
 
 ## The active file path to save/load bindings from
@@ -41,6 +42,9 @@ var tickRepeatTime:float = 0.3
 
 ## The [InputtyMap] currently being used by Inputty.
 var inputMap:InputtyMap
+
+## The [InputtyFileList] currently being used by Inputty.
+var inputFileList:InputtyFileList
 
 # The default input map.
 var _inputMapDefault:InputtyMap
@@ -65,6 +69,12 @@ func _init():
     process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready():
+    inputFileList = InputtyFileList.new()
+    inputFileList.loadFromFile()
+    inputFileList.onActiveFileNameChanged.connect(_on_active_file_name_changed)
+    if inputFileList.activeFileName != "":
+        activeFilePath = inputFileList.activeFileName
+
     _inputMapDefault = InputtyMap.new()
     _inputMapDefault.version = current_version
     inputMap = InputtyMap.new()
@@ -75,13 +85,38 @@ func _ready():
     _inputMapDefault.properties += _resources.properties
     inputMap.properties += _resources.properties
 
+    inputFileList.ensureHasValidActiveBindingsFile()
+
+    # Load active bindings list
     var tempMap := InputtyMap.new()
     if tempMap.loadFromFile(activeFilePath) == OK:
         if tempMap.version == current_version:
-            inputMap.loadFromFile(activeFilePath)
+            tempMap.applyToMain()
 
     Input.connect("joy_connection_changed", _on_joy_connection_changed)
     _pollJoys()
+
+func _on_active_file_name_changed(value: String) -> void:
+    if value == "":
+        activeFilePath = defaultFilePath
+    else:
+        activeFilePath = value
+
+        var tempMap := InputtyMap.new()
+        if tempMap.loadFromFile(activeFilePath) == OK:
+            if tempMap.version == current_version:
+                tempMap.applyToMain()
+
+func resetBindingsToDefault() -> void:
+    # Retain display name of current input map
+    var displayName := inputMap.displayName
+
+    inputMap.copyFrom(_inputMapDefault)
+
+    inputMap.displayName = displayName
+
+    if activeFilePath != "":
+        inputMap.saveToFile(activeFilePath)
 
 ## Returns the device that just pressed the specified [code]actionName[/code]:[br]
 ## ~  -99 for none/no input[br]
