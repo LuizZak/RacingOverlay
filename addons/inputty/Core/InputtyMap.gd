@@ -65,6 +65,9 @@ func copyFromMain()->void:
 func applyToMain()->void:
     Inputty.inputMap.copyFrom(self)
 
+    applyToGodot()
+
+func applyToGodot()->void:
     for a in actions:
         InputMap.action_erase_events(a.name)
         InputMap.action_set_deadzone(a.name, a.deadzone)
@@ -138,6 +141,10 @@ func loadFromFile(file_path: String) -> Error:
                         loadedInput.keycode = config.get_value(loadedSection, "keycode_"+str(i), 0)
                         loadedInput.physical_keycode = config.get_value(loadedSection, "physical_keycode_"+str(i), 0)
                         loadedInput.unicode = config.get_value(loadedSection, "unicode_"+str(i), 0)
+                        loadedInput.alt_pressed = config.get_value(loadedSection, "alt_pressed_"+str(i), false)
+                        loadedInput.shift_pressed = config.get_value(loadedSection, "shift_pressed_"+str(i), false)
+                        loadedInput.ctrl_pressed = config.get_value(loadedSection, "ctrl_pressed_"+str(i), false)
+                        loadedInput.meta_pressed = config.get_value(loadedSection, "meta_pressed_"+str(i), false)
                     elif typ=="JoyButton":
                         loadedInput = InputEventJoypadButton.new()
                         loadedInput.button_index = config.get_value(loadedSection, "button_"+str(i), 0)

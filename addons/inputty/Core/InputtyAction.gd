@@ -143,6 +143,10 @@ func InputCopy(i:InputEvent):
         newInput.keycode = i.keycode
         newInput.physical_keycode = i.physical_keycode
         newInput.unicode = i.unicode
+        newInput.ctrl_pressed = i.ctrl_pressed
+        newInput.shift_pressed = i.shift_pressed
+        newInput.alt_pressed = i.alt_pressed
+        newInput.meta_pressed = i.meta_pressed
     elif i is InputEventJoypadButton:
         newInput = InputEventJoypadButton.new()
         newInput.button_index = i.button_index
@@ -177,6 +181,10 @@ func prepSave(config:ConfigFile):
             config.set_value(sectionName, "keycode_"+strindex, i.keycode)
             config.set_value(sectionName, "physical_keycode_"+strindex, i.physical_keycode)
             config.set_value(sectionName, "unicode_"+strindex, i.unicode)
+            config.set_value(sectionName, "alt_pressed_"+strindex, i.alt_pressed)
+            config.set_value(sectionName, "shift_pressed_"+strindex, i.shift_pressed)
+            config.set_value(sectionName, "ctrl_pressed_"+strindex, i.ctrl_pressed)
+            config.set_value(sectionName, "meta_pressed_"+strindex, i.meta_pressed)
         elif i is InputEventJoypadButton:
             config.set_value(sectionName, "type_"+strindex, "JoyButton")
             config.set_value(sectionName, "button_"+strindex, i.button_index)
