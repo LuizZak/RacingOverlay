@@ -124,10 +124,28 @@ func _load_file_texture(key: StringName, base_path: String) -> Texture2D:
     return ImageTexture.create_from_image(image)
 
 func _load_file_sprite_frames(key: StringName, base_path: String) -> SpriteFrames:
+    var gif_sprite_frames := _load_gif_sprite_frames(key, base_path)
+    if gif_sprite_frames != null:
+        return gif_sprite_frames
+
     var resolved_dir_path := base_path.path_join(key)
 
     var anim_loader := CustomAnimationLoader.new(resolved_dir_path)
     var sprite_frames := anim_loader.make_sprite_frames()
+
+    return sprite_frames
+
+func _load_gif_sprite_frames(key: StringName, base_path: String) -> SpriteFrames:
+    var resolved_gif_path := base_path.path_join("%s.gif" % [key])
+
+    if not FileAccess.file_exists(resolved_gif_path):
+        return null
+
+    var gif_file := FileAccess.open(resolved_gif_path, FileAccess.READ)
+    var buffer := gif_file.get_buffer(gif_file.get_length())
+    gif_file.close()
+
+    var sprite_frames := GifManager.sprite_frames_from_buffer(buffer)
 
     return sprite_frames
 
