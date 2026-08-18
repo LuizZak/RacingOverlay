@@ -18,3 +18,7 @@ static func prepare_action_name(action_name: String) -> String:
         components[i] = StringUtils.uppercased_first(components[i])
 
     return " ".join(components)
+
+## Prepares a PascalCase or camelCased name making it human readable.
+static func prepare_camel_case_name(camel_case_name: String) -> String:
+    return prepare_action_name(camel_case_name.to_snake_case())

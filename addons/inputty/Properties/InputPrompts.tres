@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="InputtyPropertyEnum" load_steps=2 format=3 uid="uid://ccj5blaff0w7"]
+[gd_resource type="Resource" script_class="InputtyPropertyEnum" format=3 uid="uid://ccj5blaff0w7"]
 
-[ext_resource type="Script" path="res://addons/inputty/Core/CustomProperties/InputtyPropertyEnum.gd" id="1_b3tui"]
+[ext_resource type="Script" uid="uid://tnluw5k4tk76" path="res://addons/inputty/Core/CustomProperties/InputtyPropertyEnum.gd" id="1_b3tui"]
 
 [resource]
 script = ExtResource("1_b3tui")
 valueIndex = 1
 values = Array[String](["Auto", "Diegetic", "True"])
 name = &"Input Prompts"
-order_index = 7

@@ -2,8 +2,6 @@ class_name SettingsPanel
 extends MarginContainer
 
 @onready
-var pedal_mode_option_button: OptionButton = %PedalModeOptionButton
-@onready
 var rest_hand_position_option_button: OptionButton = %RestHandPositionOptionButton
 @onready
 var steering_range_spin_box: SpinBox = %SteeringRangeSpinBox
@@ -32,7 +30,6 @@ func _ready() -> void:
     _populate_settings()
 
 func _populate_settings() -> void:
-    _populate_pedal_mode()
     _populate_rest_hand_position()
     pedal_vibration_checkbox.button_pressed = Settings.instance.pedal_vibration
     steering_range_spin_box.value = Settings.instance.steering_range
@@ -45,15 +42,6 @@ func _populate_settings() -> void:
     pedal_sink_checkbox.button_pressed = Settings.instance.pedal_sink
     dynamic_steering_hand_animation_checkbox.button_pressed = Settings.instance.dynamic_steering_hand_animation
 
-func _populate_pedal_mode() -> void:
-    var pedal_mode := Settings.instance.pedal_mode
-
-    match pedal_mode:
-        Settings.PedalMode.DUAL_AXIS:
-            pedal_mode_option_button.selected = 0
-        Settings.PedalMode.SINGLE_AXIS:
-            pedal_mode_option_button.selected = 1
-
 func _populate_rest_hand_position() -> void:
     var rest_hand_position := Settings.instance.rest_hand_position
 
@@ -62,15 +50,6 @@ func _populate_rest_hand_position() -> void:
             rest_hand_position_option_button.selected = 0
         Settings.RestHandPosition.SHIFTER:
             rest_hand_position_option_button.selected = 1
-
-func _on_pedal_mode_option_button_item_selected(index: int) -> void:
-    match index:
-        0:
-            Settings.instance.pedal_mode = Settings.PedalMode.DUAL_AXIS
-        1:
-            Settings.instance.pedal_mode = Settings.PedalMode.SINGLE_AXIS
-
-    Settings.instance.save_to_disk()
 
 func _on_rest_hand_position_option_button_item_selected(index: int) -> void:
     match index:

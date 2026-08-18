@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://db6tw1cfhx81m"]
+
+[ext_resource type="Script" uid="uid://c0eeawcnfodbg" path="res://scripts/controls_rebind/rebind_save_list.gd" id="1_d01eh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8p162"]
+bg_color = Color(0, 0, 0, 0.84705883)
+
+[node name="RebindSaveList" type="PanelContainer" unique_id=1075987879]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8p162")
+script = ExtResource("1_d01eh")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=632930933]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1011372601]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1861724828]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1653424829]
+layout_mode = 2
+text = "Bindings List"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=344302710]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=650491240]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 1
+
+[node name="RebindListVBox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=179593755]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1570480483]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1818889736]
+layout_mode = 2
+
+[node name="CreateNewButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=253405728]
+layout_mode = 2
+text = "Create New"
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=220100447]
+layout_mode = 2
+text = "Close"
+
+[node name="DeleteConfirmPanelContainer" type="PanelContainer" parent="." unique_id=829493229]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="DeleteConfirmPanelContainer" unique_id=1541181240]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="DeleteConfirmPanelContainer/CenterContainer" unique_id=205163890]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="DeleteConfirmPanelContainer/CenterContainer/PanelContainer" unique_id=489142298]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer" unique_id=1488934080]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1481281680]
+layout_mode = 2
+text = "Confirm"
+
+[node name="HSeparator" type="HSeparator" parent="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1299091050]
+layout_mode = 2
+
+[node name="DeleteConfirmLabel" type="Label" parent="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=10172312]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Are you sure you want to delete
+bindings ''?"
+
+[node name="HSeparator2" type="HSeparator" parent="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=418938015]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=15947610]
+layout_mode = 2
+alignment = 1
+
+[node name="ConfirmDeleteButton" type="Button" parent="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1295793894]
+layout_mode = 2
+text = "Delete"
+
+[node name="ConfirmCancelButton" type="Button" parent="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1029368596]
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/CreateNewButton" to="." method="_on_create_new_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ConfirmDeleteButton" to="." method="_on_confirm_delete_button_pressed"]
+[connection signal="pressed" from="DeleteConfirmPanelContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ConfirmCancelButton" to="." method="_on_confirm_cancel_button_pressed"]

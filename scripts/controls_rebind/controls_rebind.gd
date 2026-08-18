@@ -2,26 +2,31 @@ class_name ControlsRebind
 extends MarginContainer
 
 @onready
-var pedal_rebind_container: PedalRebindContainer = %PedalRebindContainer
-@onready
-var analog_rebind_container: AnalogRebindContainer = %AnalogRebindContainer
-
-@onready
 var rebind_steer_left: RebindEntry = %RebindSteerLeft
 @onready
 var rebind_steer_right: RebindEntry = %RebindSteerRight
+
+@onready
+var rebind_clutch_mode: RebindEnumEntry = %RebindClutchMode
 @onready
 var rebind_clutch_down: RebindEntry = %RebindClutchDown
 @onready
 var rebind_clutch_up: RebindEntry = %RebindClutchUp
+
+@onready
+var rebind_brake_mode: RebindEnumEntry = %RebindBrakeMode
 @onready
 var rebind_brake_down: RebindEntry = %RebindBrakeDown
 @onready
 var rebind_brake_up: RebindEntry = %RebindBrakeUp
+
+@onready
+var rebind_throttle_mode: RebindEnumEntry = %RebindThrottleMode
 @onready
 var rebind_throttle_down: RebindEntry = %RebindThrottleDown
 @onready
 var rebind_throttle_up: RebindEntry = %RebindThrottleUp
+
 @onready
 var rebind_shift_1_st: RebindEntry = %RebindShift1st
 @onready
@@ -66,18 +71,34 @@ var all_action_rebinds: Array[RebindEntry] = [
 ]
 
 @onready
+var active_binding_option_button: OptionButton = %ActiveBindingOptionButton
+
+@onready
 var load_defaults_button: Button = %LoadDefaultsButton
+
+@onready
+var pedal_rebind_container: PedalRebindContainer = %PedalRebindContainer
+@onready
+var analog_rebind_container: AnalogRebindContainer = %AnalogRebindContainer
+@onready
+var rebind_save_list: RebindSaveList = %RebindSaveList
 
 signal on_close_pressed()
 
 var _current_rebind_action: String = ""
 
 func _ready() -> void:
-    var workingMap := InputtyMap.new()
-    workingMap.loadFromFile()
-    workingMap.applyToMain()
+    if FileAccess.file_exists(Inputty.activeFilePath):
+        var workingMap := InputtyMap.new()
+        workingMap.loadFromFile(Inputty.activeFilePath)
+        if workingMap.version == Inputty.current_version:
+            workingMap.applyToMain()
+
+    Inputty.inputFileList.onFileNamesChanged.connect(_on_input_files_changed)
+    Inputty.inputFileList.onActiveFileNameChanged.connect(_on_active_file_name_changed)
 
     _refresh_rebind_entries()
+    _reload_active_binding_option_button()
 
     pedal_rebind_container.on_input_accepted.connect(_rebind_container_on_input_accepted)
     pedal_rebind_container.on_cancelled.connect(_rebind_container_on_cancelled)
@@ -90,15 +111,30 @@ func _ready() -> void:
 func _on_load_defaults_button_pressed() -> void:
     InputMap.load_from_project_settings()
 
-    var workingMap := InputtyMap.new()
-    workingMap.copyFromMain()
-    workingMap.saveToFile()
+    Inputty.resetBindingsToDefault()
 
     _refresh_rebind_entries()
 
 func _refresh_rebind_entries() -> void:
+    rebind_brake_mode.refresh()
+    rebind_clutch_mode.refresh()
+    rebind_throttle_mode.refresh()
+
     for rebind_entry in all_action_rebinds:
         rebind_entry.refresh()
+
+func _reload_active_binding_option_button() -> void:
+    active_binding_option_button.clear()
+    active_binding_option_button.selected = -1
+
+    var manager := InputtyBindingsManager.new()
+    var all_bindings := manager.get_all_bindings()
+
+    for i in range(all_bindings.size()):
+        var bindings := all_bindings[i]
+        active_binding_option_button.add_item(bindings.display_name)
+        if bindings.is_active:
+            active_binding_option_button.selected = i
 
 func _rebind_container_on_input_accepted(event: InputEvent) -> void:
     if not _current_rebind_action.is_empty():
@@ -107,7 +143,7 @@ func _rebind_container_on_input_accepted(event: InputEvent) -> void:
 
         var workingMap := InputtyMap.new()
         workingMap.copyFromMain()
-        workingMap.saveToFile()
+        workingMap.saveToFile(Inputty.activeFilePath)
 
         _refresh_rebind_entries()
 
@@ -185,6 +221,32 @@ func _is_action_analog(action_name: String) -> bool:
             return true
         _:
             return false
+
+func _on_rebind_save_list_on_close_pressed() -> void:
+    _reload_active_binding_option_button()
+
+    rebind_save_list.visible = false
+
+func _on_active_binding_option_button_item_selected(index: int) -> void:
+    var manager := InputtyBindingsManager.new()
+
+    var all_bindings := manager.get_all_bindings()
+    if all_bindings[index].is_active:
+        return
+
+    manager.set_active_binding(all_bindings[index].file_name)
+
+    _refresh_rebind_entries()
+
+func _on_manage_binding_files_button_pressed() -> void:
+    rebind_save_list.visible = true
+
+func _on_input_files_changed(_value: PackedStringArray) -> void:
+    _reload_active_binding_option_button()
+
+func _on_active_file_name_changed(_value: String) -> void:
+    _reload_active_binding_option_button()
+    _refresh_rebind_entries()
 
 func _on_close_button_pressed() -> void:
     on_close_pressed.emit()

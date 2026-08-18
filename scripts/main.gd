@@ -283,6 +283,10 @@ func show_ui() -> void:
 func hide_ui() -> void:
     if not is_inside_tree():
         return
+    if controls_rebind.visible:
+        return
+    if settings_panel.visible:
+        return
 
     if ui_container_tween != null && ui_container_tween.is_running():
         ui_container_tween.kill()

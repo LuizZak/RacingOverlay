@@ -1,6 +1,8 @@
 extends Resource
 class_name InputtyMap
 
+var displayName:String="default"
+var version:int=1
 var actions:Array[InputtyAction]=[]
 var properties:Array[InputtyProperty] = []
 
@@ -16,6 +18,9 @@ func getProperty(name:StringName)->InputtyProperty:
     return null
 
 func copyFrom(other:InputtyMap)->void:
+    displayName = other.displayName
+    version = other.version
+
     actions = []
     for a in other.actions:
         var newAction:InputtyAction = InputtyAction.new()
@@ -35,6 +40,9 @@ func copyFrom(other:InputtyMap)->void:
         properties.append(newProperty)
 
 func copyFromMain()->void:
+    displayName = Inputty.inputMap.displayName
+    version = Inputty.inputMap.version
+
     actions = []
     var mainActions = InputMap.get_actions()
     for actionName in mainActions:
@@ -57,15 +65,20 @@ func copyFromMain()->void:
 func applyToMain()->void:
     Inputty.inputMap.copyFrom(self)
 
+    applyToGodot()
+
+func applyToGodot()->void:
     for a in actions:
         InputMap.action_erase_events(a.name)
         InputMap.action_set_deadzone(a.name, a.deadzone)
         for i in a.inputs:
             InputMap.action_add_event(a.name, a.InputCopy(i))
 
-const filePath:String = "user://inputmap.cfg"
-func saveToFile():
+func saveToFile(file_path: String):
     var config:ConfigFile = ConfigFile.new()
+
+    config.set_value("static", "display_name", displayName)
+    config.set_value("static", "version", version)
 
     for p in properties:
         if p is InputtyPropertyEnum:
@@ -76,17 +89,23 @@ func saveToFile():
     for a in actions:
         a.prepSave(config)
 
-    config.save(filePath)
+    var base_path := file_path.get_base_dir()
+    if not DirAccess.dir_exists_absolute(base_path):
+        DirAccess.make_dir_recursive_absolute(base_path)
 
-func loadFromFile():
+    config.save(file_path)
+
+func loadFromFile(file_path: String) -> Error:
     var config:ConfigFile = ConfigFile.new()
-    var err = config.load(filePath)
+    var err = config.load(file_path)
     if err!=OK:
-        return
+        return err
 
     copyFrom(Inputty._inputMapDefault)
 
-
+    #load statics
+    displayName = config.get_value("static", "display_name", "default")
+    version = config.get_value("static", "version", 0)
 
     for loadedSection in config.get_sections():
         #load properties
@@ -122,6 +141,10 @@ func loadFromFile():
                         loadedInput.keycode = config.get_value(loadedSection, "keycode_"+str(i), 0)
                         loadedInput.physical_keycode = config.get_value(loadedSection, "physical_keycode_"+str(i), 0)
                         loadedInput.unicode = config.get_value(loadedSection, "unicode_"+str(i), 0)
+                        loadedInput.alt_pressed = config.get_value(loadedSection, "alt_pressed_"+str(i), false)
+                        loadedInput.shift_pressed = config.get_value(loadedSection, "shift_pressed_"+str(i), false)
+                        loadedInput.ctrl_pressed = config.get_value(loadedSection, "ctrl_pressed_"+str(i), false)
+                        loadedInput.meta_pressed = config.get_value(loadedSection, "meta_pressed_"+str(i), false)
                     elif typ=="JoyButton":
                         loadedInput = InputEventJoypadButton.new()
                         loadedInput.button_index = config.get_value(loadedSection, "button_"+str(i), 0)
@@ -133,3 +156,5 @@ func loadFromFile():
                         loadedInput = null
                         pass
                     action.inputs[i] = loadedInput
+
+    return OK

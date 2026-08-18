@@ -1,12 +1,17 @@
 class_name InputManagerBase
 
+enum PedalAxisMode {
+    DUAL_AXIS,
+    SINGLE_AXIS,
+}
+
 ## Returns a value between -1 and 1, representing the amount of clutch pedal that
 ## is depressed.
 func clutch_amount() -> float:
-    match Settings.instance.pedal_mode:
-        Settings.PedalMode.DUAL_AXIS:
+    match _get_clutch_axis_kind():
+        PedalAxisMode.DUAL_AXIS:
             return Input.get_axis("Clutch_up", "Clutch_down")
-        Settings.PedalMode.SINGLE_AXIS:
+        PedalAxisMode.SINGLE_AXIS:
             return Input.get_action_strength("Clutch_down") * 2 - 1
 
     return Input.get_axis("Clutch_up", "Clutch_down")
@@ -14,10 +19,10 @@ func clutch_amount() -> float:
 ## Returns a value between -1 and 1, representing the amount of brake pedal that
 ## is depressed.
 func brake_amount() -> float:
-    match Settings.instance.pedal_mode:
-        Settings.PedalMode.DUAL_AXIS:
+    match _get_brake_axis_kind():
+        PedalAxisMode.DUAL_AXIS:
             return Input.get_axis("Brake_up", "Brake_down")
-        Settings.PedalMode.SINGLE_AXIS:
+        PedalAxisMode.SINGLE_AXIS:
             return Input.get_action_strength("Brake_down") * 2 - 1
 
     return Input.get_axis("Brake_up", "Brake_down")
@@ -25,10 +30,10 @@ func brake_amount() -> float:
 ## Returns a value between -1 and 1, representing the amount of throttle pedal
 ## that is depressed.
 func throttle_amount() -> float:
-    match Settings.instance.pedal_mode:
-        Settings.PedalMode.DUAL_AXIS:
+    match _get_throttle_axis_kind():
+        PedalAxisMode.DUAL_AXIS:
             return Input.get_axis("Throttle_up", "Throttle_down")
-        Settings.PedalMode.SINGLE_AXIS:
+        PedalAxisMode.SINGLE_AXIS:
             return Input.get_action_strength("Throttle_down") * 2 - 1
 
     return Input.get_axis("Throttle_up", "Throttle_down")
@@ -128,3 +133,29 @@ func shift_6th() -> bool:
 ## Returns a boolean indicating whether the reverse gear is engaged in the shifter.
 func shift_reverse() -> bool:
     return Input.is_action_pressed("Shift_reverse")
+
+func _get_clutch_axis_kind() -> PedalAxisMode:
+    return _get_axis_kind("ClutchAxisMode")
+
+func _get_brake_axis_kind() -> PedalAxisMode:
+    return _get_axis_kind("BrakeAxisMode")
+
+func _get_throttle_axis_kind() -> PedalAxisMode:
+    return _get_axis_kind("ThrottleAxisMode")
+
+func _get_axis_kind(name: String) -> PedalAxisMode:
+    var property = Inputty.get_property(name)
+    if property == null:
+        return PedalAxisMode.DUAL_AXIS
+
+    if property is not Dictionary:
+        push_error("Expected '%s' Inputty property get to be a Dictionary, found %s instead." % [name, type_string(typeof(property))])
+    if not property.has("enumIndex"):
+        push_error("Expected '%s' Inputty property get to containing key 'enumIndex'." % [name])
+
+    if property["enumIndex"] == 0:
+        return PedalAxisMode.DUAL_AXIS
+    elif property["enumIndex"] == 1:
+        return PedalAxisMode.SINGLE_AXIS
+
+    return PedalAxisMode.DUAL_AXIS

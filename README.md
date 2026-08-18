@@ -10,7 +10,7 @@ Supports most steering wheel-based input devices with a rebinding screen, and on
 
 ## Building
 
-Requires Godot 4.5.  
+Requires Godot 4.7.
 Import and editing of Aseprite assets requires [Aseprite](https://github.com/aseprite/aseprite) installed and configured in the Aseprite Wizard plugin.
 
 ## Enabling support for game connections
