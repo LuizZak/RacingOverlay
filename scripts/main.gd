@@ -6,6 +6,7 @@ const CONTAINER_MOVE_SPEED: float = 10
 @onready var ui_container: MarginContainer = %UIContainer
 @onready var controls_rebind: ControlsRebind = %ControlsRebind
 @onready var settings_panel: SettingsPanel = %SettingsPanel
+@onready var licenses_view_node: LicensesViewNode = %LicensesViewNode
 
 @onready var container: Node2D = %Container
 
@@ -287,6 +288,8 @@ func hide_ui() -> void:
         return
     if settings_panel.visible:
         return
+    if licenses_view_node.visible:
+        return
     if _visual_theme_list != null:
         return
 
@@ -392,6 +395,9 @@ func _on_reset_transforms_button_pressed() -> void:
 func _on_themes_button_pressed() -> void:
     _show_theme_list()
 
+func _on_licenses_button_pressed() -> void:
+    licenses_view_node.show()
+
 func _on_theme_list_node_theme_clicked(visual_theme: VisualTheme) -> void:
     _change_theme(visual_theme)
     Settings.instance.active_theme_identifier = visual_theme.identifier
@@ -400,3 +406,6 @@ func _on_theme_list_node_theme_clicked(visual_theme: VisualTheme) -> void:
 
 func _on_theme_list_close_pressed() -> void:
     _hide_theme_list()
+
+func _on_licenses_view_node_on_close_pressed() -> void:
+    licenses_view_node.hide()
