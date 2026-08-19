@@ -44,7 +44,10 @@ func refresh_display() -> void:
         animated_sprite.visible = true
 
         animated_sprite.sprite_frames = visual_resource.sprite_frames
-        animated_sprite.play(&"default")
+
+        if not visual_resource.sprite_frames.get_animation_names().is_empty():
+            var first_animation := visual_resource.sprite_frames.get_animation_names()[0]
+            animated_sprite.play(first_animation)
     else:
         sprite.visible = true
         animated_sprite.visible = false

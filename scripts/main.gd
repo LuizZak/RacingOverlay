@@ -6,6 +6,7 @@ const CONTAINER_MOVE_SPEED: float = 10
 @onready var ui_container: MarginContainer = %UIContainer
 @onready var controls_rebind: ControlsRebind = %ControlsRebind
 @onready var settings_panel: SettingsPanel = %SettingsPanel
+@onready var licenses_view_node: LicensesViewNode = %LicensesViewNode
 
 @onready var container: Node2D = %Container
 
@@ -287,6 +288,10 @@ func hide_ui() -> void:
         return
     if settings_panel.visible:
         return
+    if licenses_view_node.visible:
+        return
+    if _visual_theme_list != null:
+        return
 
     if ui_container_tween != null && ui_container_tween.is_running():
         ui_container_tween.kill()
@@ -362,10 +367,12 @@ func _show_theme_list() -> void:
     theme_list_node.load_theme_list(themes)
 
     theme_list_node.on_theme_clicked.connect(_on_theme_list_node_theme_clicked)
+    theme_list_node.on_close_pressed.connect(_on_theme_list_close_pressed)
 
 func _hide_theme_list() -> void:
     if _visual_theme_list != null:
-        _visual_theme_list.get_parent().remove_child(_visual_theme_list)
+        _visual_theme_list.queue_free()
+        _visual_theme_list = null
 
 func _on_bindings_button_pressed() -> void:
     controls_rebind.show()
@@ -388,8 +395,17 @@ func _on_reset_transforms_button_pressed() -> void:
 func _on_themes_button_pressed() -> void:
     _show_theme_list()
 
+func _on_licenses_button_pressed() -> void:
+    licenses_view_node.show()
+
 func _on_theme_list_node_theme_clicked(visual_theme: VisualTheme) -> void:
     _change_theme(visual_theme)
     Settings.instance.active_theme_identifier = visual_theme.identifier
     Settings.instance.save_to_disk()
     _hide_theme_list()
+
+func _on_theme_list_close_pressed() -> void:
+    _hide_theme_list()
+
+func _on_licenses_view_node_on_close_pressed() -> void:
+    licenses_view_node.hide()

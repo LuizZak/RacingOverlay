@@ -6,6 +6,8 @@ var theme_items_container: VBoxContainer = $MarginContainer/VBoxContainer/Scroll
 
 ## Signal invoked whenever the user clicks a theme on the theme list.
 signal on_theme_clicked(theme: VisualTheme)
+## Signal invoked whenever the user clicks the Close button.
+signal on_close_pressed()
 
 var _theme_to_edit: VisualTheme = null
 var _theme_to_edit_index: int = 0
@@ -74,7 +76,7 @@ func _on_edit_color_node_cancel_pressed() -> void:
     _close_theme_editor()
 
 func _close_theme_editor() -> void:
-    _theme_editor.get_parent().remove_child(_theme_editor)
+    _theme_editor.queue_free()
 
     _theme_to_edit = null
     _theme_editor = null
@@ -85,3 +87,6 @@ func _on_open_theme_folder_button_pressed() -> void:
         OS.shell_open(OS.get_executable_path().get_base_dir())
     else:
         OS.shell_open(folder)
+
+func _on_close_button_pressed() -> void:
+    on_close_pressed.emit()
