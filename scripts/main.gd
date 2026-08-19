@@ -96,6 +96,13 @@ func _ready() -> void:
     if not container.get_viewport_rect().has_point(container.get_global_mouse_position()):
         hide_ui()
 
+    var window_size := WindowConfigs.instance.load_window_size()
+
+    get_window().size = window_size
+    get_window().close_requested.connect(
+        func(): WindowConfigs.instance.save_window_size(get_window().size)
+    )
+
     # Pre-load available themes
     VisualThemeManager.instance.scan_from_disk()
 
