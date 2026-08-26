@@ -219,6 +219,14 @@ func active_game_settings() -> GameConnectionSettings:
 
 ## Restores the settings from disk. Automatically done on instantiation.
 func load_from_disk():
+    # Load new settings format
+    if FileAccess.file_exists(CONFIG_PATH):
+        var config_file := ConfigFile.new()
+        config_file.load(CONFIG_PATH)
+
+        _from_config_file(config_file)
+        return
+
     # Attempt to load old settings format
     var file := FileAccess.open(SETTINGS_PATH, FileAccess.READ)
     if file != null:
@@ -226,13 +234,9 @@ func load_from_disk():
         _from_settings_directory(dict)
         file.close()
 
-        DirAccess.remove_absolute(SETTINGS_PATH)
-    else:
-        # Load new settings format
-        var config_file := ConfigFile.new()
-        config_file.load(CONFIG_PATH)
+        save_to_disk()
 
-        _from_config_file(config_file)
+        DirAccess.remove_absolute(SETTINGS_PATH)
 
 ## Saves the settings to disk.
 func save_to_disk():
