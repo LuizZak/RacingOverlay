@@ -147,9 +147,8 @@ func _load_file_sprite_frames(key: StringName, base_path: String) -> SpriteFrame
     var resolved_dir_path := base_path.path_join(key)
 
     var anim_loader := CustomAnimationLoader.new(resolved_dir_path)
-    var sprite_frames := anim_loader.make_sprite_frames()
 
-    return sprite_frames
+    return anim_loader.make_sprite_frames()
 
 func _load_gif_sprite_frames(key: StringName, base_path: String) -> SpriteFrames:
     var resolved_gif_path := base_path.path_join("%s.gif" % [key])
@@ -161,9 +160,7 @@ func _load_gif_sprite_frames(key: StringName, base_path: String) -> SpriteFrames
     var buffer := gif_file.get_buffer(gif_file.get_length())
     gif_file.close()
 
-    var sprite_frames := GifManager.sprite_frames_from_buffer(buffer)
-
-    return sprite_frames
+    return GifManager.sprite_frames_from_buffer(buffer)
 
 ## Returns the built-in theme, loaded from the bundled program assets.
 static func built_in_theme() -> VisualTheme:
