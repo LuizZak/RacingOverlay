@@ -9,7 +9,8 @@ enum RestHandPosition {
     SHIFTER,
 }
 
-const SETTINGS_PATH = "user://settings.data"
+const SETTINGS_PATH := "user://settings.data"
+const CONFIG_PATH := "user://settings.cfg"
 
 static var instance: Settings = Settings.new()
 
@@ -20,14 +21,14 @@ var active_theme_identifier: String = "?built in?":
         active_theme_identifier = value
         emit_settings_changed()
 
-var rest_hand_position: RestHandPosition = RestHandPosition.STEERING_WHEEL:
-    set(value):
-        rest_hand_position = value
-        emit_settings_changed()
-
 var steering_range: float = 900:
     set(value):
         steering_range = value
+        emit_settings_changed()
+
+var rest_hand_position: RestHandPosition = RestHandPosition.STEERING_WHEEL:
+    set(value):
+        rest_hand_position = value
         emit_settings_changed()
 
 var smooth_textures: bool = false:
@@ -96,11 +97,39 @@ func _init():
     _populage_default_game_settings()
     load_from_disk()
 
+func _make_config_file() -> ConfigFile:
+    var config_file := ConfigFile.new()
+
+    config_file.set_value("theme", "active_theme_identifier", active_theme_identifier)
+
+    config_file.set_value("input", "steering_range", steering_range)
+    config_file.set_value("input", "rest_hand_position", rest_hand_position)
+
+    config_file.set_value("visuals", "smooth_textures", smooth_textures)
+    config_file.set_value("visuals", "steering_wheel_progress", steering_wheel_progress)
+    config_file.set_value("visuals", "shifter_shaft_fill_color", shifter_shaft_fill_color)
+    config_file.set_value("visuals", "shifter_shaft_outline_color", shifter_shaft_outline_color)
+    config_file.set_value("visuals", "pedal_bar_fill_color", pedal_bar_fill_color)
+
+    config_file.set_value("animations", "pedal_vibration", pedal_vibration)
+    config_file.set_value("animations", "pedal_vibration_strength", pedal_vibration_strength)
+    config_file.set_value("animations", "pedal_sink", pedal_sink)
+    config_file.set_value("animations", "dynamic_steering_hand_animation", dynamic_steering_hand_animation)
+
+    config_file.set_value("game_connection", "active_game", active_game)
+    config_file.set_value("game_connection", "connect_to_game", connect_to_game)
+
+    for key in game_connections.keys():
+        var settings := game_connections[key]
+        settings.to_config_file(config_file, key)
+
+    return config_file
+
 func _make_settings_dictionary() -> Dictionary:
     var dict = {
         "active_theme_identifier": active_theme_identifier,
-        "rest_hand_position": rest_hand_position,
         "steering_range": steering_range,
+        "rest_hand_position": rest_hand_position,
         "smooth_textures": smooth_textures,
         "steering_wheel_progress": steering_wheel_progress,
         "shifter_shaft_fill_color": shifter_shaft_fill_color,
@@ -121,13 +150,37 @@ func _make_settings_dictionary() -> Dictionary:
 
     return dict
 
-func _from_settings_directory(dictionary: Dictionary):
+func _from_config_file(config_file: ConfigFile) -> void:
+    active_theme_identifier = config_file.get_value("theme", "active_theme_identifier", active_theme_identifier)
+
+    steering_range = config_file.get_value("input", "steering_range", steering_range)
+    rest_hand_position = config_file.get_value("input", "rest_hand_position", rest_hand_position)
+
+    smooth_textures = config_file.get_value("visuals", "smooth_textures", smooth_textures)
+    steering_wheel_progress = config_file.get_value("visuals", "steering_wheel_progress", steering_wheel_progress)
+    shifter_shaft_fill_color = config_file.get_value("visuals", "shifter_shaft_fill_color", shifter_shaft_fill_color)
+    shifter_shaft_outline_color = config_file.get_value("visuals", "shifter_shaft_outline_color", shifter_shaft_outline_color)
+    pedal_bar_fill_color = config_file.get_value("visuals", "pedal_bar_fill_color", pedal_bar_fill_color)
+
+    pedal_vibration = config_file.get_value("animations", "pedal_vibration", pedal_vibration)
+    pedal_vibration_strength = config_file.get_value("animations", "pedal_vibration_strength", pedal_vibration_strength)
+    pedal_sink = config_file.get_value("animations", "pedal_sink", pedal_sink)
+    dynamic_steering_hand_animation = config_file.get_value("animations", "dynamic_steering_hand_animation", dynamic_steering_hand_animation)
+
+    active_game = config_file.get_value("game_connection", "active_game", active_game)
+    connect_to_game = config_file.get_value("game_connection", "connect_to_game", connect_to_game)
+
+    for key in game_connections.keys():
+        var settings := GameConnectionSettings.from_config_file(config_file, key)
+        game_connections[key] = settings
+
+func _from_settings_directory(dictionary: Dictionary) -> void:
     if dictionary.has("active_theme_identifier"):
         self.active_theme_identifier = dictionary["active_theme_identifier"]
-    if dictionary.has("rest_hand_position"):
-        self.rest_hand_position = dictionary["rest_hand_position"]
     if dictionary.has("steering_range"):
         self.steering_range = dictionary["steering_range"]
+    if dictionary.has("rest_hand_position"):
+        self.rest_hand_position = dictionary["rest_hand_position"]
     if dictionary.has("smooth_textures"):
         self.smooth_textures = dictionary["smooth_textures"]
     if dictionary.has("steering_wheel_progress"):
@@ -166,20 +219,35 @@ func active_game_settings() -> GameConnectionSettings:
 
 ## Restores the settings from disk. Automatically done on instantiation.
 func load_from_disk():
-    var file := FileAccess.open(SETTINGS_PATH, FileAccess.READ)
-    if file == null:
+    # Load new settings format
+    if FileAccess.file_exists(CONFIG_PATH):
+        var config_file := ConfigFile.new()
+        config_file.load(CONFIG_PATH)
+
+        _from_config_file(config_file)
         return
 
-    var dict = file.get_var()
-    _from_settings_directory(dict)
-    file.close()
+    # Attempt to load old settings format
+    var file := FileAccess.open(SETTINGS_PATH, FileAccess.READ)
+    if file != null:
+        var dict = file.get_var()
+        _from_settings_directory(dict)
+        file.close()
+
+        save_to_disk()
+
+        DirAccess.remove_absolute(SETTINGS_PATH)
 
 ## Saves the settings to disk.
 func save_to_disk():
-    var file := FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
-    if file == null:
-        return
+    var config_file := _make_config_file()
 
-    var dict := _make_settings_dictionary()
-    file.store_var(dict)
-    file.close()
+    config_file.save(CONFIG_PATH)
+
+    #var file := FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
+    #if file == null:
+        #return
+#
+    #var dict := _make_settings_dictionary()
+    #file.store_var(dict)
+    #file.close()
