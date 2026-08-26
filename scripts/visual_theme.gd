@@ -24,6 +24,10 @@ var theme_settings: ThemeSettings = ThemeSettings.make_default()
 var is_built_in: bool:
     get: return identifier == BUILT_IN_THEME_IDENTIFIER
 
+## The parent theme for this theme, where any resource not available from this
+## theme will be fetched from.
+var parent_theme: VisualTheme = built_in_theme()
+
 var resources: Dictionary[StringName, VisualResource] = {}
 
 ## Initializes a new visual theme, based on a given file lookup directory.
@@ -73,6 +77,9 @@ func load_resource(key: StringName) -> VisualResource:
     if self.resources.has(key):
         return self.resources[key]
 
+    if parent_theme != null:
+        return parent_theme.load_resource(key)
+
     return null
 
 func _load_theme_settings(base_path: String) -> ThemeSettings:
@@ -90,15 +97,15 @@ func _load_theme_settings(base_path: String) -> ThemeSettings:
     return ThemeSettings.from_json(json_text)
 
 func _load_uncached(key: StringName, base_path: String) -> VisualResource:
-    var resource := VisualResource.new()
-
-    resource.key = key
-    resource.texture = VisualResourceLibrary.load_default_texture(key)
-    resource.sprite_frames = null
-    resource.is_built_in = true
-
     # Load from disk, if a path is available
     if base_path != "":
+        var resource := VisualResource.new()
+
+        resource.key = key
+        resource.texture = VisualResourceLibrary.load_default_texture(key)
+        resource.sprite_frames = null
+        resource.is_built_in = true
+
         var local_texture := _load_file_texture(key, base_path)
         if local_texture != null:
             resource.texture = local_texture
@@ -109,7 +116,16 @@ func _load_uncached(key: StringName, base_path: String) -> VisualResource:
             resource.sprite_frames = sprite_frames
             resource.is_built_in = false
 
-    return resource
+        return null if resource.is_empty else resource
+    else:
+        var resource := VisualResource.new()
+
+        resource.key = key
+        resource.texture = VisualResourceLibrary.load_default_texture(key)
+        resource.sprite_frames = null
+        resource.is_built_in = true
+
+        return resource
 
 func _load_file_texture(key: StringName, base_path: String) -> Texture2D:
     var resolved_png_path := base_path.path_join("%s.png" % [key])

@@ -14,3 +14,7 @@ var sprite_frames: SpriteFrames
 ## loaded externally.
 @export
 var is_built_in: bool
+
+## Whether this visual resource doesn't have a texture or sprite frames attached.
+var is_empty: bool:
+    get: return texture == null and sprite_frames == null
