@@ -26,7 +26,7 @@ var is_built_in: bool:
 
 ## The parent theme for this theme, where any resource not available from this
 ## theme will be fetched from.
-var parent_theme: VisualTheme = built_in_theme()
+var parent_theme: VisualTheme
 
 var resources: Dictionary[StringName, VisualResource] = {}
 
@@ -40,6 +40,9 @@ func _init(path: String) -> void:
     self.path = path
     self.identifier = path.get_file()
     self.display_name = path.get_file()
+
+    if self.path != "":
+         parent_theme = built_in_theme()
 
 ## Returns whether the current theme is empty, i.e. all resources are the default
 ## resource, and none were loaded from disk.
