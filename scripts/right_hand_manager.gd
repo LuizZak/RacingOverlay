@@ -10,8 +10,6 @@ const RHM_SHIFTER_KNOB = "shifter_knob"
 ## Type: ShifterContainer
 const RHM_SHIFTER_CONTAINER = "shifter_container"
 ## Type: Node2D
-const RHM_STEERING_PIN = "steering_pin"
-## Type: Node2D
 const RHM_HANDBRAKE_PIN = "handbrake_pin"
 ## Type: Node2D. Note: Must be the common ancestor of right_hand, shifter_knob, and steering_pin.
 const RHM_GLOBAL_CONTAINER = "global_container"

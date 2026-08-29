@@ -241,13 +241,4 @@ func load_from_disk():
 ## Saves the settings to disk.
 func save_to_disk():
     var config_file := _make_config_file()
-
     config_file.save(CONFIG_PATH)
-
-    #var file := FileAccess.open(SETTINGS_PATH, FileAccess.WRITE)
-    #if file == null:
-        #return
-#
-    #var dict := _make_settings_dictionary()
-    #file.store_var(dict)
-    #file.close()

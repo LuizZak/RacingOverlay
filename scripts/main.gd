@@ -16,7 +16,6 @@ const CONTAINER_MOVE_SPEED: float = 10
 
 @onready var steering_wheel_indicator: SteeringWheelIndicator = %SteeringWheelIndicator
 @onready var steering_wheel: Node2D = %SteeringWheel
-@onready var right_hand_pin: Marker2D = %SteeringWheel/RightHandPin
 @onready var right_hand_pin_container: SteeringWheelPinContainer = %RightHandPinContainer
 @onready var left_hand_pin_container: SteeringWheelPinContainer = %LeftHandPinContainer
 
@@ -131,7 +130,6 @@ func _ready() -> void:
     right_hand_manager.parameters[RightHandManager.RHM_RIGHT_HAND] = right_hand
     right_hand_manager.parameters[RightHandManager.RHM_SHIFTER_KNOB] = shifter_knob
     right_hand_manager.parameters[RightHandManager.RHM_SHIFTER_CONTAINER] = shifter_container
-    right_hand_manager.parameters[RightHandManager.RHM_STEERING_PIN] = right_hand_pin
     right_hand_manager.parameters[RightHandManager.RHM_HANDBRAKE_PIN] = ebrake_marker
     right_hand_manager.parameters[RightHandManager.RHM_GLOBAL_CONTAINER] = container
     right_hand_manager.parameters[RightHandManager.RHM_SEQUENTIAL_SHIFTER_MANAGER] = sequential_shifter_manager
