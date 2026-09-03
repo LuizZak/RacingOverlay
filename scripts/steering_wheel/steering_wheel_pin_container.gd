@@ -30,9 +30,7 @@ func get_pins() -> Array[Marker2D]:
 
 func _regenerate_pins() -> void:
     for pin in get_pins():
-        var parent := pin.get_parent()
-        if parent != null:
-            parent.remove_child(pin)
+        pin.queue_free()
 
     _pins.clear()
 
