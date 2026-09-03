@@ -1,3 +1,4 @@
+@abstract
 class_name NetworkingBase
 
 enum Status {
@@ -17,6 +18,10 @@ func set_port(port: int) -> void:
 
 @warning_ignore("unused_parameter")
 func set_mode(mode: Mode) -> void:
+    pass
+
+@warning_ignore("unused_parameter")
+func set_game(game: GamePacketBase.Game) -> void:
     pass
 
 func poll_connections() -> Error:
