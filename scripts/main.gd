@@ -97,10 +97,14 @@ func _ready() -> void:
         hide_ui()
 
     var window_size := WindowConfigs.instance.load_window_size()
+    var window_position := WindowConfigs.instance.load_window_position()
 
     get_window().size = window_size
+    get_window().position = window_position
     get_window().close_requested.connect(
-        func(): WindowConfigs.instance.save_window_size(get_window().size)
+        func():
+            WindowConfigs.instance.save_window_size(get_window().size)
+            WindowConfigs.instance.save_window_position(get_window().position)
     )
 
     # Pre-load available themes
