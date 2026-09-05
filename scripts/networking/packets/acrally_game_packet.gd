@@ -1,7 +1,7 @@
 class_name ACRallyGamePacket
 extends GamePacketBase
 
-const PACKET_SIZE: int = 92
+const PACKET_SIZE: int = 93
 
 var ac_version: String
 var rpm: int
@@ -52,7 +52,7 @@ func to_data() -> PackedByteArray:
 
     PbaHelpers.encode_fixed_length_ascii(data, ac_version, 0, 15)
     data.encode_s32(16, rpm)
-    data.encode_s32(19, max_rpm)
+    data.encode_s32(20, max_rpm)
     data.encode_float(24, speed_kph)
     data.encode_float(28, steering)
     data.encode_float(32, wheel_speed_fl)
