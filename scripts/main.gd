@@ -87,6 +87,7 @@ var target_container_rotation: float = 0.0
 var target_container_scale: Vector2 = Vector2.ONE
 var target_container_position: Vector2 = Vector2.ONE
 
+var networking: NetworkingBase
 var packet_manager: PacketManagerBase
 
 var active_theme: VisualTheme
@@ -107,7 +108,10 @@ func _ready() -> void:
 
     _change_theme(VisualTheme.built_in_theme())
 
-    packet_manager = PacketManagerBase.new(Networking.instance)
+    networking = Networking.new()
+    packet_manager = PacketManagerBase.new(networking)
+
+    settings_panel.set_networking(networking)
 
     input_manager = InputManagerBase.new()
     if input_manager is SimulatedInputManager:
@@ -177,9 +181,10 @@ func _ready() -> void:
     _reset_game_state()
 
 func _process(delta: float) -> void:
-    Networking.instance.poll_connections()
+    networking.process(delta)
+    networking.poll_connections()
 
-    if Networking.instance.is_connected_to_game():
+    if networking.is_connected_to_game():
         packet_manager.process(delta)
         if packet_manager.latest_packet() != null:
             wheel_metrics.update_with_packet(packet_manager.latest_packet())
@@ -337,10 +342,10 @@ func _on_settings_changed() -> void:
 
     _reapply_theme_colors()
 
-    Networking.instance.set_port(
+    networking.set_port(
         Settings.instance.active_game_settings().port
     )
-    Networking.instance.set_game(
+    networking.set_game(
         GamePacketBase.game_from_game_connection_settings(
             Settings.instance.active_game
         )
@@ -349,7 +354,7 @@ func _on_settings_changed() -> void:
     var show_wheel_metrics: bool = false
 
     if Settings.instance.connect_to_game:
-        Networking.instance.set_mode(NetworkingBase.Mode.CONNECT)
+        networking.set_mode(NetworkingBase.Mode.CONNECT)
 
         if Settings.instance.active_game_settings().show_extra_game_information:
             if Settings.instance.active_game == GameConnectionSettings.Game.DIRT_2:
@@ -357,7 +362,7 @@ func _on_settings_changed() -> void:
             elif Settings.instance.active_game == GameConnectionSettings.Game.ACRALLY:
                 show_wheel_metrics = true
     else:
-        Networking.instance.set_mode(NetworkingBase.Mode.DISCONNECT)
+        networking.set_mode(NetworkingBase.Mode.DISCONNECT)
 
     wheel_metrics.visible = show_wheel_metrics
 

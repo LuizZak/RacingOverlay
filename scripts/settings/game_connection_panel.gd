@@ -22,6 +22,8 @@ var show_extra_game_info_checkbox: CheckBox = %ShowExtraGameInfoCheckbox
 @onready
 var status_label: Label = %StatusLabel
 
+var _networking: NetworkingBase
+
 func _ready() -> void:
     _populate_games()
     # Select game in settings
@@ -34,8 +36,14 @@ func _ready() -> void:
 
     _populate_settings()
 
-    Networking.instance.on_status_changed.connect(_on_networking_status_changed)
-    _on_networking_status_changed(Networking.instance._status)
+func set_networking(networking: NetworkingBase) -> void:
+    if _networking != null:
+        _networking.on_status_changed.disconnect(_on_networking_status_changed)
+
+    _networking = networking
+
+    _networking.on_status_changed.connect(_on_networking_status_changed)
+    _on_networking_status_changed(_networking.get_status())
 
 func _populate_games() -> void:
     for key in Settings.instance.game_connections.keys():
@@ -66,7 +74,7 @@ func _settings_for_selected_item() -> GameConnectionSettings:
 func _on_game_option_button_item_selected(index: int) -> void:
     var active_game := game_option_button.get_item_id(index)
 
-    Networking.instance.set_game(
+    _networking.set_game(
         GamePacketBase.game_from_game_connection_settings(
             active_game
         )

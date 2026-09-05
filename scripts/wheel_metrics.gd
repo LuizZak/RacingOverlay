@@ -317,7 +317,7 @@ class WheelEntry:
             draw_under_spin(canvas_item)
 
     func draw_padlock(canvas_item: CanvasItem) -> void:
-        var line_width := 0.7
+        var line_width := 1.0
 
         # Draw padlock body
         var padlock_body_bounds := local_bounds()
@@ -361,32 +361,32 @@ class WheelEntry:
     func draw_over_spin(canvas_item: CanvasItem) -> void:
         var bounds := local_bounds().grow(-3)
 
-        var chevron: PackedVector2Array = []
-
-        chevron.append(Vector2(-bounds.size.x / 2, 2))
-        chevron.append(Vector2(0.0, -2))
-        chevron.append(Vector2(bounds.size.x / 2, 2))
+        var chevron: PackedVector2Array = [
+            Vector2(-bounds.size.x / 2, 2),
+            Vector2(0.0, -2),
+            Vector2(bounds.size.x / 2, 2),
+        ]
 
         var xtrans_up := Transform2D.IDENTITY.translated(Vector2(0, -6))
         var xtrans_down := Transform2D.IDENTITY.translated(Vector2(0, 4))
 
-        canvas_item.draw_polyline(xtrans_up * chevron, Color.BLACK, 0.5, true)
-        canvas_item.draw_polyline(xtrans_down * chevron, Color.BLACK, 0.5, true)
+        canvas_item.draw_polyline(xtrans_up * chevron, Color.BLACK, 1, true)
+        canvas_item.draw_polyline(xtrans_down * chevron, Color.BLACK, 1, true)
 
     func draw_under_spin(canvas_item: CanvasItem) -> void:
         var bounds := local_bounds().grow(-3)
 
-        var chevron: PackedVector2Array = []
-
-        chevron.append(Vector2(-bounds.size.x / 2, -2))
-        chevron.append(Vector2(0.0, 2))
-        chevron.append(Vector2(bounds.size.x / 2, -2))
+        var chevron: PackedVector2Array = [
+            Vector2(-bounds.size.x / 2, -2),
+            Vector2(0.0, 2),
+            Vector2(bounds.size.x / 2, -2),
+        ]
 
         var xtrans_up := Transform2D.IDENTITY.translated(Vector2(0, -4))
         var xtrans_down := Transform2D.IDENTITY.translated(Vector2(0, 6))
 
-        canvas_item.draw_polyline(xtrans_up * chevron, Color.BLACK, 0.5, true)
-        canvas_item.draw_polyline(xtrans_down * chevron, Color.BLACK, 0.5, true)
+        canvas_item.draw_polyline(xtrans_up * chevron, Color.BLACK, 1, true)
+        canvas_item.draw_polyline(xtrans_down * chevron, Color.BLACK, 1, true)
 
     func bounds() -> Rect2:
         return Rect2(position - size / 2, size)

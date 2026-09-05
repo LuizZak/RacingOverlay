@@ -10,8 +10,6 @@ var _port: int = 20777
 var _mode: Mode = Mode.CONNECT
 var _status: Status = Status.AWAITING
 
-signal on_status_changed(status: Status)
-
 func _init() -> void:
     if _mode == Mode.CONNECT:
         server.listen(_port)
@@ -23,6 +21,9 @@ func _set_status(status: Status) -> void:
     _status = status
     on_status_changed.emit(status)
 
+func get_status() -> Status:
+    return _status
+
 func set_game(game: GamePacketBase.Game) -> void:
     if _game == game:
         return
@@ -33,6 +34,10 @@ func set_game(game: GamePacketBase.Game) -> void:
         Mode.DISCONNECT:
             pass
         Mode.CONNECT:
+            if _peer != null:
+                _peer.close()
+                _peer = null
+
             server.stop()
             server.listen(_port)
             _set_status(Status.AWAITING)

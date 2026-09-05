@@ -12,6 +12,12 @@ enum Mode {
     CONNECT,
 }
 
+@warning_ignore("unused_signal")
+signal on_status_changed(status: Status)
+
+func get_status() -> Status:
+    return Status.DISCONNECTED
+
 @warning_ignore("unused_parameter")
 func set_port(port: int) -> void:
     pass
@@ -22,6 +28,10 @@ func set_mode(mode: Mode) -> void:
 
 @warning_ignore("unused_parameter")
 func set_game(game: GamePacketBase.Game) -> void:
+    pass
+
+@warning_ignore("unused_parameter")
+func process(delta: float) -> void:
     pass
 
 func poll_connections() -> Error:

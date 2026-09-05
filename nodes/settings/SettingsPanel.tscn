@@ -244,7 +244,8 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2lbdr")
 metadata/_tab_index = 1
 
-[node name="MarginContainer" parent="VBoxContainer/TabContainer/Game Connection" unique_id=878226581 instance=ExtResource("2_pww3c")]
+[node name="GameConnectionPanel" parent="VBoxContainer/TabContainer/Game Connection" unique_id=878226581 instance=ExtResource("2_pww3c")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=57476411]

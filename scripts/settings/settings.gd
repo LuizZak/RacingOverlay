@@ -24,6 +24,9 @@ var pedal_sink_checkbox: CheckBox = %PedalSinkCheckbox
 @onready
 var dynamic_steering_hand_animation_checkbox: CheckBox = %DynamicSteeringHandAnimationCheckbox
 
+@onready
+var game_connection_panel: GameConnectionPanel = %GameConnectionPanel
+
 signal on_close_pressed()
 
 func _ready() -> void:
@@ -41,6 +44,9 @@ func _populate_settings() -> void:
     pedal_vibration_slider.value = Settings.instance.pedal_vibration_strength
     pedal_sink_checkbox.button_pressed = Settings.instance.pedal_sink
     dynamic_steering_hand_animation_checkbox.button_pressed = Settings.instance.dynamic_steering_hand_animation
+
+func set_networking(networking: NetworkingBase) -> void:
+    game_connection_panel.set_networking(networking)
 
 func _populate_rest_hand_position() -> void:
     var rest_hand_position := Settings.instance.rest_hand_position
