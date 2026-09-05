@@ -15,7 +15,7 @@ static func encode_fixed_length_ascii(data: PackedByteArray, string: String, off
     var i := 0
 
     while i < size:
-        data[i] = 0
+        data[offset + i] = 0
         i += 1
 
     i = 0
